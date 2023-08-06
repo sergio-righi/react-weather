@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Custom } from "components";
 import { useApp, useTheme } from "contexts";
 
 type Props = {
@@ -14,7 +14,7 @@ export const Temperature = (props: Props) => {
     props.sx?.fontSize ? props.sx.fontSize * 2 : font.xxxl;
 
   return (
-    <Typography
+    <Custom.Typography
       component="div"
       sx={{
         fontSize: fontSize(),
@@ -22,7 +22,7 @@ export const Temperature = (props: Props) => {
       }}
     >
       {Math.round(props.value)}
-      <Typography
+      <Custom.Typography
         component="sup"
         sx={{
           fontSize: props.sx?.fontSize ?? font.lg,
@@ -30,7 +30,7 @@ export const Temperature = (props: Props) => {
         }}
       >
         {t.label.temperature.celsius}
-      </Typography>
-    </Typography>
+      </Custom.Typography>
+    </Custom.Typography>
   );
 };

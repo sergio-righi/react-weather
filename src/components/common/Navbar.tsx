@@ -1,7 +1,7 @@
 import "assets/scss/components/navbar.scss";
 
 import React from "react";
-import { AppBar, IconButton, Typography, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { useApp, useTheme } from "contexts";
 import { Constants, Enums } from "utils";
 import { Custom } from "components";
@@ -67,14 +67,14 @@ export function Navbar(props: Props) {
                 value: t.location[item],
               }))}
             />
-            <Typography
+            <Custom.Typography
               variant="h5"
               noWrap
               component="div"
               sx={{ flexGrow: 1, alignSelf: "center", textAlign: "center" }}
             >
               The Weather App
-            </Typography>
+            </Custom.Typography>
             <IconButton size="medium" color="inherit" onClick={handleRefresh}>
               <RefreshIcon />
             </IconButton>

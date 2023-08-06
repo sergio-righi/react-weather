@@ -1,4 +1,4 @@
-export interface AirQualityApi {
+export type AirQualityApi = {
   co: number; // Carbon Monoxide (μg/m3)
   o3: number; // Ozone (μg/m3)
   no2: number; // Nitrogen dioxide (μg/m3)

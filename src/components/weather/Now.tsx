@@ -1,7 +1,8 @@
 import React from "react";
 import { Constants } from "utils";
 import { Common } from "components";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { Custom } from "components";
 import { useApp, useTheme, useService } from "contexts";
 import { HDate, HNumber, HString } from "helpers";
 
@@ -42,13 +43,13 @@ export const Now = (props: Props) => {
           justifyContent: "center",
         }}
       >
-        <Typography
+        <Custom.Typography
           variant="h6"
           component="div"
           sx={{ fontWeight: font.medium }}
         >
           {HDate.weekday(datenow)}
-        </Typography>
+        </Custom.Typography>
       </Box>
       <Box
         sx={{
@@ -67,14 +68,14 @@ export const Now = (props: Props) => {
           justifyContent: "center",
         }}
       >
-        <Typography
+        <Custom.Typography
           variant="h6"
           component="div"
           sx={{ fontWeight: font.medium }}
         >
           {description}
-        </Typography>
-        <Typography
+        </Custom.Typography>
+        <Custom.Typography
           component="div"
           sx={{
             fontSize: font.sm,
@@ -84,7 +85,7 @@ export const Now = (props: Props) => {
           {HString.interpolate(t.message.feedback.updated_at, {
             time: HNumber.toTimeAmPmString(HDate.toSeconds(datenow), false),
           })}
-        </Typography>
+        </Custom.Typography>
       </Box>
     </>
   );

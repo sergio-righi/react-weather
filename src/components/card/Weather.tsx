@@ -1,7 +1,6 @@
-import React from "react";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent } from "@mui/material";
 import { useApp, useTheme } from "contexts";
-import { Common } from "components";
+import { Common, Custom } from "components";
 import { HDate } from "helpers";
 
 type Props = {
@@ -48,9 +47,11 @@ export function Weather(props: Props) {
             flexDirection: "column",
           }}
         >
-          <Typography sx={{ fontSize: font.md, fontWeight: font.normal }}>
+          <Custom.Typography
+            sx={{ fontSize: font.md, fontWeight: font.normal }}
+          >
             {formattedDate()}
-          </Typography>
+          </Custom.Typography>
           <Common.WeatherIcon
             code={props.code}
             day={props.day}
@@ -68,9 +69,11 @@ export function Weather(props: Props) {
             <Common.Temperature sx={{ fontSize: font.sm }} value={props.max} />
             <Common.Temperature sx={{ fontSize: font.xs }} value={props.min} />
           </Box>
-          <Typography sx={{ fontSize: font.md, fontWeight: font.normal }}>
+          <Custom.Typography
+            sx={{ fontSize: font.md, fontWeight: font.normal }}
+          >
             {props.description}
-          </Typography>
+          </Custom.Typography>
         </Box>
       </CardContent>
     </Card>

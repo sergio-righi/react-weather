@@ -1,4 +1,4 @@
-export interface SearchApi {
+export type SearchApi = {
   id: number;
   name: string;
   region: string;

@@ -1,6 +1,6 @@
 import { AirQualityApi } from "interfaces";
 
-export interface CurrentApi {
+export type CurrentApi = {
   last_updated_epoch: number;
   last_updated: string;
   temp_c: number;

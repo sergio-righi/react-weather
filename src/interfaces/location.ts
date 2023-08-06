@@ -1,4 +1,4 @@
-export interface LocationApi {
+export type LocationApi = {
   name: string;
   region: string;
   country: string;

@@ -1,5 +1,5 @@
 
-export interface AlertApi {
+export type AlertApi = {
   headline: string;
   msgtype: string;
   severity: string;
