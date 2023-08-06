@@ -1,4 +1,4 @@
-import { AirQualityApi } from "interfaces";
+import { AirQualityApi, ConditionApi } from "interfaces";
 
 export type CurrentApi = {
   last_updated_epoch: number;
@@ -6,11 +6,7 @@ export type CurrentApi = {
   temp_c: number;
   temp_f: number;
   is_day: number;
-  condition: {
-    text: string;
-    icon: string;
-    code: number;
-  };
+  condition: ConditionApi;
   wind_mph: number;
   wind_kph: number;
   wind_degree: number;

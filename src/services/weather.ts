@@ -12,6 +12,9 @@ export class WeatherService implements IWeatherService {
   }
 
   async today(query: string) {
-    return await this.weatherData.today(query);
+    const response = await this.weatherData.today(query);
+    if (response.data) {
+      return response.data.current;
+    }
   }
 }

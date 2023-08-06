@@ -52,11 +52,11 @@ export function Weather(props: Props) {
           >
             {formattedDate()}
           </Custom.Typography>
-          <Common.WeatherIcon
+          {/* <Common.WeatherIcon
             code={props.code}
             day={props.day}
             fill={props.selected ? color.accent.text : undefined}
-          />
+          /> */}
           <Box
             sx={{
               display: "flex",
@@ -66,8 +66,8 @@ export function Weather(props: Props) {
               justifyContent: "center",
             }}
           >
-            <Common.Temperature sx={{ fontSize: font.sm }} value={props.max} />
-            <Common.Temperature sx={{ fontSize: font.xs }} value={props.min} />
+            {/* <Common.Temperature  value={props.max} />
+            <Common.Temperature value={props.min} /> */}
           </Box>
           <Custom.Typography
             sx={{ fontSize: font.md, fontWeight: font.normal }}

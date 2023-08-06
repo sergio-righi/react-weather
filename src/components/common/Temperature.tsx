@@ -1,36 +1,25 @@
 import React from "react";
 import { Custom } from "components";
 import { useApp, useTheme } from "contexts";
+import { Stack } from "@mui/material";
 
 type Props = {
-  sx?: any;
-  value: any;
+  tempC: number;
+  tempF: number;
 };
 
 export const Temperature = (props: Props) => {
   const { t } = useApp();
-  const { font } = useTheme();
-  const fontSize = () =>
-    props.sx?.fontSize ? props.sx.fontSize * 2 : font.xxxl;
+  const { font, margin } = useTheme();
 
   return (
-    <Custom.Typography
-      component="div"
-      sx={{
-        fontSize: fontSize(),
-        fontWeight: font.normal,
-      }}
-    >
-      {Math.round(props.value)}
-      <Custom.Typography
-        component="sup"
-        sx={{
-          fontSize: props.sx?.fontSize ?? font.lg,
-          fontWeight: font.normal,
-        }}
-      >
+    <Stack direction="row" alignItems="center" spacing={margin.sm}>
+      <Custom.Typography fontSize={font.xxxl} fontWeight={font.bold}>
+        {Math.round(props.tempC)}
+      </Custom.Typography>
+      <Custom.Typography fontSize={font.xl} fontWeight={font.semiBold}>
         {t.label.temperature.celsius}
       </Custom.Typography>
-    </Custom.Typography>
+    </Stack>
   );
 };

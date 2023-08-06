@@ -8,7 +8,7 @@ import { Themes } from "utils";
 import { Common } from "components";
 
 export const DefaultLayout = () => {
-  const { setTheme, ...theme } = useTheme();
+  const { setTheme, toggleTheme, ...theme } = useTheme();
 
   return (
     <ThemeProvider theme={Themes.defaultTheme(theme)}>

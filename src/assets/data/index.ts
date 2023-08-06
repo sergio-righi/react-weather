@@ -1,7 +1,7 @@
 import { WeatherApi } from "interfaces";
 
-import CurrentData from "assets/data/current.json";
-import ForecastData from "assets/data/forecast.json";
+import Current from "assets/data/current.json";
+import Forecast from "assets/data/forecast.json";
 
-export const Current = CurrentData as WeatherApi;
-export const Forecast = ForecastData as unknown as WeatherApi;
+export const CurrentData = Current as WeatherApi;
+export const ForecastData = Forecast as unknown as WeatherApi;

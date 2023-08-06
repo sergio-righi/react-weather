@@ -1,92 +1,76 @@
-import React from "react";
-import { Constants } from "utils";
+import React, { useEffect } from "react";
 import { Common } from "components";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { Custom } from "components";
-import { useApp, useTheme, useService } from "contexts";
+import { CurrentApi } from "interfaces";
 import { HDate, HNumber, HString } from "helpers";
+import { useApp, useService, useTheme } from "contexts";
 
 type Props = {};
 
 export const Now = (props: Props) => {
-  const { font } = useTheme();
+  const { margin } = useTheme();
   const { weather } = useService();
   const { location, t } = useApp();
 
   const datenow = new Date();
-  const validdatetime = HDate.toISOString(datenow);
-  const parameters = [];
-  const locations = Constants.LOCATIONS_GEO[location];
+  const [data, setData] = React.useState<CurrentApi>({} as CurrentApi);
 
-  const [data, setData] = React.useState({} as any);
-
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
-      // setData(
-      //   await service.weather.makeRequest(validdatetime, parameters, locations)
-      // );
+      const response = await weather.today(location);
+      console.log(response);
+      setData(response);
     };
     fetchData();
   }, [location]);
 
-  const code = null;
-  const temperature = -1;
-  const isDay = false;
-  const description = ""; //t.message.weather[Weather.getDescription(code)];
+  const uvLevel =
+    data.uv < 3
+      ? "Low"
+      : data.uv < 6
+      ? "Moderate"
+      : data.uv < 8
+      ? "High"
+      : data.uv < 11
+      ? "Very High"
+      : "Extreme";
 
   return (
-    <>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Custom.Typography
-          variant="h6"
-          component="div"
-          sx={{ fontWeight: font.medium }}
-        >
+    <Stack spacing={margin.md}>
+      <Stack alignItems="center" justifyContent="center">
+        <Custom.Typography variant="h3">
           {HDate.weekday(datenow)}
         </Custom.Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Common.WeatherIcon code={Number(code)} day={isDay} />
-        <Common.Temperature value={temperature} />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <Custom.Typography
-          variant="h6"
-          component="div"
-          sx={{ fontWeight: font.medium }}
-        >
-          {description}
-        </Custom.Typography>
-        <Custom.Typography
-          component="div"
-          sx={{
-            fontSize: font.sm,
-            fontWeight: font.medium,
-          }}
-        >
+      </Stack>
+      <Stack alignItems="center" justifyContent="center">
+        <Stack direction="row" alignItems="center" justifyContent="center">
+          <Common.WeatherIcon condition={data.condition} />
+          <Common.Temperature tempC={data.temp_c} tempF={data.temp_f} />
+        </Stack>
+        <Common.FeelsLike tempC={data.feelslike_c} tempF={data.feelslike_f} />
+      </Stack>
+      <Stack direction="row" justifyContent="center" spacing={margin.xl}>
+        <Stack alignItems="center">
+          <Custom.Typography variant="h6">Humidity</Custom.Typography>
+          <Custom.Typography variant="h5">{data.humidity}</Custom.Typography>
+        </Stack>
+        <Stack alignItems="center">
+          <Custom.Typography variant="h6">Humidity</Custom.Typography>
+          <Custom.Typography variant="h5">{data.wind_kph}</Custom.Typography>
+        </Stack>
+        <Stack alignItems="center">
+          <Custom.Typography variant="h6">UV</Custom.Typography>
+          <Custom.Typography variant="h5">{uvLevel}</Custom.Typography>
+        </Stack>
+      </Stack>
+      <Stack alignItems="center" justifyContent="center">
+        <Custom.Typography as="small">
           {HString.interpolate(t.message.feedback.updated_at, {
-            time: HNumber.toTimeAmPmString(HDate.toSeconds(datenow), false),
+            time: data.last_updated,
           })}
         </Custom.Typography>
-      </Box>
-    </>
+      </Stack>
+    </Stack>
   );
 };

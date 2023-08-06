@@ -42,19 +42,15 @@ export const Home = (props: Props) => {
     <>
       <Box
         className="wa-panel fixed"
-        sx={{
-          backgroundColor: palette.background.color,
-          height: margin.xl * margin.factor * 10,
-        }}
+        bgcolor={palette.background.color}
+        height={margin.factor * margin.xl * 12}
       >
         <Weather.Now />
       </Box>
       <Box
         className="wa-panel"
-        sx={{
-          marginTop: margin.xl * 10,
-          backgroundColor: palette.background.accent,
-        }}
+        marginTop={margin.xl * 12}
+        bgcolor={palette.background.accent}
       >
         <Weather.Week onClick={handleClick} />
         <Weather.Hourly date={currentDate} />

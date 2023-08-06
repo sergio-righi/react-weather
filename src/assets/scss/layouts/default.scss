@@ -3,9 +3,7 @@
 .wa-default {
   @include d-flex;
   min-height: 100%;
-  color: var(--qh-color);
   @include flex-direction(column);
-  background-color: var(--qh-background);
 
   & > .wa-container {
     min-height: 100%;

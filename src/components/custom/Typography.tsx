@@ -74,12 +74,12 @@ export const Typography = (props: Props) => {
 
   return (
     <MUITyphography
-      {...props}
       component="span"
       textAlign={props.align}
       fontSize={stylesheet?.fontSize}
       fontWeight={weight ?? stylesheet?.fontWeight}
       color={props.color ?? palette.font.color}
+      {...props}
     >
       {props.children}
     </MUITyphography>

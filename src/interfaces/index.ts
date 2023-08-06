@@ -1,5 +1,6 @@
 export type { AlertApi } from "./alert";
 export type { AirQualityApi } from "./airquality";
+export type { ConditionApi } from "./condition";
 export type { CurrentApi } from "./current";
 export type { ForecastApi } from "./forecast";
 export type { LocationApi } from "./location";

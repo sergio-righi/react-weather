@@ -1,3 +1,5 @@
+import { ConditionApi } from "interfaces";
+
 export type ForecastApi = {
   date: string;
   date_epoch: number;
@@ -20,11 +22,7 @@ export type ForecastApi = {
     daily_chance_of_rain: number;
     daily_will_it_snow: number;
     daily_chance_of_snow: number;
-    condition: {
-      text: string;
-      icon: string;
-      code: number;
-    };
+    condition: ConditionApi;
     uv: number;
   };
   astro: {
@@ -43,11 +41,7 @@ export type ForecastApi = {
     temp_c: number;
     temp_f: number;
     is_day: number;
-    condition: {
-      text: string;
-      icon: string;
-      code: number;
-    };
+    condition: ConditionApi;
     wind_mph: number;
     wind_kph: number;
     wind_degree: number;
