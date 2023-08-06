@@ -5,6 +5,8 @@ import { Feedback } from "types";
 interface ProvidedValueType {
   user: any;
   setUser: (user: any) => void;
+  location: string;
+  setLocation: (location: string) => void;
   t: any;
   locale: string;
   locales: any;
@@ -15,6 +17,7 @@ interface ProvidedValueType {
 
 const initialState = {
   locale: "EN",
+  location: Constants.LOCATIONS.TORONTO,
   translations: Constants.LOCALE_STRINGS[Constants.REGIONS.EN],
   locales: Object.keys(Constants.REGIONS),
   user: Store.sessionStorage.get() as any,
@@ -24,6 +27,8 @@ const initialState = {
 export const AppContext = createContext<ProvidedValueType>({
   user: initialState.user,
   setUser: () => {},
+  location: initialState.location,
+  setLocation: () => {},
   t: initialState.translations,
   locale: initialState.locale,
   locales: initialState.locales,
@@ -40,6 +45,9 @@ interface Props {
 export const AppProvider = React.memo<Props>(
   ({ initLocale, children }: Props) => {
     const [user, setUser] = React.useState<any>(initialState.user);
+    const [location, setLocation] = React.useState<string>(
+      initialState.location
+    );
 
     const [locale, setLocale] = React.useState<string>(initLocale);
     const [feedback, setFeedback] = React.useState<Feedback | null>(
@@ -59,6 +67,12 @@ export const AppProvider = React.memo<Props>(
         }
         return Store.sessionStorage.get();
       });
+    }, []);
+
+    const setLocationCallback = React.useCallback((newLocation: string) => {
+      setLocation((currentLocation: string) =>
+        currentLocation === newLocation ? currentLocation : newLocation
+      );
     }, []);
 
     const setLocaleCallback = React.useCallback((newLocale: string) => {
@@ -82,6 +96,8 @@ export const AppProvider = React.memo<Props>(
         setLocale: setLocaleCallback,
         user,
         setUser: setUserCallback,
+        location,
+        setLocation: setLocationCallback,
         feedback,
         setFeedback: setFeedbackCallback,
       };
@@ -91,6 +107,8 @@ export const AppProvider = React.memo<Props>(
       setLocaleCallback,
       user,
       setUserCallback,
+      location,
+      setLocationCallback,
       feedback,
       setFeedbackCallback,
     ]);

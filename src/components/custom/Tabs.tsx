@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { Tabs as MUITabs, Tab as MUITab, Box } from "@mui/material";
 
 type TabContentProps = {

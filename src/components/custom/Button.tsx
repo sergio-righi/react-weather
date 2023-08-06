@@ -1,7 +1,7 @@
 import React from "react";
 import { Button as MUIButton, ButtonProps } from "@mui/material";
-import { useTheme } from "context";
-import { Helpers } from "utils";
+import { useTheme } from "contexts";
+import { HString } from "helpers";
 
 type Props = ButtonProps & {
   sx?: any;
@@ -36,13 +36,13 @@ export const Button = (props: Props) => {
         color:
           props.secondary || props.text
             ? accentColor
-            : Helpers.getContrast(accentColor),
+            : HString.getContrast(accentColor),
         "&:hover": {
           opacity: 0.8,
           color:
             props.secondary || props.text
               ? accentColor
-              : Helpers.getContrast(accentColor),
+              : HString.getContrast(accentColor),
           backgroundColor:
             props.secondary || props.text ? "transparent" : accentColor,
           borderColor: accentColor,

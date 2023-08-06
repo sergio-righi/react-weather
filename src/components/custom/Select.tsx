@@ -6,9 +6,9 @@ import {
   Select as MUISelect,
   SelectChangeEvent,
 } from "@mui/material";
-import { Validations } from "utils";
 import { PairValue } from "types";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
+import { HValidation } from "helpers";
 
 type Props = {
   sx?: any;
@@ -17,20 +17,20 @@ type Props = {
   label?: string;
   items: PairValue[];
   disabled?: boolean;
-  value?: number | "";
-  onChange?: (value: number) => void;
+  value?: string | "";
+  onChange?: (value: string) => void;
   onDropdownChange?: (event: SelectChangeEvent<number>) => void;
 };
 
 export const Select = (props: Props) => {
   const { border, color, palette } = useTheme();
-  const [value, setValue] = useState<number | "">(props.value ?? "");
+  const [value, setValue] = useState<string | "">(props.value ?? "");
 
   useEffect(() => setValue(props.value ?? ""), [props.value]);
 
-  const variant = Validations.hasValue(props.label) ? "filled" : "outlined";
+  const variant = HValidation.hasValue(props.label) ? "filled" : "outlined";
 
-  const handleChange = (value: number): void => {
+  const handleChange = (value: string): void => {
     setValue(value);
     props.onChange && props.onChange(value);
   };
@@ -39,77 +39,75 @@ export const Select = (props: Props) => {
     props.onDropdownChange && props.onDropdownChange(event);
 
   return (
-    <>
-      {props.items ? (
-        <FormControl
-          variant={variant}
-          sx={{ width: 1, display: "flex", flexDirection: "row" }}
-        >
-          {props.label ? (
-            <InputLabel
-              id={props.id}
-              sx={{
-                color: props.disabled
-                  ? palette.background.accent
-                  : palette.font.color,
-              }}
-            >
-              {props.label}
-            </InputLabel>
-          ) : null}
-          <MUISelect
-            name={props.name}
-            labelId={props.id}
-            value={value}
-            disabled={props.disabled}
-            onChange={handleDropdownChange}
+    props.items && (
+      <FormControl
+        variant={variant}
+        sx={{ width: 1, display: "flex", flexDirection: "row" }}
+      >
+        {props.label && (
+          <InputLabel
+            id={props.id}
             sx={{
-              width: 1,
-              "& .MuiSelect-icon": {
-                color: props.disabled
-                  ? palette.background.accent
-                  : palette.font.color,
-              },
-              "& .MuiFormLabel-root": {
-                color: palette.font.color,
-              },
-              "& .MuiSelect-select": {
-                color: palette.font.color,
-              },
-              "& .MuiSelect-filled": {
-                borderRadius: border.radius / 4,
-                backgroundColor: palette.background.color,
-                borderBottomWidth: 2,
-                borderBottomStyle: "solid",
-                borderBottomColor: palette.background.color,
-                borderBottomLeftRadius: 0,
-                borderBottomRightRadius: 0,
-                "&:focus": {
-                  borderBottomColor: color.primary.color,
-                },
-              },
-            }}
-            MenuProps={{
-              MenuListProps: {
-                sx: {
-                  color: palette.font.color,
-                  backgroundColor: palette.background.accent,
-                },
-              },
+              color: props.disabled
+                ? palette.background.accent
+                : palette.font.color,
             }}
           >
-            {props.items.map((item: PairValue) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                onClick={() => handleChange(item.key)}
-              >
-                {item.value}
-              </MenuItem>
-            ))}
-          </MUISelect>
-        </FormControl>
-      ) : null}
-    </>
+            {props.label}
+          </InputLabel>
+        )}
+        <MUISelect
+          // value={value}
+          name={props.name}
+          labelId={props.id}
+          disabled={props.disabled}
+          // onChange={handleDropdownChange}
+          sx={{
+            width: 1,
+            "& .MuiSelect-icon": {
+              color: props.disabled
+                ? palette.background.accent
+                : palette.font.color,
+            },
+            "& .MuiFormLabel-root": {
+              color: palette.font.color,
+            },
+            "& .MuiSelect-select": {
+              color: palette.font.color,
+            },
+            "& .MuiSelect-filled": {
+              borderRadius: border.radius / 4,
+              backgroundColor: palette.background.color,
+              borderBottomWidth: 2,
+              borderBottomStyle: "solid",
+              borderBottomColor: palette.background.color,
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0,
+              "&:focus": {
+                borderBottomColor: color.primary.color,
+              },
+            },
+          }}
+          MenuProps={{
+            MenuListProps: {
+              sx: {
+                color: palette.font.color,
+                backgroundColor: palette.background.accent,
+              },
+            },
+          }}
+        >
+          {props.items.map((item: PairValue) => (
+            <MenuItem
+              key={item.key}
+              value={item.key}
+              onClick={() => handleChange(item.key)}
+            >
+              {item.value}
+            </MenuItem>
+          ))}
+        </MUISelect>
+      </FormControl>
+    )
   );
 };

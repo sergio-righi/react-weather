@@ -1,9 +1,9 @@
 import React from "react";
 import { Card as MUICard, CardContent } from "@mui/material";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { Custom } from "components";
 import { Light } from "themes";
-import { Validations } from "utils";
+import { HValidation } from "helpers";
 
 type Props = {
   sx?: any;
@@ -15,7 +15,7 @@ type Props = {
 
 export const Card = (props: Props) => {
   const { id, border, palette } = useTheme();
-  const hasTitle = Validations.hasValue(props.title);
+  const hasTitle = HValidation.hasValue(props.title);
 
   return (
     <MUICard

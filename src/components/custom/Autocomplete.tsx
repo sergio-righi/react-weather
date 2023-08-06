@@ -1,6 +1,6 @@
 import { PairValue } from "types";
 import { Custom } from "components";
-import { useApp, useTheme } from "context";
+import { useApp, useTheme } from "contexts";
 import { Autocomplete as MUIAutocomplete, TextField } from "@mui/material";
 
 export type Props = {

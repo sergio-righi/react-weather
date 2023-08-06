@@ -1,4 +1,4 @@
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { Typography as MUITyphography, TypographyProps } from "@mui/material";
 
 type Props = TypographyProps & {

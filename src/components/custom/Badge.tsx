@@ -1,5 +1,5 @@
 import { Badge as MUIBadge, BadgeProps } from "@mui/material";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 
 export type Props = BadgeProps & {
   sx?: any;

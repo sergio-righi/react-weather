@@ -1,5 +1,5 @@
 import { Avatar as MUIAvatar } from "@mui/material";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 
 type Props = {
   sx?: any;

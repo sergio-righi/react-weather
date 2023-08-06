@@ -1,8 +1,9 @@
 import React, { forwardRef } from "react";
 import InputMask from "react-input-mask";
 import { TextField as MUITextField, TextFieldProps } from "@mui/material";
-import { useTheme } from "context";
-import { Constants, Validations } from "utils";
+import { useTheme } from "contexts";
+import { Constants } from "utils";
+import { HValidation } from "helpers";
 
 type Props = TextFieldProps & {
   sx?: any;
@@ -53,7 +54,7 @@ export const TextField = forwardRef((props: Props, ref: React.Ref<any>) => {
         multiline={props.multiline}
         placeholder={props.placeholder}
         required={props.required ?? false}
-        hiddenLabel={!Validations.hasValue(props.label)}
+        hiddenLabel={!HValidation.hasValue(props.label)}
         sx={{
           width: 1,
           borderRadius: border.radius,

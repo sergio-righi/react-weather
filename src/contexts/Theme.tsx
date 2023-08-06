@@ -1,15 +1,17 @@
 import React, { createContext, useContext } from "react";
 import { Theme } from "themes/interfaces";
-import { Light } from "themes";
-import { Helpers } from "utils";
+import { Dark, Light } from "themes";
+import { HObject } from "helpers";
 
 type ThemeProps = Theme & {
   setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
 };
 
 export const ThemeContext = createContext<ThemeProps>({
   ...Light,
   setTheme: () => {},
+  toggleTheme: () => {},
 });
 
 interface Props {
@@ -25,7 +27,15 @@ export const ThemeProvider = React.memo<Props>(
 
     const setThemeCallback = React.useCallback((newTheme: Theme) => {
       setTheme((currentTheme: Theme) =>
-        Helpers.deepInterpolation(currentTheme, newTheme)
+        HObject.deepInterpolation(currentTheme, newTheme)
+      );
+    }, []);
+
+    const toggleThemeCallback = React.useCallback(() => {
+      setTheme((currentTheme: Theme) =>
+        currentTheme.id === Dark.id
+          ? HObject.deepInterpolation(currentTheme, Light)
+          : HObject.deepInterpolation(currentTheme, Dark)
       );
     }, []);
 
@@ -38,9 +48,10 @@ export const ThemeProvider = React.memo<Props>(
         margin: theme.margin,
         palette: theme.palette,
         setTheme: setThemeCallback,
+        toggleTheme: toggleThemeCallback,
       };
       return value;
-    }, [theme, setThemeCallback]);
+    }, [theme, setThemeCallback, toggleThemeCallback]);
 
     return (
       <ThemeContext.Provider value={MemoizedValue}>

@@ -1,0 +1,37 @@
+@use "../utils" as *;
+
+.wa-default {
+  @include d-flex;
+  min-height: 100%;
+  color: var(--qh-color);
+  @include flex-direction(column);
+  background-color: var(--qh-background);
+
+  & > .wa-container {
+    min-height: 100%;
+
+    & > .wa-wrapper {
+      width: 100%;
+      height: 100%;
+      @include d-flex;
+      position: absolute;
+      @include flex(1 0 auto);
+      @include flex-direction(column);
+
+      & > .wa-panel {
+        width: 100%;
+        z-index: 1000;
+        min-height: 100%;
+        position: relative;
+        padding: $margin-lg;
+        @include flex(1 0 auto);
+
+        &.fixed {
+          position: fixed;
+          min-height: unset;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

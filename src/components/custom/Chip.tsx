@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Chip as MUIChip } from "@mui/material";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 
 export type Props = {
   sx?: any;

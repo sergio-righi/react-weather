@@ -1,16 +1,24 @@
+import "assets/scss/layouts/default.scss";
+
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { ThemeProvider } from "@mui/material/styles";
 import { Themes } from "utils";
+import { Common } from "components";
 
 export const DefaultLayout = () => {
   const { setTheme, ...theme } = useTheme();
 
   return (
     <ThemeProvider theme={Themes.defaultTheme(theme)}>
-      <Box>
-        <Outlet />
+      <Box className="wa-default">
+        <Box className="wa-container">
+          <Common.Navbar />
+          <Box className="wa-wrapper">
+            <Outlet />
+          </Box>
+        </Box>
       </Box>
     </ThemeProvider>
   );

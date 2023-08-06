@@ -1,4 +1,4 @@
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { Box, Skeleton } from "@mui/material";
 
 export const PlaceholderItem = () => {

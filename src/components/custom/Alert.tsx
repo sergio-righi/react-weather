@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert as MUIAlert, AlertColor } from "@mui/material";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 
 export type Props = {
   sx?: any;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Fab as MUIFab } from "@mui/material";
-import { useApp, useTheme } from "context";
-import { Validations } from "utils";
+import { useApp, useTheme } from "contexts";
+import { HValidation } from "helpers";
 
 // icons
 import AddIcon from "@mui/icons-material/Add";
@@ -35,7 +35,7 @@ export const Fab = (props: Props) => {
       ? t.action.filter
       : "";
 
-  const mr = Validations.hasValue(text) ? margin.xs : 0;
+  const mr = HValidation.hasValue(text) ? margin.xs : 0;
 
   const icon =
     props.variant === "add" ? (

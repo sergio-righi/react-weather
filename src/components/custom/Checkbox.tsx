@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Checkbox as MUICheckbox, FormControlLabel } from "@mui/material";
-import { Validations } from "utils";
+import { HValidation } from "helpers";
 
 type Props = {
   sx?: any;
@@ -45,7 +45,7 @@ export const Checkbox = (props: Props) => {
     );
   }
 
-  return Validations.hasValue(props.label) ? (
+  return HValidation.hasValue(props.label) ? (
     <FormControlLabel control={render()} label={props.label} />
   ) : (
     render()

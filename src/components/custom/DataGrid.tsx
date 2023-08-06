@@ -1,4 +1,4 @@
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { DataGrid as MUIDataGrid } from "@mui/x-data-grid";
 
 type Props = {

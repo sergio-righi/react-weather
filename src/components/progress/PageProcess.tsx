@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { Box, CircularProgress } from "@mui/material";
 
 export type Props = {

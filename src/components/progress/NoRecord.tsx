@@ -1,5 +1,5 @@
 import React from "react";
-import { useApp, useTheme } from "context";
+import { useApp, useTheme } from "contexts";
 import { Box } from "@mui/material";
 import { Custom } from "components";
 

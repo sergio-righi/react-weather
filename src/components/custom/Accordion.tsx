@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import {
   AccordionDetails,
   AccordionSummary,

@@ -2,9 +2,9 @@ import "assets/scss/components/modal.scss";
 
 import React, { useEffect, useState } from "react";
 import { Box, IconButton, Modal as MUIModal } from "@mui/material";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { Custom } from "components";
-import { Validations } from "utils";
+import { HValidation } from "helpers";
 
 // icons
 import CloseIcon from "@mui/icons-material/Close";
@@ -60,113 +60,109 @@ export const Modal = (props: Props) => {
   };
 
   return (
-    <>
-      <MUIModal open={props.opened} onClose={handleClose}>
-        <Box className="al-modal" sx={props.sx}>
-          <>
-            {Validations.hasValue(props.message) && (
-              <>
-                <Custom.Alert
-                  className="al-feedback"
-                  variant="filled"
-                  severity={"error"}
-                >
-                  <Custom.Typography>{props.message}</Custom.Typography>
-                </Custom.Alert>
-              </>
-            )}
-            <Box
-              sx={{
-                color: palette.font.color,
-                borderRadius: border.radius,
-                backgroundColor: palette.theme,
-              }}
-              className="al-wrapper"
+    <MUIModal open={props.opened} onClose={handleClose}>
+      <Box className="al-modal" sx={props.sx}>
+        <>
+          {HValidation.hasValue(props.message) && (
+            <Custom.Alert
+              className="al-feedback"
+              variant="filled"
+              severity={"error"}
             >
+              <Custom.Typography>{props.message}</Custom.Typography>
+            </Custom.Alert>
+          )}
+          <Box
+            sx={{
+              color: palette.font.color,
+              borderRadius: border.radius,
+              backgroundColor: palette.theme,
+            }}
+            className="al-wrapper"
+          >
+            <Box
+              className="al-header"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                px: margin.lg,
+                pt: margin.lg,
+              }}
+            >
+              {props.onBack && (
+                <IconButton
+                  sx={{
+                    marginRight: margin.xs,
+                    color: palette.font.color,
+                  }}
+                  onClick={handleBack}
+                >
+                  <ChevronLeftIcon />
+                </IconButton>
+              )}
+              <Box component="div">
+                <Custom.Typography
+                  sx={{
+                    fontWeight: font.normal,
+                    fontSize: font.lg,
+                  }}
+                >
+                  {props.header}
+                </Custom.Typography>
+
+                {props.subheader && (
+                  <Custom.Typography
+                    sx={{
+                      fontSize: font.md,
+                      fontWeight: font.normal,
+                      color: palette.font.accent,
+                    }}
+                  >
+                    {props.subheader}
+                  </Custom.Typography>
+                )}
+              </Box>
+              <Box display="flex" alignItems="center" marginLeft="auto">
+                {props.action && (
+                  <Box sx={{ marginRight: margin.xs }}>{props.action}</Box>
+                )}
+                {props.onClose && (
+                  <IconButton
+                    sx={{
+                      color: palette.font.color,
+                    }}
+                    onClick={handleClose}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                )}
+              </Box>
+            </Box>
+            <Box
+              className="al-content"
+              sx={{
+                pt: 0,
+                padding: margin.lg,
+              }}
+              onScroll={handleScroll}
+            >
+              <Box className="al-wrapper">{props.children}</Box>
+            </Box>
+            {props.footer && (
               <Box
-                className="al-header"
+                className="al-footer"
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  px: margin.lg,
-                  pt: margin.lg,
-                }}
-              >
-                {props.onBack ? (
-                  <IconButton
-                    sx={{
-                      marginRight: margin.xs,
-                      color: palette.font.color,
-                    }}
-                    onClick={handleBack}
-                  >
-                    <ChevronLeftIcon />
-                  </IconButton>
-                ) : null}
-                <Box component="div">
-                  <Custom.Typography
-                    sx={{
-                      fontWeight: font.normal,
-                      fontSize: font.lg,
-                    }}
-                  >
-                    {props.header}
-                  </Custom.Typography>
-
-                  {props.subheader && (
-                    <Custom.Typography
-                      sx={{
-                        fontSize: font.md,
-                        fontWeight: font.normal,
-                        color: palette.font.accent,
-                      }}
-                    >
-                      {props.subheader}
-                    </Custom.Typography>
-                  )}
-                </Box>
-                <Box display="flex" alignItems="center" marginLeft="auto">
-                  {props.action && (
-                    <Box sx={{ marginRight: margin.xs }}>{props.action}</Box>
-                  )}
-                  {props.onClose && (
-                    <IconButton
-                      sx={{
-                        color: palette.font.color,
-                      }}
-                      onClick={handleClose}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                  )}
-                </Box>
-              </Box>
-              <Box
-                className="al-content"
-                sx={{
-                  pt: 0,
                   padding: margin.lg,
                 }}
-                onScroll={handleScroll}
               >
-                <Box className="al-wrapper">{props.children}</Box>
+                {props.footer}
               </Box>
-              {props.footer ? (
-                <Box
-                  className="al-footer"
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: margin.lg,
-                  }}
-                >
-                  {props.footer}
-                </Box>
-              ) : null}
-            </Box>
-          </>
-        </Box>
-      </MUIModal>
-    </>
+            )}
+          </Box>
+        </>
+      </Box>
+    </MUIModal>
   );
 };

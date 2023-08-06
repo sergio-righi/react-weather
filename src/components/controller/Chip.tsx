@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import { Stack } from "@mui/material";
 import { Custom } from "components";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 
 type Props = {
   sx?: any;

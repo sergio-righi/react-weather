@@ -1,1 +1,46 @@
-{}
+{
+  "label": {
+    "temp": "Temperature",
+    "temperature": {
+      "celsius": "C°",
+      "fahrenheit": "F°"
+    },
+    "timeline": "Timeline"
+  },
+  "location": {
+    "santa_maria": "Santa Maria, RS - Brazil",
+    "sao_paulo": "Sao Paulo, SP - Brazil",
+    "singapore": "Singapore",
+    "stockholm": "Stockholm - Sweden",
+    "toronto": "Toronto, ON - Canada"
+  },
+  "message": {
+    "feedback": {
+      "updated_at": "Updated as of {{time}}"
+    },
+    "greeting": {
+      "hello": "Hello",
+      "good_morning": "Good morning",
+      "good_afternoon": "Good afternoon",
+      "good_evening": "Good evening"
+    },
+    "weather": {
+      "clear": "Clear",
+      "cloudy": "Cloudy",
+      "fog": "Fog",
+      "lightning": "Lightning",
+      "rainy": "Rainy",
+      "snow": "Snow",
+      "thunderstorm": "Thunderstorm",
+      "windy": "Windy",
+      "sandstorm": "Sandstorm"
+    }
+  },
+  "relative_date": {
+    "today": "Today",
+    "tomorrow": "Tomorrow"
+  },
+  "title": {
+    "hourly": "Hourly"
+  }
+}

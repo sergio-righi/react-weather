@@ -4,7 +4,7 @@ import {
   FormControlLabel,
   Stack,
 } from "@mui/material";
-import { useTheme } from "context";
+import { useTheme } from "contexts";
 import { Custom } from "components";
 
 export type RadioProps = {

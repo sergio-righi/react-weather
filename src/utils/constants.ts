@@ -47,3 +47,20 @@ export const WEATHER = {
   FORECAST_API: "forecast.json",
   SEARCH_API: "search.json"
 }
+
+
+export const LOCATIONS = {
+  SANTAMARIA: "santa_maria",
+  SAOPAULO: "sao_paulo",
+  SINGAPORE: "singapore",
+  STOCKHOLM: "stockholm",
+  TORONTO: "toronto",
+};
+
+export const LOCATIONS_GEO = {
+  [LOCATIONS.SANTAMARIA]: "29.6895,53.7923",
+  [LOCATIONS.SAOPAULO]: "23.5558,46.6396",
+  [LOCATIONS.SINGAPORE]: "1.3521,103.8198",
+  [LOCATIONS.STOCKHOLM]: "59.3293,18.0686",
+  [LOCATIONS.TORONTO]: "43.717899,-79.6582408",
+};

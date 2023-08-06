@@ -14,6 +14,7 @@ export { Modal } from './Modal';
 export { Radio } from './Radio';
 export { RadioGroup } from './RadioGroup';
 export type { RadioProps } from './RadioGroup';
+export { Select } from './Select';
 export { Switch } from './Switch';
 export { Tabs } from './Tabs';
 export type { TabProps } from './Tabs';
