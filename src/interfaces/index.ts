@@ -1,7 +1,10 @@
 export type { AlertApi } from "./alert";
 export type { AirQualityApi } from "./airquality";
+export type { AstroApi } from "./astro";
 export type { ConditionApi } from "./condition";
 export type { CurrentApi } from "./current";
+export type { DayApi } from "./day";
+export type { HourApi } from "./hour";
 export type { ForecastApi } from "./forecast";
 export type { LocationApi } from "./location";
 export type { SearchApi } from "./search";

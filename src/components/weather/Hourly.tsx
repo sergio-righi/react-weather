@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useApp, useTheme, useService } from "contexts";
 import { Custom } from "components";
 import { Box } from "@mui/material";
@@ -82,7 +82,7 @@ export const Hourly = (props: Props) => {
   const parameters = [];
   const locations = Constants.LOCATIONS_GEO[location];
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       // const response = await service.weather.makeRequest(
       //   validdatetime,

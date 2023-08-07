@@ -26,6 +26,6 @@ export const currentWeather = (query: string, airquality: Type.YesNo = "yes") =>
  * api docs: https://www.weatherapi.com/docs/
  */
 
-export const forecastWeather = (query: string, airquality: Type.YesNo = "yes", alert: Type.YesNo = "yes") => axios.create({
-  baseURL: HString.toQueryString(Constants.WEATHER.BASE_URL + Constants.WEATHER.FORECAST_API, { key: Constants.WEATHER.API_KEY, aqi: airquality, alerts: alert, q: query }),
+export const forecastWeather = (query: string, days: number, airquality: Type.YesNo = "yes", alert: Type.YesNo = "yes") => axios.create({
+  baseURL: HString.toQueryString(Constants.WEATHER.BASE_URL + Constants.WEATHER.FORECAST_API, { key: Constants.WEATHER.API_KEY, days: days, aqi: airquality, alerts: alert, q: query }),
 });

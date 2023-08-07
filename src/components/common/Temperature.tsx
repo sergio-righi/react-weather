@@ -6,6 +6,7 @@ import { Stack } from "@mui/material";
 type Props = {
   tempC: number;
   tempF: number;
+  small?: boolean;
 };
 
 export const Temperature = (props: Props) => {
@@ -14,12 +15,22 @@ export const Temperature = (props: Props) => {
 
   return (
     <Stack direction="row" alignItems="center" spacing={margin.sm}>
-      <Custom.Typography fontSize={font.xxxl} fontWeight={font.bold}>
+      <Custom.Typography
+        fontSize={props.small ? font.md : font.xxxl}
+        fontWeight={props.small ? font.normal : font.bold}
+      >
         {Math.round(props.tempC)}
       </Custom.Typography>
-      <Custom.Typography fontSize={font.xl} fontWeight={font.semiBold}>
+      <Custom.Typography
+        fontSize={props.small ? font.sm : font.xl}
+        fontWeight={props.small ? font.normal : font.semiBold}
+      >
         {t.label.temperature.celsius}
       </Custom.Typography>
     </Stack>
   );
+};
+
+Temperature.defaultProps = {
+  small: false,
 };

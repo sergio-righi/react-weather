@@ -87,7 +87,7 @@ export const toISOString = (date: Date, time?: string): string => {
  * @return {string} the friendly date message
  */
 
-export const toRelativeDate = (d: Date, t: any, locale: string = "EN"): string => {
+export const toRelativeDate = (d: string | Date, t: any, locale: string = "EN"): string => {
   const date = new Date(d);
   const today = clearTime(new Date());
   const tomorrow = clearTime(new Date(today).setDate(today.getDate() + 1));

@@ -53,7 +53,7 @@ export const Home = (props: Props) => {
         bgcolor={palette.background.accent}
       >
         <Weather.Week onClick={handleClick} />
-        <Weather.Hourly date={currentDate} />
+        {/* <Weather.Hourly date={currentDate} /> */}
       </Box>
     </>
   );

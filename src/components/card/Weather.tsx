@@ -1,16 +1,11 @@
-import { Box, Card, CardContent } from "@mui/material";
+import { Box, Card, CardContent, Stack } from "@mui/material";
 import { useApp, useTheme } from "contexts";
 import { Common, Custom } from "components";
 import { HDate } from "helpers";
+import { ForecastApi } from "interfaces";
 
 type Props = {
-  min: any;
-  max: any;
-  day: any;
-  date: any;
-  code: any;
-  description: any;
-  selected: boolean;
+  item: ForecastApi;
   onClick?: (value: any) => void;
 };
 
@@ -18,63 +13,53 @@ export function Weather(props: Props) {
   const { locale, t } = useApp();
   const { color, font, margin, palette } = useTheme();
 
-  const formattedDate = () => {
-    return props.date
-      ? HDate.toRelativeDate(props.date, t.relative_date, locale)
-      : null;
-  };
+  const formattedDate = props.item.date
+    ? HDate.toRelativeDate(props.item.date, t.relative_date, locale)
+    : null;
 
-  const handleClick = (date: any) => props.onClick && props.onClick(props.date);
+  // const handleClick = (date: any) => props.onClick && props.onClick(props.date);
 
   return (
     <Card
-      sx={{
-        color: props.selected ? color.accent.text : palette.font.color,
-        backgroundColor: props.selected
-          ? color.accent.color
-          : palette.background.color,
-        cursor: props.selected ? null : "pointer",
-      }}
-      onClick={handleClick}
+    // sx={{
+    //   color: props.selected ? color.accent.text : palette.font.color,
+    //   backgroundColor: props.selected
+    //     ? color.accent.color
+    //     : palette.background.color,
+    //   cursor: props.selected ? null : "pointer",
+    // }}
+    // onClick={handleClick}
     >
       <CardContent>
-        <Box
-          sx={{
-            display: "flex",
-            gap: margin.xs,
-            textAlign: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
+        <Stack spacing={margin.xs} alignItems="center" justifyContent="center">
           <Custom.Typography
             sx={{ fontSize: font.md, fontWeight: font.normal }}
           >
-            {formattedDate()}
+            {formattedDate}
           </Custom.Typography>
-          {/* <Common.WeatherIcon
-            code={props.code}
-            day={props.day}
-            fill={props.selected ? color.accent.text : undefined}
-          /> */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: margin.xs,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+          <Common.WeatherIcon condition={props.item.day.condition} />
+          <Stack
+            spacing={margin.xs}
+            alignItems="center"
+            justifyContent="center"
           >
-            {/* <Common.Temperature  value={props.max} />
-            <Common.Temperature value={props.min} /> */}
-          </Box>
+            <Common.Temperature
+              small
+              tempC={props.item.day.maxtemp_c}
+              tempF={props.item.day.maxtemp_f}
+            />
+            <Common.Temperature
+              small
+              tempC={props.item.day.mintemp_c}
+              tempF={props.item.day.mintemp_f}
+            />
+          </Stack>
           <Custom.Typography
             sx={{ fontSize: font.md, fontWeight: font.normal }}
           >
-            {props.description}
+            asdasd
           </Custom.Typography>
-        </Box>
+        </Stack>
       </CardContent>
     </Card>
   );
