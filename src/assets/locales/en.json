@@ -2,8 +2,8 @@
   "label": {
     "temp": "Temperature",
     "temperature": {
-      "celsius": "C°",
-      "fahrenheit": "F°"
+      "celsius": "°C",
+      "fahrenheit": "°F"
     },
     "timeline": "Timeline"
   },

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Common } from "components";
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Custom } from "components";
 import { CurrentApi } from "interfaces";
-import { HDate, HNumber, HString } from "helpers";
+import { HDate, HString } from "helpers";
 import { useApp, useService, useTheme } from "contexts";
 
 type Props = {};
@@ -17,9 +17,7 @@ export const Now = (props: Props) => {
   const [data, setData] = React.useState<CurrentApi>({} as CurrentApi);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setData(await weather.current(location));
-    };
+    const fetchData = async () => setData(await weather.current(location));
     fetchData();
   }, [location]);
 
@@ -42,26 +40,40 @@ export const Now = (props: Props) => {
             {HDate.weekday(datenow)}
           </Custom.Typography>
         </Stack>
-        <Stack alignItems="center" justifyContent="center">
+        <Stack alignItems="center" justifyContent="center" spacing={margin.sm}>
           <Stack direction="row" alignItems="center" justifyContent="center">
             <Common.WeatherIcon condition={data.condition} />
-            <Common.Temperature tempC={data.temp_c} tempF={data.temp_f} />
+            <Common.Temperature
+              size="lg"
+              tempC={data.temp_c}
+              tempF={data.temp_f}
+            />
           </Stack>
           <Common.FeelsLike tempC={data.feelslike_c} tempF={data.feelslike_f} />
         </Stack>
         <Stack direction="row" justifyContent="center" spacing={margin.xl}>
           <Stack alignItems="center">
             <Custom.Typography variant="h6">Humidity</Custom.Typography>
-            <Custom.Typography variant="h5">{data.humidity}</Custom.Typography>
+            <Custom.Typography variant="h6">{data.humidity}%</Custom.Typography>
           </Stack>
           <Stack alignItems="center">
-            <Custom.Typography variant="h6">Humidity</Custom.Typography>
-            <Custom.Typography variant="h5">{data.wind_kph}</Custom.Typography>
+            <Custom.Typography variant="h6">Wind</Custom.Typography>
+            <Custom.Typography variant="h6">
+              {data.wind_kph}km/h {`(${data.wind_dir})`}
+            </Custom.Typography>
           </Stack>
           <Stack alignItems="center">
             <Custom.Typography variant="h6">UV</Custom.Typography>
-            <Custom.Typography variant="h5">{uvLevel}</Custom.Typography>
+            <Custom.Typography variant="h6">{uvLevel}</Custom.Typography>
           </Stack>
+          {data.precip_mm > 0 && (
+            <Stack alignItems="center">
+              <Custom.Typography variant="h6">Precipitation</Custom.Typography>
+              <Custom.Typography variant="h6">
+                {data.precip_mm}mm
+              </Custom.Typography>
+            </Stack>
+          )}
         </Stack>
         <Stack alignItems="center" justifyContent="center">
           <Custom.Typography as="small">

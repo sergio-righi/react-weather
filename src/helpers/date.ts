@@ -100,6 +100,25 @@ export const toRelativeDate = (d: string | Date, t: any, locale: string = "EN"):
 };
 
 /**
+ * function to convert 24-hour time string to AM/PM format
+ * @param {number} value time to be converted in seconds
+ * @param {boolean} seconds whether the date should include seconds
+ * @returns {string} the time in AM/PM format
+ */
+
+export const toTimeAmPmString = (value: number, seconds: boolean = true, am: string = "am", pm: string = "pm"): string => {
+  const timeString = toTimeString(value, seconds);
+  const time = timeString.split(":");
+  const hour = Number(time.shift());
+  if (hour >= 12) {
+    const diff = 12 - Number(hour);
+    return HNumber.pad(Math.abs(diff === 0 ? 12 : diff)) + ":" + time.map((item) => HNumber.pad(item))
+      .join(":") + " " + pm;
+  }
+  return timeString + " " + am;
+};
+
+/**
  * function to convert a given time (from date) to its equivalent in seconds
  * @param {Date} value the date to be converted
  * @returns {number} the time in seconds
@@ -125,4 +144,25 @@ export const weekday = (date: Date, locale: string = "EN") => {
   return date.toLocaleDateString(locale, {
     weekday: "long",
   });
+};
+
+/**
+ * function to convert seconds to days, hours, minutes, seconds
+ * @param {number} value time to be converted (in seconds)
+ * @returns {any} an object containing the count of days, hours, minutes and seconds or the value itself
+ */
+
+export const time = (value: number): any => {
+  if (value <= 0) return value;
+  else {
+    const day = Math.floor(value / 86400);
+    const hour = Math.floor((value - day * 86400) / 3600);
+    const min = Math.floor((value - day * 86400 - hour * 3600) / 60);
+    const sec = Math.floor(value - day * 86400 - hour * 3600 - min * 60);
+    return hour > 0
+      ? { hour, min, sec }
+      : min > 0
+        ? { min, sec }
+        : { sec };
+  }
 };

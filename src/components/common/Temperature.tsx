@@ -1,4 +1,3 @@
-import React from "react";
 import { Custom } from "components";
 import { useApp, useTheme } from "contexts";
 import { Stack } from "@mui/material";
@@ -6,31 +5,45 @@ import { Stack } from "@mui/material";
 type Props = {
   tempC: number;
   tempF: number;
-  small?: boolean;
+  size: "sm" | "md" | "lg";
 };
 
 export const Temperature = (props: Props) => {
   const { t } = useApp();
-  const { font, margin } = useTheme();
+  const { font, palette } = useTheme();
+
+  const stylesheet =
+    props.size === "sm"
+      ? {
+          header: {
+            fontSize: font.md,
+            fontWeight: font.semiBold,
+            color: palette.font.accent,
+          },
+          subheader: {
+            fontSize: font.md,
+            fontWeight: font.semiBold,
+            color: palette.font.accent,
+          },
+        }
+      : props.size === "md"
+      ? {
+          header: { fontSize: font.md, fontWeight: font.semiBold },
+          subheader: { fontSize: font.md, fontWeight: font.semiBold },
+        }
+      : {
+          header: { fontSize: font.xxxl, fontWeight: font.bold },
+          subheader: { fontSize: font.xl, fontWeight: font.semiBold },
+        };
 
   return (
-    <Stack direction="row" alignItems="center" spacing={margin.sm}>
-      <Custom.Typography
-        fontSize={props.small ? font.md : font.xxxl}
-        fontWeight={props.small ? font.normal : font.bold}
-      >
+    <Stack direction="row" alignItems="flex-end">
+      <Custom.Typography sx={{ lineHeight: 1, ...stylesheet.header }}>
         {Math.round(props.tempC)}
       </Custom.Typography>
-      <Custom.Typography
-        fontSize={props.small ? font.sm : font.xl}
-        fontWeight={props.small ? font.normal : font.semiBold}
-      >
+      <Custom.Typography sx={{ lineHeight: 1, ...stylesheet.subheader }}>
         {t.label.temperature.celsius}
       </Custom.Typography>
     </Stack>
   );
-};
-
-Temperature.defaultProps = {
-  small: false,
 };

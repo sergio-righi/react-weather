@@ -4,6 +4,11 @@ enum EnumTheme {
   Dark = 2,
 }
 
+enum EnumYesNo {
+  No = 0,
+  Yes = 1
+}
+
 enum EnumFeedback {
   Success = "success",
   Error = "error",
@@ -45,6 +50,7 @@ enum EnumAirQuality {
 
 export {
   EnumTheme,
+  EnumYesNo,
   EnumResponse,
   EnumFeedback,
   EnumDayOfWeek,
