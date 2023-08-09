@@ -1,4 +1,8 @@
-export { Data } from "./Data";
 export { Hour } from "./Hour";
-export { Tab } from "./Tab";
+export { Humidity } from "./Humidity";
+export { Precipitation } from "./Precipitation";
+export { Sunlight } from "./Sunlight";
+export { UVIndex } from "./UVIndex";
+export { Visibility } from "./Visibility";
 export { Week } from "./Week";
+export { Wind } from "./Wind";

@@ -1,9 +1,29 @@
 {
   "label": {
+    "distance": {
+      "imperial": "miles",
+      "metric": "km"
+    },
+    "length": {
+      "imperial": "in",
+      "metric": "cm"
+    },
+    "liquid": {
+      "imperial": "in",
+      "metric": "mm"
+    },
+    "measurement_system": {
+      "imperial": "Imperial",
+      "metric": "Metric"
+    },
+    "speed": {
+      "imperial": "mph",
+      "metric": "kmh"
+    },
     "temp": "Temperature",
     "temperature": {
-      "celsius": "°C",
-      "fahrenheit": "°F"
+      "imperial": "°F",
+      "metric": "°C"
     },
     "timeline": "Timeline"
   },

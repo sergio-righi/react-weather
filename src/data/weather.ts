@@ -1,5 +1,5 @@
 import { Apis } from "utils";
-import { CurrentData } from "assets/data";
+import { CurrentData, ForecastData } from "assets/data";
 
 export interface IWeatherData {
   today(query: string): Promise<any>
@@ -10,8 +10,8 @@ export class WeatherData implements IWeatherData {
 
   async today(query: string) {
     try {
-      return await Apis.currentWeather(query).get("");
-      // return CurrentData.current;
+      // return await Apis.currentWeather(query).get("");
+      return CurrentData.current;
     } catch (err) {
       return null;
     }
@@ -19,7 +19,8 @@ export class WeatherData implements IWeatherData {
 
   async next(query: string, days: number) {
     try {
-      return await Apis.forecastWeather(query, days).get("");
+      // return await Apis.forecastWeather(query, days).get("");
+      return ForecastData;
     } catch (err) {
       return null;
     }

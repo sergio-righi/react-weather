@@ -48,6 +48,16 @@ enum EnumAirQuality {
   VeryHigh = 10,
 }
 
+enum EnumViewSelection {
+  Day = 1,
+  Hourly = 2,
+}
+
+enum EnumMeasurementSystem {
+  Metric = 1,
+  Imperial = 2,
+}
+
 export {
   EnumTheme,
   EnumYesNo,
@@ -55,4 +65,6 @@ export {
   EnumFeedback,
   EnumDayOfWeek,
   EnumAirQuality,
+  EnumViewSelection,
+  EnumMeasurementSystem,
 }

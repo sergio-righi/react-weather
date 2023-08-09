@@ -1,6 +1,7 @@
 import { Custom } from "components";
 import { useApp, useTheme } from "contexts";
 import { Stack } from "@mui/material";
+import { Enums } from "utils";
 
 type Props = {
   tempC: number;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export const Temperature = (props: Props) => {
-  const { t } = useApp();
+  const { isMetric, t } = useApp();
   const { font, palette } = useTheme();
 
   const stylesheet =
@@ -39,10 +40,10 @@ export const Temperature = (props: Props) => {
   return (
     <Stack direction="row" alignItems="flex-end">
       <Custom.Typography sx={{ lineHeight: 1, ...stylesheet.header }}>
-        {Math.round(props.tempC)}
+        {Math.round(isMetric ? props.tempC : props.tempF)}
       </Custom.Typography>
       <Custom.Typography sx={{ lineHeight: 1, ...stylesheet.subheader }}>
-        {t.label.temperature.celsius}
+        {isMetric ? t.label.temperature.metric : t.label.temperature.imperial}
       </Custom.Typography>
     </Stack>
   );

@@ -1,4 +1,4 @@
-import { Card, CardContent, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useApp, useTheme } from "contexts";
 import { Common, Custom } from "components";
 import { HDate } from "helpers";
@@ -15,71 +15,72 @@ type Props = {
 };
 
 export function Week(props: Props) {
-  const { locale, t } = useApp();
   const { font, margin, palette } = useTheme();
+  const { isMetric, locale, setCurrentDate, t } = useApp();
 
   const formattedDate = props.item.date
     ? HDate.toRelativeDate(props.item.date, t.relative_date, locale)
     : null;
 
   function handleClick() {
-    props.onClick && props.onClick(props.item.date);
+    setCurrentDate(props.item.date);
   }
 
   return (
-    <Card onClick={handleClick}>
-      <CardContent>
-        <Stack spacing={margin.xs} alignItems="center" justifyContent="center">
-          <Custom.Typography variant="h4">{formattedDate}</Custom.Typography>
-          <Common.WeatherIcon condition={props.item.day.condition} />
-          <Stack
-            direction="row"
-            spacing={margin.xs}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Common.Temperature
-              size="md"
-              tempC={props.item.day.maxtemp_c}
-              tempF={props.item.day.maxtemp_f}
-            />
-            <Common.Temperature
-              size="sm"
-              tempC={props.item.day.mintemp_c}
-              tempF={props.item.day.mintemp_f}
-            />
-          </Stack>
-          {props.item.day.daily_will_it_rain === Enums.EnumYesNo.Yes ||
-          props.item.day.daily_will_it_snow === Enums.EnumYesNo.Yes ? (
-            <Stack direction="row">
-              {props.item.day.daily_will_it_rain === Enums.EnumYesNo.Yes && (
-                <Stack direction="row" alignItems="center">
-                  <WaterDropRoundedIcon
-                    sx={{ color: palette.font.accent, fontSize: font.xs }}
-                  />
-                  <Custom.Typography color={palette.font.accent} variant="h6">
-                    {props.item.day.totalprecip_mm}mm
-                  </Custom.Typography>
-                </Stack>
-              )}
-              {props.item.day.daily_will_it_snow === Enums.EnumYesNo.Yes && (
-                <Stack direction="row" alignItems="center">
-                  <AcUnitRoundedIcon
-                    sx={{ color: palette.font.accent, fontSize: font.xs }}
-                  />
-                  <Custom.Typography color={palette.font.accent} variant="h6">
-                    {props.item.day.totalsnow_cm}cm
-                  </Custom.Typography>
-                </Stack>
-              )}
-            </Stack>
-          ) : (
-            <Custom.Typography color={palette.font.accent} variant="h6">
-              not raining or snowing
-            </Custom.Typography>
-          )}
+    <Custom.Card sx={{ width: 1 }} onClick={handleClick}>
+      <Stack spacing={margin.xs} alignItems="center" justifyContent="center">
+        <Custom.Typography variant="h4">{formattedDate}</Custom.Typography>
+        <Common.WeatherIcon condition={props.item.day.condition} />
+        <Stack
+          direction="row"
+          spacing={margin.xs}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Common.Temperature
+            size="md"
+            tempC={props.item.day.maxtemp_c}
+            tempF={props.item.day.maxtemp_f}
+          />
+          <Common.Temperature
+            size="sm"
+            tempC={props.item.day.mintemp_c}
+            tempF={props.item.day.mintemp_f}
+          />
         </Stack>
-      </CardContent>
-    </Card>
+        {props.item.day.daily_will_it_rain === Enums.EnumYesNo.Yes ||
+        props.item.day.daily_will_it_snow === Enums.EnumYesNo.Yes ? (
+          <Stack direction="row">
+            {props.item.day.daily_will_it_rain === Enums.EnumYesNo.Yes && (
+              <Stack direction="row" alignItems="center">
+                <WaterDropRoundedIcon
+                  sx={{ color: palette.font.accent, fontSize: font.xs }}
+                />
+                <Custom.Typography color={palette.font.accent} variant="h6">
+                  {isMetric
+                    ? props.item.day.totalprecip_mm
+                    : props.item.day.totalprecip_in}{" "}
+                  {isMetric ? t.label.liquid.metric : t.label.liquid.imperial}
+                </Custom.Typography>
+              </Stack>
+            )}
+            {props.item.day.daily_will_it_snow === Enums.EnumYesNo.Yes && (
+              <Stack direction="row" alignItems="center">
+                <AcUnitRoundedIcon
+                  sx={{ color: palette.font.accent, fontSize: font.xs }}
+                />
+                <Custom.Typography color={palette.font.accent} variant="h6">
+                  {props.item.day.totalsnow_cm} cm
+                </Custom.Typography>
+              </Stack>
+            )}
+          </Stack>
+        ) : (
+          <Custom.Typography color={palette.font.accent} variant="h6">
+            not raining or snowing
+          </Custom.Typography>
+        )}
+      </Stack>
+    </Custom.Card>
   );
 }

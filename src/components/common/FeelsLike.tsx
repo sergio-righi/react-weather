@@ -7,12 +7,13 @@ type Props = {
 };
 
 export const FeelsLike = (props: Props) => {
-  const { t } = useApp();
+  const { isMetric, t } = useApp();
   const { font } = useTheme();
 
   return (
-    <Custom.Typography fontSize={font.xs} fontWeight={font.normal}>
-      Feels like {props.tempC} {t.label.temperature.celsius}
+    <Custom.Typography>
+      Feels like {isMetric ? props.tempC : props.tempF}{" "}
+      {isMetric ? t.label.temperature.metric : t.label.temperature.imperial}
     </Custom.Typography>
   );
 };

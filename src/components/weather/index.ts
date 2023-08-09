@@ -1,11 +1,5 @@
 export { Hourly } from "./Hourly";
 export { Now } from "./Now";
-export { Precipitation } from "./Precipitation";
-export { Pressure } from "./Pressure";
-export { Sunlight } from "./Sunlight";
+export { Search } from "./Search";
 export { Temperature } from "./Temperature";
-export { UVIndex } from "./UVIndex";
 export { Week } from "./Week";
-export { WindDirection } from "./WindDirection";
-export { WindGust } from "./WindGust";
-export { WindSpeed } from "./WindSpeed";

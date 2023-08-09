@@ -4,13 +4,13 @@ import {
   InputLabel,
   MenuItem,
   Select as MUISelect,
-  SelectChangeEvent,
+  SelectProps,
 } from "@mui/material";
 import { PairValue } from "types";
 import { useTheme } from "contexts";
 import { HValidation } from "helpers";
 
-type Props = {
+type Props = SelectProps & {
   sx?: any;
   id?: string;
   name?: string;
@@ -18,25 +18,14 @@ type Props = {
   items: PairValue[];
   disabled?: boolean;
   value?: string | "";
-  onChange?: (value: string) => void;
-  onDropdownChange?: (event: SelectChangeEvent<number>) => void;
 };
 
 export const Select = (props: Props) => {
   const { border, color, palette } = useTheme();
   const [value, setValue] = useState<string | "">(props.value ?? "");
-
-  useEffect(() => setValue(props.value ?? ""), [props.value]);
-
   const variant = HValidation.hasValue(props.label) ? "filled" : "outlined";
 
-  const handleChange = (value: string): void => {
-    setValue(value);
-    props.onChange && props.onChange(value);
-  };
-
-  const handleDropdownChange = (event: SelectChangeEvent<number>): void =>
-    props.onDropdownChange && props.onDropdownChange(event);
+  useEffect(() => setValue(props.value ?? ""), [props.value]);
 
   return (
     props.items && (
@@ -57,11 +46,10 @@ export const Select = (props: Props) => {
           </InputLabel>
         )}
         <MUISelect
-          // value={value}
+          {...props}
           name={props.name}
           labelId={props.id}
           disabled={props.disabled}
-          // onChange={handleDropdownChange}
           sx={{
             width: 1,
             "& .MuiSelect-icon": {
@@ -92,17 +80,13 @@ export const Select = (props: Props) => {
             MenuListProps: {
               sx: {
                 color: palette.font.color,
-                backgroundColor: palette.background.accent,
+                backgroundColor: palette.background.color,
               },
             },
           }}
         >
           {props.items.map((item: PairValue) => (
-            <MenuItem
-              key={item.key}
-              value={item.key}
-              onClick={() => handleChange(item.key)}
-            >
+            <MenuItem key={item.key} value={item.key}>
               {item.value}
             </MenuItem>
           ))}

@@ -1,39 +1,27 @@
 import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
-import { Card } from "components";
-import { useTheme } from "contexts";
-import { ForecastApi, HourApi, WeatherApi } from "interfaces";
-import { HDate } from "helpers";
+import { Card, Controller } from "components";
+import { ForecastApi, HourApi } from "interfaces";
 
 type Props = {
-  date: string;
-  data: WeatherApi;
+  data: ForecastApi;
 };
 
 export const Hourly = (props: Props) => {
-  const { margin } = useTheme();
-  const [data, setData] = useState<ForecastApi>({} as ForecastApi);
+  const [currentHour, setCurrentHour] = useState<number>(10);
 
-  useEffect(() => {
-    if (props.data && props.data.forecast && props.data.forecast.forecastday) {
-      const today = props.data.forecast.forecastday.filter(
-        (item: ForecastApi) => HDate.isDateEquals(item.date, props.date)
-      )[0];
-      setData(today);
-    }
-  }, [props.data]);
+  // useEffect(() => {
+  //   if (props.data && props.data.hour) {
+  //     setCurrentHour(new Date().getHours());
+  //   }
+  // }, [props.data]);
 
   return (
-    <Grid container spacing={margin.md}>
-      {data &&
-        data.hour &&
-        data.hour.map((item: HourApi, i: number) => {
-          return (
-            <Grid item xs key={i}>
-              <Card.Hour item={item} />
-            </Grid>
-          );
-        })}
-    </Grid>
+    <Controller.HorizontalScroll centeredId={`elm-scroll-${currentHour}`}>
+      {props.data &&
+        props.data.hour &&
+        props.data.hour.map((item: HourApi, i: number) => (
+          <Card.Hour item={item} key={i} id={`elm-scroll-${i}`} />
+        ))}
+    </Controller.HorizontalScroll>
   );
 };

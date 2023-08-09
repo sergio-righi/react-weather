@@ -12,8 +12,8 @@ const theme: Theme = {
     border: "#DDDDDD",
     shadow: "0 3px 10px 0 #D0D0D0",
     input: { color: "#F5F5F5", accent: "#DBDBDB" } as ColorSchema,
-    font: { color: "#383838", accent: "#A7A7A7" } as ColorFont,
-    background: { color: "#EFEFEF", accent: "#597E98", textAccent: "#FFFFFF" } as ColorSchema
+    font: { color: "#383838", accent: "#a9acb3" } as ColorFont,
+    background: { color: "#ffffff", accent: "#fafafa", textAccent: "#FFFFFF" } as ColorSchema
   } as Palette,
   border: BaseBorder,
   margin: BaseMargin,

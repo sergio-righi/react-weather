@@ -20,10 +20,10 @@ export class WeatherService implements IWeatherService {
    */
 
   async current(query: string) {
-    const response = await this.weatherData.today(query);
-    if (response.data) {
-      return response.data.current;
-    }
+    return await this.weatherData.today(query);
+    // if (response.data) {
+    //   return response.data.current;
+    // }
   }
 
   /**
@@ -33,10 +33,10 @@ export class WeatherService implements IWeatherService {
    */
 
   async today(query: string) {
-    const response = await this.weatherData.next(query, 1);
-    if (response.data) {
-      return response.data;
-    }
+    return await this.weatherData.next(query, 1);
+    // if (response.data) {
+    //   return response.data;
+    // }
   }
 
   /**
@@ -46,9 +46,9 @@ export class WeatherService implements IWeatherService {
    */
 
   async week(query: string) {
-    const response = await this.weatherData.next(query, 7);
-    if (response.data) {
-      return response.data;
-    }
+    return await this.weatherData.next(query, 7);
+    // if (response.data) {
+    //   return response.data;
+    // }
   }
 }

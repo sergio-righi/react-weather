@@ -1,40 +1,44 @@
 import React, { createContext, useContext } from "react";
-import { Constants, Store } from "utils";
-import { Feedback } from "types";
+import { Constants, Enums } from "utils";
 
 interface ProvidedValueType {
-  user: any;
-  setUser: (user: any) => void;
   location: string;
   setLocation: (location: string) => void;
   t: any;
   locale: string;
   locales: any;
   setLocale: (language: string) => void;
-  feedback: Feedback | null;
-  setFeedback: (feedback: Feedback | null) => void;
+  isDay: boolean;
+  setViewSelection: (view: Enums.EnumViewSelection) => void;
+  currentDate: string;
+  setCurrentDate: (currentDate: string) => void;
+  isMetric: boolean;
+  setMeasurement: (measurement: Enums.EnumMeasurementSystem) => void;
 }
 
-const initialState = {
+const initState = {
   locale: "EN",
   location: Constants.LOCATIONS.TORONTO,
   translations: Constants.LOCALE_STRINGS[Constants.REGIONS.EN],
   locales: Object.keys(Constants.REGIONS),
-  user: Store.sessionStorage.get() as any,
-  feedback: null,
+  viewSelection: Enums.EnumViewSelection.Day,
+  currentDate: "2023-08-06",
+  measurement: Enums.EnumMeasurementSystem.Metric,
 };
 
 export const AppContext = createContext<ProvidedValueType>({
-  user: initialState.user,
-  setUser: () => {},
-  location: initialState.location,
+  location: initState.location,
   setLocation: () => {},
-  t: initialState.translations,
-  locale: initialState.locale,
-  locales: initialState.locales,
+  t: initState.translations,
+  locale: initState.locale,
+  locales: initState.locales,
   setLocale: () => {},
-  feedback: initialState.feedback,
-  setFeedback: () => {},
+  isDay: true,
+  setViewSelection: () => {},
+  currentDate: initState.currentDate,
+  setCurrentDate: () => {},
+  isMetric: false,
+  setMeasurement: () => {},
 });
 
 interface Props {
@@ -44,30 +48,15 @@ interface Props {
 
 export const AppProvider = React.memo<Props>(
   ({ initLocale, children }: Props) => {
-    const [user, setUser] = React.useState<any>(initialState.user);
-    const [location, setLocation] = React.useState<string>(
-      initialState.location
-    );
-
+    const [location, setLocation] = React.useState<string>(initState.location);
     const [locale, setLocale] = React.useState<string>(initLocale);
-    const [feedback, setFeedback] = React.useState<Feedback | null>(
-      initialState.feedback
+    const [currentDate, setCurrentDate] = React.useState<string>(
+      initState.currentDate
     );
-
-    const setUserCallback = React.useCallback((newUser: any | null) => {
-      setUser((currentUser: any | null) => {
-        const user = {
-          ...currentUser,
-          ...newUser,
-        } as any;
-        if (newUser === null) {
-          Store.sessionStorage.clear();
-        } else {
-          Store.sessionStorage.set({ ...user });
-        }
-        return Store.sessionStorage.get();
-      });
-    }, []);
+    const [viewSelection, setViewSelection] =
+      React.useState<Enums.EnumViewSelection>(initState.viewSelection);
+    const [measurement, setMeasurement] =
+      React.useState<Enums.EnumMeasurementSystem>(initState.measurement);
 
     const setLocationCallback = React.useCallback((newLocation: string) => {
       setLocation((currentLocation: string) =>
@@ -81,9 +70,24 @@ export const AppProvider = React.memo<Props>(
       );
     }, []);
 
-    const setFeedbackCallback = React.useCallback(
-      (newFeedback: Feedback | null) => {
-        setFeedback((_: Feedback | null) => newFeedback);
+    const setCurrentDateCallback = React.useCallback((newDate: string) => {
+      setCurrentDate((currentDate: string) => newDate);
+    }, []);
+
+    const setViewSelectionCallback = React.useCallback(
+      (newViewSelection: Enums.EnumViewSelection) => {
+        setViewSelection(
+          (viewSelection: Enums.EnumViewSelection) => newViewSelection
+        );
+      },
+      []
+    );
+
+    const setMeasurementCallback = React.useCallback(
+      (newMeasurement: Enums.EnumMeasurementSystem) => {
+        setMeasurement(
+          (currentMeasurement: Enums.EnumMeasurementSystem) => newMeasurement
+        );
       },
       []
     );
@@ -94,23 +98,27 @@ export const AppProvider = React.memo<Props>(
         t: Constants.LOCALE_STRINGS[locale],
         locales: Constants.LOCALE_STRINGS[locale],
         setLocale: setLocaleCallback,
-        user,
-        setUser: setUserCallback,
         location,
         setLocation: setLocationCallback,
-        feedback,
-        setFeedback: setFeedbackCallback,
+        currentDate,
+        setCurrentDate: setCurrentDateCallback,
+        isDay: viewSelection === Enums.EnumViewSelection.Day,
+        setViewSelection: setViewSelectionCallback,
+        isMetric: measurement === Enums.EnumMeasurementSystem.Metric,
+        setMeasurement: setMeasurementCallback,
       };
       return value;
     }, [
       locale,
       setLocaleCallback,
-      user,
-      setUserCallback,
       location,
       setLocationCallback,
-      feedback,
-      setFeedbackCallback,
+      currentDate,
+      setCurrentDateCallback,
+      viewSelection,
+      setViewSelectionCallback,
+      measurement,
+      setMeasurementCallback,
     ]);
 
     return (
