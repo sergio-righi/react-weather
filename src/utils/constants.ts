@@ -40,14 +40,20 @@ export const PAGE_LENGTH = 10;
 export const MAX_INTEGER = 2147483647;
 export const MIN_DATE = "1900-01-01";
 
-export const WEATHER = {
-  API_KEY: String(process.env.REACT_APP_WEATHER_API_KEY),
-  BASE_URL: String(process.env.REACT_APP_WEATHER_API_BASE_URL),
-  CURRENT_API: "current.json",
-  FORECAST_API: "forecast.json",
-  SEARCH_API: "search.json"
+export const AIR_QUALITY = {
+  GOOD: 3,
+  MODERATE: 6,
+  UNHEALTHY: 9,
+  HAZARDOUS: 10
 }
 
+export const UV_INDEX = {
+  LOW: 2,
+  MODERATE: 5,
+  HIGH: 7,
+  VERY_HIGH: 10,
+  EXTREME: 11
+}
 
 export const LOCATIONS = {
   SANTAMARIA: "santa_maria",
@@ -64,3 +70,11 @@ export const LOCATIONS_GEO = {
   [LOCATIONS.STOCKHOLM]: "59.3293,18.0686",
   [LOCATIONS.TORONTO]: "43.717899,-79.6582408",
 };
+
+export const WEATHER = {
+  API_KEY: String(process.env.REACT_APP_WEATHER_API_KEY),
+  BASE_URL: String(process.env.REACT_APP_WEATHER_API_BASE_URL),
+  CURRENT_API: "current.json",
+  FORECAST_API: "forecast.json",
+  SEARCH_API: "search.json"
+}

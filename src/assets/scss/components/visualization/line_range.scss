@@ -1,0 +1,50 @@
+@use "../../utils" as *;
+
+.wa-visualization-line-range {
+  width: 100%;
+  position: relative;
+
+  & > .line {
+    height: 4px;
+    position: relative;
+    margin-bottom: $margin-lg * 2;
+
+    & > .indicator {
+      @include d-flex;
+      position: absolute;
+      @include align-items(center);
+      @include flex-direction(column);
+      @include justify-content(center);
+
+      &.current {
+        @include transform(translate(-5px, -5px));
+
+        & > .dot {
+          width: 16px;
+          height: 16px;
+        }
+
+        & > .label {
+          @include transform(translate(0px, -3px));
+        }
+      }
+
+      & > .dot {
+        width: 6px;
+        height: 6px;
+        @include transform(translateY(-1px));
+        @include border-radius($border-radius-circle);
+        @include transition(
+          width 0.2s ease,
+          height 0.2s ease,
+          background-color 0.2s ease
+        );
+      }
+
+      & > .label {
+        display: block;
+        @include transform(translateY(10px));
+      }
+    }
+  }
+}

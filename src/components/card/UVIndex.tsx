@@ -1,7 +1,8 @@
 import { Stack } from "@mui/material";
-import { Custom } from "components";
+import { Custom, Visualization } from "components";
 import { ForecastApi } from "interfaces";
 import { useTheme } from "contexts";
+import { Constants } from "utils";
 
 type Props = {
   data: ForecastApi;
@@ -12,13 +13,13 @@ export const UVIndex = (props: Props) => {
 
   const uvDescription =
     props.data && props.data.day
-      ? props.data.day.uv < 3
+      ? props.data.day.uv <= Constants.UV_INDEX.LOW
         ? "Low"
-        : props.data.day.uv < 6
+        : props.data.day.uv <= Constants.UV_INDEX.MODERATE
         ? "Moderate"
-        : props.data.day.uv < 8
+        : props.data.day.uv <= Constants.UV_INDEX.HIGH
         ? "High"
-        : props.data.day.uv < 11
+        : props.data.day.uv <= Constants.UV_INDEX.VERY_HIGH
         ? "Very High"
         : "Extreme"
       : "";
@@ -31,10 +32,12 @@ export const UVIndex = (props: Props) => {
         </Custom.Typography>
         {props.data && props.data.day && (
           <Stack spacing={margin.md}>
-            <Stack direction="row" alignItems="center" spacing={margin.md}>
-              <Custom.Typography variant="h5">
-                {props.data.day.uv}
-              </Custom.Typography>
+            <Stack direction="column" alignItems="center" spacing={margin.xs}>
+              <Visualization.LineRange
+                min={0}
+                max={Constants.UV_INDEX.EXTREME}
+                value={props.data.day.uv}
+              />
               <Custom.Typography variant="h5">
                 {uvDescription}
               </Custom.Typography>

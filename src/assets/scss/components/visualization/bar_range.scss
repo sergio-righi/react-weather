@@ -1,0 +1,25 @@
+@use "../../utils" as *;
+
+.wa-visualization-bar-range {
+  overflow: hidden;
+  border: 1px solid;
+  position: relative;
+
+  & > .fill {
+    left: 50%;
+    bottom: 0;
+    position: absolute;
+    @include transform(translateX(-50%));
+    @include transition(height 0.3s ease);
+  }
+
+  & > .float {
+    bottom: 0;
+    left: 50%;
+    position: absolute;
+    transform-origin: bottom center;
+    @include transform(translateX(-50%));
+    @include transition(bottom 0.3s ease);
+    @include border-radius($border-radius-circle);
+  }
+}

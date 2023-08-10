@@ -13,7 +13,7 @@ export const Precipitation = (props: Props) => {
   const { margin, palette } = useTheme();
 
   return (
-    <Custom.Card sx={{ width: 1, height: 1 }}>
+    <Custom.Card sx={{ width: 1 }}>
       <Stack spacing={margin.md}>
         <Custom.Typography variant="h5" color={palette.font.accent}>
           Precipitation

@@ -35,18 +35,6 @@ enum EnumDayOfWeek {
   Saturday = 6,
 }
 
-enum EnumAirQuality {
-  Low1 = 1,
-  Low2 = 2,
-  Low3 = 3,
-  Moderate1 = 4,
-  Moderate2 = 5,
-  Moderate3 = 6,
-  High1 = 7,
-  High2 = 8,
-  High3 = 9,
-  VeryHigh = 10,
-}
 
 enum EnumViewSelection {
   Day = 1,
@@ -64,7 +52,6 @@ export {
   EnumResponse,
   EnumFeedback,
   EnumDayOfWeek,
-  EnumAirQuality,
   EnumViewSelection,
   EnumMeasurementSystem,
 }

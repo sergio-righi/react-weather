@@ -27,7 +27,7 @@ export const Wind = (props: Props) => {
   }, [props.data]);
 
   return (
-    <Custom.Card sx={{ width: 1, height: 1 }}>
+    <Custom.Card sx={{ width: 1 }}>
       <Stack spacing={margin.md}>
         <Stack direction="row" justifyContent="space-between">
           <Custom.Typography variant="h5" color={palette.font.accent}>
