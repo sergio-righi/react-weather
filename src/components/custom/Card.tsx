@@ -25,7 +25,7 @@ export const Card = (props: Props) => {
       }}
       elevation={0}
     >
-      <CardContent>{props.children}</CardContent>
+      <CardContent sx={{ height: 1 }}>{props.children}</CardContent>
     </MUICard>
   );
 };

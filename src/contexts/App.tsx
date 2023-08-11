@@ -1,9 +1,12 @@
 import React, { createContext, useContext } from "react";
-import { Constants, Enums, Weather } from "utils";
+import { Constants, Enums, Store, Weather } from "utils";
+import { PairValue } from "types";
 
 interface ProvidedValueType {
-  location: string;
-  setLocation: (location: string) => void;
+  location: PairValue;
+  setLocation: (location: PairValue) => void;
+  locations: PairValue[];
+  setLocations: (location: PairValue | number) => void;
   t: any;
   locale: string;
   locales: any;
@@ -18,7 +21,8 @@ interface ProvidedValueType {
 
 const initState = {
   locale: "EN",
-  location: Weather.LOCATIONS.TORONTO,
+  location: Weather.WEATHER_DEFAULT_LOCATION as PairValue,
+  locations: Store.sessionStorage.get() as PairValue[],
   translations: Constants.LOCALE_STRINGS[Constants.REGIONS.EN],
   locales: Object.keys(Constants.REGIONS),
   viewSelection: Enums.EnumViewSelection.Day,
@@ -29,6 +33,8 @@ const initState = {
 export const AppContext = createContext<ProvidedValueType>({
   location: initState.location,
   setLocation: () => {},
+  locations: initState.locations,
+  setLocations: () => {},
   t: initState.translations,
   locale: initState.locale,
   locales: initState.locales,
@@ -48,7 +54,14 @@ interface Props {
 
 export const AppProvider = React.memo<Props>(
   ({ initLocale, children }: Props) => {
-    const [location, setLocation] = React.useState<string>(initState.location);
+    const [location, setLocation] = React.useState<PairValue>(
+      initState.locations.length > 0
+        ? initState.locations[0]
+        : initState.location
+    );
+    const [locations, setLocations] = React.useState<PairValue[]>(
+      initState.locations
+    );
     const [locale, setLocale] = React.useState<string>(initLocale);
     const [currentDate, setCurrentDate] = React.useState<string>(
       initState.currentDate
@@ -58,36 +71,26 @@ export const AppProvider = React.memo<Props>(
     const [measurement, setMeasurement] =
       React.useState<Enums.EnumMeasurementSystem>(initState.measurement);
 
-    const setLocationCallback = React.useCallback((newLocation: string) => {
-      setLocation((currentLocation: string) =>
-        currentLocation === newLocation ? currentLocation : newLocation
-      );
-    }, []);
-
-    const setLocaleCallback = React.useCallback((newLocale: string) => {
-      setLocale((currentLocale: string) =>
-        currentLocale === newLocale ? currentLocale : newLocale
-      );
-    }, []);
-
-    const setCurrentDateCallback = React.useCallback((newDate: string) => {
-      setCurrentDate((currentDate: string) => newDate);
-    }, []);
-
-    const setViewSelectionCallback = React.useCallback(
-      (newViewSelection: Enums.EnumViewSelection) => {
-        setViewSelection(
-          (viewSelection: Enums.EnumViewSelection) => newViewSelection
-        );
-      },
-      []
-    );
-
-    const setMeasurementCallback = React.useCallback(
-      (newMeasurement: Enums.EnumMeasurementSystem) => {
-        setMeasurement(
-          (currentMeasurement: Enums.EnumMeasurementSystem) => newMeasurement
-        );
+    const setLocationsCallback = React.useCallback(
+      (newLocation: PairValue | number) => {
+        let newLocations = locations;
+        // if a number is provided, it should remove
+        if (typeof newLocation === "number") {
+          newLocations = newLocations.filter(
+            (item: PairValue) => item.key !== newLocation
+          );
+        } else {
+          // if a pair value is provided, it should add (If it does not exist)
+          const index = newLocations.findIndex(
+            (item: PairValue) => item.key === newLocation.key
+          );
+          if (index === -1) {
+            newLocations.push(newLocation);
+          }
+          setLocation(newLocation);
+        }
+        setLocations(newLocations);
+        Store.sessionStorage.set(newLocations);
       },
       []
     );
@@ -97,28 +100,27 @@ export const AppProvider = React.memo<Props>(
         locale,
         t: Constants.LOCALE_STRINGS[locale],
         locales: Constants.LOCALE_STRINGS[locale],
-        setLocale: setLocaleCallback,
+        setLocale,
         location,
-        setLocation: setLocationCallback,
+        setLocation,
+        locations,
+        setLocations: setLocationsCallback,
         currentDate,
-        setCurrentDate: setCurrentDateCallback,
+        setCurrentDate,
         isDay: viewSelection === Enums.EnumViewSelection.Day,
-        setViewSelection: setViewSelectionCallback,
+        setViewSelection,
         isMetric: measurement === Enums.EnumMeasurementSystem.Metric,
-        setMeasurement: setMeasurementCallback,
+        setMeasurement,
       };
       return value;
     }, [
       locale,
-      setLocaleCallback,
       location,
-      setLocationCallback,
+      locations,
+      setLocationsCallback,
       currentDate,
-      setCurrentDateCallback,
       viewSelection,
-      setViewSelectionCallback,
       measurement,
-      setMeasurementCallback,
     ]);
 
     return (

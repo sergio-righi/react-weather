@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useApp, useService, useTheme } from "contexts";
-import { Card, Common, Weather } from "components";
+import { Card, Common, Custom, Weather } from "components";
 import { ForecastApi, WeatherApi } from "interfaces";
 import { Grid, Stack } from "@mui/material";
 import { HDate } from "helpers";
@@ -9,14 +9,14 @@ type Props = {};
 
 export const Home = (props: Props) => {
   const { weather } = useService();
-  const { margin, palette } = useTheme();
+  const { font, margin, palette } = useTheme();
   const { currentDate, isDay, location, t } = useApp();
   const [week, setWeek] = useState<WeatherApi>({} as WeatherApi);
   const [today, setToday] = useState<ForecastApi>({} as ForecastApi);
 
   useEffect(() => {
     const fetchData = async () => {
-      setWeek(await weather.week(location));
+      setWeek(await weather.week(location.value));
     };
     fetchData();
   }, [location]);
@@ -50,6 +50,11 @@ export const Home = (props: Props) => {
             {isDay && <Weather.Week data={week} />}
             {/* weather hour by hour */}
             {!isDay && <Weather.Hourly data={today} />}
+          </Stack>
+          <Stack px={margin.sm}>
+            <Custom.Typography fontSize={font.sm} color={palette.font.accent}>
+              Today Highlight
+            </Custom.Typography>
           </Stack>
           <Stack direction="row" spacing={margin.md} height={1}>
             {/* precipitation (rain and snow) */}

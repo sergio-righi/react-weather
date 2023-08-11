@@ -1,13 +1,15 @@
+import { PairValue } from "types";
+
 const sessionStorage = {
-  sessionName: 'somename',
+  sessionName: 'weatherapp',
 
   /** 
    * function to return the session object
-   * @returns {any} either IUser or {}
+   * @returns {PairValue[]} either {}
    */
 
-  get: (): any => {
-    return window.sessionStorage[sessionStorage.sessionName] ? JSON.parse(window.sessionStorage[sessionStorage.sessionName]) : {};
+  get: (): PairValue[] => {
+    return window.sessionStorage[sessionStorage.sessionName] ? JSON.parse(window.sessionStorage[sessionStorage.sessionName]) : [];
   },
 
   /** 
@@ -15,8 +17,8 @@ const sessionStorage = {
    * @param {object} values the data to be stored
    */
 
-  set: (values: object): void => {
-    window.sessionStorage[sessionStorage.sessionName] = Object.keys(values).length === 0 ? "" : JSON.stringify({ ...sessionStorage.get(), ...values })
+  set: (values: PairValue[]): void => {
+    window.sessionStorage[sessionStorage.sessionName] = JSON.stringify(values)
   },
 
   /** 
@@ -24,7 +26,7 @@ const sessionStorage = {
    */
 
   clear: (): void => {
-    window.sessionStorage[sessionStorage.sessionName] = "";
+    window.sessionStorage[sessionStorage.sessionName] = [];
   },
 }
 

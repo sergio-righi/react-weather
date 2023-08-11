@@ -9,14 +9,14 @@ type Props = {};
 
 export const Search = (props: Props) => {
   const { weather } = useService();
-  const { location, setLocation, t } = useApp();
-  const [locations, setLocations] = useState<Array<SearchApi>>([]);
+  const { location, setLocations, t } = useApp();
+  const [results, setResults] = useState<Array<SearchApi>>([]);
 
   async function handleChange(
     event: React.SyntheticEvent<Element, Event>,
     value: PairValue | null
   ) {
-    console.log(event, value);
+    value && setLocations(value);
   }
 
   async function handleInputChange(
@@ -24,7 +24,7 @@ export const Search = (props: Props) => {
     value: string
   ) {
     if (value && value.length > Constants.QUERY_MIN_LENGTH) {
-      setLocations(await weather.search(value));
+      setResults(await weather.search(value));
     }
   }
 
@@ -33,7 +33,7 @@ export const Search = (props: Props) => {
       onChange={handleChange}
       onInputChange={handleInputChange}
       placeholder="Search for a location"
-      items={locations.map(
+      items={results.map(
         (item: SearchApi) =>
           ({
             key: item.id,

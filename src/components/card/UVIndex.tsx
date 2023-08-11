@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const UVIndex = (props: Props) => {
-  const { margin, palette } = useTheme();
+  const { color, font, margin, palette } = useTheme();
 
   const uvDescription =
     props.data && props.data.day
@@ -32,15 +32,35 @@ export const UVIndex = (props: Props) => {
         </Custom.Typography>
         {props.data && props.data.day && (
           <Stack spacing={margin.md}>
-            <Stack direction="column" alignItems="center" spacing={margin.xs}>
-              <Visualization.LineRange
-                min={0}
-                max={Weather.UV_INDEX.EXTREME}
-                value={props.data.day.uv}
-              />
-              <Custom.Typography variant="h5">
-                {uvDescription}
-              </Custom.Typography>
+            <Stack direction="column" spacing={margin.xs}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Stack direction="row" alignItems="center" spacing={margin.xs}>
+                  <Custom.Typography variant="h1">
+                    {props.data.day.uv}
+                  </Custom.Typography>
+                </Stack>
+                <Visualization.BarRange
+                  min={0}
+                  max={Weather.UV_INDEX.EXTREME}
+                  value={props.data.day.uv}
+                />
+              </Stack>
+              <Stack direction="row" spacing={margin.xs}>
+                <Custom.Typography as="span" color={palette.font.accent}>
+                  Status
+                </Custom.Typography>
+                <Custom.Typography
+                  as="span"
+                  fontWeight={font.bold}
+                  color={color.accent.color}
+                >
+                  {uvDescription}
+                </Custom.Typography>
+              </Stack>
             </Stack>
           </Stack>
         )}

@@ -1,28 +1,10 @@
 import React, { useEffect } from "react";
 import { Common, Weather } from "components";
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-} from "@mui/material";
+import { Stack } from "@mui/material";
 import { Custom } from "components";
 import { CurrentApi } from "interfaces";
-import { HDate, HString } from "helpers";
+import { HDate } from "helpers";
 import { useApp, useService, useTheme } from "contexts";
-
-// icons
-import {
-  AddRounded,
-  BeachAccess,
-  ArrowBackRounded,
-  ArrowForwardRounded,
-  DeleteOutlineRounded,
-  RestaurantMenu,
-  WbSunny,
-} from "@mui/icons-material";
 
 type Props = {};
 
@@ -35,7 +17,8 @@ export const Now = (props: Props) => {
   const [data, setData] = React.useState<CurrentApi>({} as CurrentApi);
 
   useEffect(() => {
-    const fetchData = async () => setData(await weather.current(location));
+    const fetchData = async () =>
+      setData(await weather.current(location.value));
     fetchData();
   }, [location]);
 
@@ -46,39 +29,20 @@ export const Now = (props: Props) => {
         {/* First Section */}
         <Stack direction="column" p={margin.md} spacing={margin.md}>
           {/* Weather Searchbar */}
-          <Stack direction="column">
-            <Weather.Search />
-          </Stack>
+          <Weather.Search />
 
           {/* Weather Navbar */}
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Custom.Typography variant="h5">{location}</Custom.Typography>
-            <Stack direction="row">
-              <IconButton>
-                <ArrowBackRounded />
-              </IconButton>
-              <IconButton>
-                <ArrowForwardRounded />
-              </IconButton>
-              <IconButton>
-                <AddRounded />
-              </IconButton>
-              <IconButton>
-                <DeleteOutlineRounded />
-              </IconButton>
-            </Stack>
-          </Stack>
+          <Weather.Navigation />
 
           {/* Weather Information */}
-          <Stack direction="column">
+          <Stack
+            direction="row"
+            spacing={margin.md}
+            alignItems="center"
+            justifyContent="center"
+          >
             {/* Thumbnail */}
-            <Stack alignItems="center" justifyContent="center">
-              <Common.WeatherIcon condition={data.condition} />
-            </Stack>
+            <Common.WeatherIcon condition={data.condition} />
 
             {/* Temperature */}
             <Stack spacing={margin.md}>
@@ -103,40 +67,7 @@ export const Now = (props: Props) => {
         </Stack>
 
         {/* Second Section */}
-        <List sx={{ height: 1 }}>
-          <ListItem>
-            <ListItemIcon>
-              <WbSunny />
-            </ListItemIcon>
-            <ListItemText primary={data.condition.text} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <BeachAccess />
-            </ListItemIcon>
-            <ListItemText
-              primary={
-                <Common.FeelsLike
-                  tempC={data.feelslike_c}
-                  tempF={data.feelslike_f}
-                />
-              }
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <RestaurantMenu />
-            </ListItemIcon>
-            <ListItemText
-              primary={HString.interpolate(t.message.feedback.updated_at, {
-                time: HDate.toTimeAmPmString(
-                  HDate.toSeconds(new Date(data.last_updated)),
-                  false
-                ),
-              })}
-            />
-          </ListItem>
-        </List>
+        <Weather.ListInfo data={data} />
       </Stack>
     )
   );

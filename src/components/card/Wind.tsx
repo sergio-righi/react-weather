@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Stack } from "@mui/material";
-import { Custom } from "components";
+import { Common, Custom } from "components";
 import { ForecastApi, HourApi } from "interfaces";
 import { useApp, useTheme } from "contexts";
-import { Anemometer, Speedometer, WindGust } from "assets/icons";
+import { Wind as WindImage, WindGauge, Windsock } from "assets/images";
 
 type Props = {
   data: ForecastApi;
@@ -11,7 +11,7 @@ type Props = {
 
 export const Wind = (props: Props) => {
   const { isMetric, t } = useApp();
-  const { margin, palette } = useTheme();
+  const { color, font, margin, palette } = useTheme();
   const [currentHour, setCurrentHour] = useState<HourApi>();
 
   useEffect(() => {
@@ -39,22 +39,43 @@ export const Wind = (props: Props) => {
         </Stack>
         {currentHour && (
           <Stack spacing={margin.md}>
-            <Stack direction="row" alignItems="center" spacing={margin.md}>
-              <Anemometer width={32} height={32} />
-              <Custom.Typography variant="h5">
-                {currentHour.wind_dir}
-              </Custom.Typography>
+            <Stack direction="column" spacing={margin.md}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Custom.Typography variant="h3">
+                  {currentHour.wind_dir}
+                </Custom.Typography>
+                <Common.Image src={Windsock} width={48} height={48} />
+              </Stack>
+
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Stack direction="row" alignItems="center" spacing={margin.md}>
+                  <Custom.Typography variant="h3">
+                    {isMetric ? currentHour.wind_kph : currentHour.wind_mph}{" "}
+                  </Custom.Typography>
+                  <Custom.Typography variant="h4" color={palette.font.accent}>
+                    {isMetric ? t.label.speed.metric : t.label.speed.imperial}
+                  </Custom.Typography>
+                </Stack>
+                <Common.Image src={WindGauge} width={48} height={48} />
+              </Stack>
             </Stack>
-            <Stack direction="row" alignItems="center" spacing={margin.md}>
-              <Speedometer width={32} height={32} />
-              <Custom.Typography variant="h5">
-                {isMetric ? currentHour.wind_kph : currentHour.wind_mph}{" "}
-                {isMetric ? t.label.speed.metric : t.label.speed.imperial}
+            <Stack direction="row" spacing={margin.xs}>
+              <Custom.Typography as="span" color={palette.font.accent}>
+                Gusts
               </Custom.Typography>
-            </Stack>
-            <Stack direction="row" alignItems="center" spacing={margin.md}>
-              <WindGust width={32} height={32} />
-              <Custom.Typography variant="h5">
+              <Custom.Typography
+                as="span"
+                fontWeight={font.bold}
+                color={color.accent.color}
+              >
                 {isMetric ? currentHour.gust_kph : currentHour.gust_mph}{" "}
                 {isMetric ? t.label.speed.metric : t.label.speed.imperial}
               </Custom.Typography>

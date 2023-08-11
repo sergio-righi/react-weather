@@ -54,7 +54,12 @@ export function Navbar(props: Props) {
   function handleRefresh() {}
 
   return (
-    <Stack direction="row" alignItems="center" justifyContent="space-between">
+    <Stack
+      direction="row"
+      px={margin.sm}
+      alignItems="center"
+      justifyContent="space-between"
+    >
       <Stack direction="row" spacing={margin.md}>
         <Custom.Typography
           onClick={() => setViewSelection(Enums.EnumViewSelection.Day)}
@@ -82,12 +87,12 @@ export function Navbar(props: Props) {
             {t.label.measurement_system.imperial}
           </Custom.Typography>
         </Stack>
-        <IconButton size="medium" color="inherit" onClick={handleRefresh}>
+        {/* <IconButton size="medium" color="inherit" onClick={handleRefresh}>
           <RefreshIcon />
         </IconButton>
         <IconButton size="medium" color="inherit" onClick={handleToggleTheme}>
           {id === Enums.EnumTheme.Dark ? <LightModeIcon /> : <DarkModeIcon />}
-        </IconButton>
+        </IconButton> */}
       </Stack>
     </Stack>
   );

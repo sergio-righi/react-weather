@@ -11,23 +11,32 @@ import WaterDropRoundedIcon from "@mui/icons-material/WaterDropRounded";
 
 type Props = {
   item: ForecastApi;
+  selected: boolean;
   onClick?: (value: string) => void;
 };
 
 export function Week(props: Props) {
-  const { font, margin, palette } = useTheme();
+  const { color, font, margin, palette } = useTheme();
   const { isMetric, locale, setCurrentDate, t } = useApp();
 
   const formattedDate = props.item.date
     ? HDate.toRelativeDate(props.item.date, t.relative_date, locale)
     : null;
 
+  const stylesheet = props.selected
+    ? {
+        outlineWidth: 3,
+        outlineStyle: "solid",
+        outlineColor: color.accent.color,
+      }
+    : { cursor: "pointer" };
+
   function handleClick() {
     setCurrentDate(props.item.date);
   }
 
   return (
-    <Custom.Card sx={{ width: 1 }} onClick={handleClick}>
+    <Custom.Card sx={{ width: 1, ...stylesheet }} onClick={handleClick}>
       <Stack spacing={margin.xs} alignItems="center" justifyContent="center">
         <Custom.Typography variant="h4">{formattedDate}</Custom.Typography>
         <Common.WeatherIcon condition={props.item.day.condition} />
