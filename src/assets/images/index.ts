@@ -4,6 +4,7 @@ import Dry from "./Dry.png";
 import Dust from "./Dust.png";
 import Fog from "./Fog.png";
 import FreezingRain from "./Freezing Rain.png";
+import GlobalWarming from "./Global Warming.png";
 import Hail from "./Hail.png";
 import Haze from "./Haze.png";
 import HeavyRainStorm from "./Heavy Rain Storm.png";
@@ -38,6 +39,7 @@ import Sunset from "./Sunset.png";
 import Thermometer from "./Thermometer.png";
 import TorrentialRain from "./Torrential Rain.png";
 import Umbrella from "./Umbrella.png";
+import Visibility from "./Visibility.png";
 import Wildfire from "./Wildfire.png";
 import WindGauge from "./Wind Gauge.png";
 import Wind from "./Wind.png";
@@ -51,6 +53,7 @@ export {
   Dust,
   Fog,
   FreezingRain,
+  GlobalWarming,
   Hail,
   Haze,
   HeavyRainStorm,
@@ -85,6 +88,7 @@ export {
   Thermometer,
   TorrentialRain,
   Umbrella,
+  Visibility,
   Wildfire,
   WindGauge,
   Wind,

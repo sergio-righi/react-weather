@@ -65,7 +65,7 @@ export function Navbar(props: Props) {
           onClick={() => setViewSelection(Enums.EnumViewSelection.Day)}
           sx={isDay ? stylesheetSelected : stylesheetUnselected}
         >
-          {HDate.toRelativeDate(currentDate, t, locale)}
+          {HDate.toRelativeDate(currentDate, t.relative_date, locale)}
         </Custom.Typography>
         <Custom.Typography
           onClick={() => setViewSelection(Enums.EnumViewSelection.Hourly)}

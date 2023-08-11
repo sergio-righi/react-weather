@@ -1,8 +1,9 @@
 import { Stack } from "@mui/material";
-import { Custom, Visualization } from "components";
+import { Common, Custom, Visualization } from "components";
 import { ForecastApi } from "interfaces";
 import { useTheme } from "contexts";
 import { Weather } from "utils";
+import { GlobalWarming } from "assets/images";
 
 type Props = {
   data: ForecastApi;
@@ -38,16 +39,10 @@ export const UVIndex = (props: Props) => {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Stack direction="row" alignItems="center" spacing={margin.xs}>
-                  <Custom.Typography variant="h1">
-                    {props.data.day.uv}
-                  </Custom.Typography>
-                </Stack>
-                <Visualization.BarRange
-                  min={0}
-                  max={Weather.UV_INDEX.EXTREME}
-                  value={props.data.day.uv}
-                />
+                <Custom.Typography variant="h1">
+                  {props.data.day.uv}
+                </Custom.Typography>
+                <Common.Image src={GlobalWarming} width={72} height={72} />
               </Stack>
               <Stack direction="row" spacing={margin.xs}>
                 <Custom.Typography as="span" color={palette.font.accent}>

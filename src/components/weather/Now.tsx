@@ -17,10 +17,12 @@ export const Now = (props: Props) => {
   const [data, setData] = React.useState<CurrentApi>({} as CurrentApi);
 
   useEffect(() => {
-    const fetchData = async () =>
-      setData(await weather.current(location.value));
-    fetchData();
+    handleRefreshClick();
   }, [location]);
+
+  async function handleRefreshClick() {
+    setData(await weather.current(location.value));
+  }
 
   return (
     data &&
@@ -46,9 +48,6 @@ export const Now = (props: Props) => {
 
             {/* Temperature */}
             <Stack spacing={margin.md}>
-              <Custom.Typography variant="h5" color={palette.font.accent}>
-                {data.is_day ? "Day" : "Night"}
-              </Custom.Typography>
               <Common.Temperature
                 size="lg"
                 tempC={data.temp_c}
@@ -67,7 +66,7 @@ export const Now = (props: Props) => {
         </Stack>
 
         {/* Second Section */}
-        <Weather.ListInfo data={data} />
+        <Weather.ListInfo data={data} onRefresh={handleRefreshClick} />
       </Stack>
     )
   );

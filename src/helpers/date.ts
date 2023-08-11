@@ -80,6 +80,17 @@ export const toISOString = (date: Date, time?: string): string => {
 };
 
 /**
+ * function to convert string date YYYY-MM-DD to date object
+ * @param {string} date the date to be converted
+ * @returns {Date} the new date object
+ */
+
+export const toDate = (date: string): Date => {
+  const [year, month, day] = date.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
+/**
  * function to return a friendly date
  * @param {Date} d the date to be converted
  * @param {object} t list of words (from translations)
@@ -87,16 +98,19 @@ export const toISOString = (date: Date, time?: string): string => {
  * @return {string} the friendly date message
  */
 
-export const toRelativeDate = (d: string | Date, t: any, locale: string = "EN"): string => {
-  const date = new Date(d);
+export const toRelativeDate = (d: string, t: any, locale: string = "EN"): string => {
+  const date = toDate(d);
   const today = clearTime(new Date());
   const tomorrow = clearTime(new Date(today).setDate(today.getDate() + 1));
+  const yesterday = clearTime(new Date(today).setDate(today.getDate() - 1));
 
   return isDateEquals(date, today)
     ? t.today
     : isDateEquals(date, tomorrow)
       ? t.tomorrow
-      : formattedDate(date, locale);
+      : isDateEquals(date, yesterday)
+        ? t.yesterday
+        : formattedDate(date, locale);
 };
 
 /**

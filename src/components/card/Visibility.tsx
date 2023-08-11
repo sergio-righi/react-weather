@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { Common, Custom } from "components";
 import { ForecastApi } from "interfaces";
 import { useApp, useTheme } from "contexts";
-import { Icy } from "assets/images";
+import { Visibility as VisibilityImage } from "assets/images";
 
 type Props = {
   data: ForecastApi;
@@ -32,10 +32,12 @@ export const Visibility = (props: Props) => {
                     : props.data.day.avgvis_miles}{" "}
                 </Custom.Typography>
                 <Custom.Typography variant="h3" color={palette.font.accent}>
-                  {isMetric ? t.label.distance.metric : t.label.length.imperial}
+                  {isMetric
+                    ? t.label.distance.metric
+                    : t.label.distance.imperial}
                 </Custom.Typography>
               </Stack>
-              <Common.Image src={Icy} width={64} height={64} />
+              <Common.Image src={VisibilityImage} width={64} height={64} />
             </Stack>
             <Stack direction="row" spacing={margin.xs}>
               <Custom.Typography as="span" color={palette.font.accent}>

@@ -1,6 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { Constants, Enums, Store, Weather } from "utils";
 import { PairValue } from "types";
+import { HDate } from "helpers";
 
 interface ProvidedValueType {
   location: PairValue;
@@ -26,7 +27,7 @@ const initState = {
   translations: Constants.LOCALE_STRINGS[Constants.REGIONS.EN],
   locales: Object.keys(Constants.REGIONS),
   viewSelection: Enums.EnumViewSelection.Day,
-  currentDate: "2023-08-06",
+  currentDate: HDate.toISOString(new Date()),
   measurement: Enums.EnumMeasurementSystem.Metric,
 };
 

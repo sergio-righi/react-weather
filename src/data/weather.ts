@@ -12,8 +12,7 @@ export class WeatherData implements IWeatherData {
 
   async next(query: string, days: number) {
     try {
-      // return await Apis.forecastWeather(query, days).get("");
-      return ForecastData;
+      return await Apis.forecastWeather(query, days).get("");
     } catch (err) {
       return null;
     }
@@ -21,8 +20,7 @@ export class WeatherData implements IWeatherData {
 
   async search(query: string) {
     try {
-      // return await Apis.searchWeather(query).get("");
-      return SearchData;
+      return await Apis.searchWeather(query).get("");
     } catch (err) {
       return null;
     }
@@ -30,8 +28,7 @@ export class WeatherData implements IWeatherData {
 
   async today(query: string) {
     try {
-      // return await Apis.currentWeather(query).get("");
-      return CurrentData.current;
+      return await Apis.currentWeather(query).get("");
     } catch (err) {
       return null;
     }

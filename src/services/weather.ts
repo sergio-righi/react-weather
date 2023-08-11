@@ -21,10 +21,10 @@ export class WeatherService implements IWeatherService {
    */
 
   async current(query: string) {
-    return await this.weatherData.today(query);
-    // if (response.data) {
-    //   return response.data.current;
-    // }
+    const response = await this.weatherData.today(query);
+    if (response.data) {
+      return response.data.current;
+    }
   }
 
   /**
@@ -34,10 +34,10 @@ export class WeatherService implements IWeatherService {
    */
 
   async search(query: string) {
-    return await this.weatherData.search(query);
-    // if (response.data) {
-    //   return response.data;
-    // }
+    const response = await this.weatherData.search(query);
+    if (response.data) {
+      return response.data;
+    }
   }
 
   /**
@@ -47,10 +47,10 @@ export class WeatherService implements IWeatherService {
    */
 
   async today(query: string) {
-    return await this.weatherData.next(query, 1);
-    // if (response.data) {
-    //   return response.data;
-    // }
+    const response = await this.weatherData.next(query, 1);
+    if (response.data) {
+      return response.data;
+    }
   }
 
   /**
@@ -60,9 +60,9 @@ export class WeatherService implements IWeatherService {
    */
 
   async week(query: string) {
-    return await this.weatherData.next(query, 7);
-    // if (response.data) {
-    //   return response.data;
-    // }
+    const response = await this.weatherData.next(query, 7);
+    if (response.data) {
+      return response.data;
+    }
   }
 }
