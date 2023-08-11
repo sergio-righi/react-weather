@@ -2,6 +2,7 @@ import { WeatherData, IWeatherData } from "data";
 
 export interface IWeatherService {
   current(query: string): Promise<any>;
+  search(query: string): Promise<any>;
   today(query: string): Promise<any>;
   week(query: string): Promise<any>;
 }
@@ -23,6 +24,19 @@ export class WeatherService implements IWeatherService {
     return await this.weatherData.today(query);
     // if (response.data) {
     //   return response.data.current;
+    // }
+  }
+
+  /**
+   * get the results according to the search query
+   * @param {string} query location string
+   * @returns 
+   */
+
+  async search(query: string) {
+    return await this.weatherData.search(query);
+    // if (response.data) {
+    //   return response.data;
     // }
   }
 

@@ -1,13 +1,18 @@
 import { Box } from "@mui/material";
 import { ConditionApi } from "interfaces";
+import { Weather } from "utils";
 
 type Props = {
   condition: ConditionApi;
 };
 
 export const WeatherIcon = (props: Props) => {
-  return props.condition && props.condition.icon ? (
-    <Box component="img" src={props.condition?.icon} />
+  return props.condition && props.condition.code ? (
+    <Box
+      maxWidth={100}
+      component="img"
+      src={Weather.WEATHER_ICONS[props.condition.code]}
+    />
   ) : (
     <></>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Common, Weather } from "components";
 import {
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
@@ -13,7 +14,15 @@ import { HDate, HString } from "helpers";
 import { useApp, useService, useTheme } from "contexts";
 
 // icons
-import { WbSunny, BeachAccess, RestaurantMenu } from "@mui/icons-material";
+import {
+  AddRounded,
+  BeachAccess,
+  ArrowBackRounded,
+  ArrowForwardRounded,
+  DeleteOutlineRounded,
+  RestaurantMenu,
+  WbSunny,
+} from "@mui/icons-material";
 
 type Props = {};
 
@@ -33,32 +42,68 @@ export const Now = (props: Props) => {
   return (
     data &&
     data.condition && (
-      <Stack>
-        <Stack p={margin.md}>
-          <Weather.Search />
+      <Stack direction="column" height={1}>
+        {/* First Section */}
+        <Stack direction="column" p={margin.md} spacing={margin.md}>
+          {/* Weather Searchbar */}
+          <Stack direction="column">
+            <Weather.Search />
+          </Stack>
+
+          {/* Weather Navbar */}
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Custom.Typography variant="h5">{location}</Custom.Typography>
+            <Stack direction="row">
+              <IconButton>
+                <ArrowBackRounded />
+              </IconButton>
+              <IconButton>
+                <ArrowForwardRounded />
+              </IconButton>
+              <IconButton>
+                <AddRounded />
+              </IconButton>
+              <IconButton>
+                <DeleteOutlineRounded />
+              </IconButton>
+            </Stack>
+          </Stack>
+
           {/* Weather Information */}
-          <Common.WeatherIcon condition={data.condition} />
-          <Stack spacing={margin.md}>
-            <Custom.Typography variant="h5" color={palette.font.accent}>
-              {data.is_day ? "Day" : "Night"}
-            </Custom.Typography>
-            <Common.Temperature
-              size="lg"
-              tempC={data.temp_c}
-              tempF={data.temp_f}
-            />
-            <Stack direction="row" spacing={margin.sm}>
-              <Custom.Typography variant="h5">
-                {HDate.weekday(datenow)}
-              </Custom.Typography>
+          <Stack direction="column">
+            {/* Thumbnail */}
+            <Stack alignItems="center" justifyContent="center">
+              <Common.WeatherIcon condition={data.condition} />
+            </Stack>
+
+            {/* Temperature */}
+            <Stack spacing={margin.md}>
               <Custom.Typography variant="h5" color={palette.font.accent}>
-                {HDate.toTimeAmPmString(HDate.toSeconds(datenow), false)}
+                {data.is_day ? "Day" : "Night"}
               </Custom.Typography>
+              <Common.Temperature
+                size="lg"
+                tempC={data.temp_c}
+                tempF={data.temp_f}
+              />
+              <Stack direction="row" spacing={margin.sm}>
+                <Custom.Typography variant="h5">
+                  {HDate.weekday(datenow)}
+                </Custom.Typography>
+                <Custom.Typography variant="h5" color={palette.font.accent}>
+                  {HDate.toTimeAmPmString(HDate.toSeconds(datenow), false)}
+                </Custom.Typography>
+              </Stack>
             </Stack>
           </Stack>
         </Stack>
-        {/* Weather Conditions List */}
-        <List>
+
+        {/* Second Section */}
+        <List sx={{ height: 1 }}>
           <ListItem>
             <ListItemIcon>
               <WbSunny />
@@ -78,7 +123,7 @@ export const Now = (props: Props) => {
               }
             />
           </ListItem>
-          {/* <ListItem>
+          <ListItem>
             <ListItemIcon>
               <RestaurantMenu />
             </ListItemIcon>
@@ -90,7 +135,7 @@ export const Now = (props: Props) => {
                 ),
               })}
             />
-          </ListItem> */}
+          </ListItem>
         </List>
       </Stack>
     )

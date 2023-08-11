@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { Constants, Enums } from "utils";
+import { Constants, Enums, Weather } from "utils";
 
 interface ProvidedValueType {
   location: string;
@@ -18,7 +18,7 @@ interface ProvidedValueType {
 
 const initState = {
   locale: "EN",
-  location: Constants.LOCATIONS.TORONTO,
+  location: Weather.LOCATIONS.TORONTO,
   translations: Constants.LOCALE_STRINGS[Constants.REGIONS.EN],
   locales: Object.keys(Constants.REGIONS),
   viewSelection: Enums.EnumViewSelection.Day,

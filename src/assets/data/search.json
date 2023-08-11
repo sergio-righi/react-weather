@@ -1,0 +1,47 @@
+[
+  {
+    "id": 3200685,
+    "name": "Santa Maria Chimalhuacan",
+    "region": "México",
+    "country": "Mexico",
+    "lat": 19.42,
+    "lon": -98.95,
+    "url": "santa-maria-chimalhuacan-mxico-mexico"
+  },
+  {
+    "id": 289110,
+    "name": "Santa Maria",
+    "region": "Rio Grande do Sul",
+    "country": "Brazil",
+    "lat": -29.68,
+    "lon": -53.8,
+    "url": "santa-maria-rio-grande-do-sul-brazil"
+  },
+  {
+    "id": 2550298,
+    "name": "Santa Maria",
+    "region": "California",
+    "country": "United States of America",
+    "lat": 34.95,
+    "lon": -120.43,
+    "url": "santa-maria-california-united-states-of-america"
+  },
+  {
+    "id": 1286510,
+    "name": "Santa Maria Capua Vetere",
+    "region": "Campania",
+    "country": "Italy",
+    "lat": 41.08,
+    "lon": 14.25,
+    "url": "santa-maria-capua-vetere-campania-italy"
+  },
+  {
+    "id": 3225838,
+    "name": "Santa Maria Moyotzingo",
+    "region": "Puebla",
+    "country": "Mexico",
+    "lat": 19.25,
+    "lon": -98.4,
+    "url": "santa-maria-moyotzingo-puebla-mexico"
+  }
+]

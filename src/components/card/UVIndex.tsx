@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { Custom, Visualization } from "components";
 import { ForecastApi } from "interfaces";
 import { useTheme } from "contexts";
-import { Constants } from "utils";
+import { Weather } from "utils";
 
 type Props = {
   data: ForecastApi;
@@ -13,13 +13,13 @@ export const UVIndex = (props: Props) => {
 
   const uvDescription =
     props.data && props.data.day
-      ? props.data.day.uv <= Constants.UV_INDEX.LOW
+      ? props.data.day.uv <= Weather.UV_INDEX.LOW
         ? "Low"
-        : props.data.day.uv <= Constants.UV_INDEX.MODERATE
+        : props.data.day.uv <= Weather.UV_INDEX.MODERATE
         ? "Moderate"
-        : props.data.day.uv <= Constants.UV_INDEX.HIGH
+        : props.data.day.uv <= Weather.UV_INDEX.HIGH
         ? "High"
-        : props.data.day.uv <= Constants.UV_INDEX.VERY_HIGH
+        : props.data.day.uv <= Weather.UV_INDEX.VERY_HIGH
         ? "Very High"
         : "Extreme"
       : "";
@@ -35,7 +35,7 @@ export const UVIndex = (props: Props) => {
             <Stack direction="column" alignItems="center" spacing={margin.xs}>
               <Visualization.LineRange
                 min={0}
-                max={Constants.UV_INDEX.EXTREME}
+                max={Weather.UV_INDEX.EXTREME}
                 value={props.data.day.uv}
               />
               <Custom.Typography variant="h5">
