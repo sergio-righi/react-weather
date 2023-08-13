@@ -34,12 +34,9 @@ export function Navbar(props: Props) {
     toggleTheme();
   }
 
-  function handleMeasurementChange(
-    event: React.ChangeEvent<HTMLInputElement>,
-    checked: boolean
-  ) {
+  function handleMeasurementChange() {
     setMeasurement(
-      checked
+      isMetric
         ? Enums.EnumMeasurementSystem.Imperial
         : Enums.EnumMeasurementSystem.Metric
     );
@@ -69,26 +66,10 @@ export function Navbar(props: Props) {
             </Custom.Typography>
           </Stack>
           <Stack direction="row" spacing={theme.margin.sm}>
-            <Stack
-              direction="row"
-              alignItems="center"
-              px={theme.margin.sm}
-              spacing={theme.margin.xxs}
-              borderRadius={theme.border.circle}
-              bgcolor={theme.palette.background.color}
-            >
-              <Custom.Switch
-                size="small"
-                checked={!isMetric}
-                onChange={handleMeasurementChange}
-              />
+            <IconButton size="medium" onClick={handleMeasurementChange}>
               <Common.Image src={Fahrenheit} width={32} height={32} />
-            </Stack>
-            <IconButton
-              size="medium"
-              color="inherit"
-              onClick={handleToggleTheme}
-            >
+            </IconButton>
+            <IconButton size="medium" onClick={handleToggleTheme}>
               <Common.Image src={Theme} width={32} height={32} />
             </IconButton>
           </Stack>

@@ -14,9 +14,11 @@ export const Week = (props: Props) => {
 
   useEffect(() => {
     if (props.data && props.data.forecast) {
-      const { date } = props.data.forecast.forecastday[0];
-      if (date && currentDate !== date) {
-        setCurrentDate(date);
+      const dates = props.data.forecast.forecastday.map(
+        (item: ForecastApi) => item.date
+      );
+      if (dates && !dates.includes(currentDate)) {
+        setCurrentDate(dates[0]);
       }
     }
   }, [props.data]);
