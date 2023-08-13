@@ -71,8 +71,11 @@ export function Navbar(props: Props) {
           <Stack direction="row" spacing={theme.margin.sm}>
             <Stack
               direction="row"
-              spacing={theme.margin.xxs}
               alignItems="center"
+              px={theme.margin.sm}
+              spacing={theme.margin.xxs}
+              borderRadius={theme.border.circle}
+              bgcolor={theme.palette.background.color}
             >
               <Custom.Switch
                 size="small"

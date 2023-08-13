@@ -36,7 +36,14 @@ export const Home = (props: Props) => {
   return (
     <Grid container>
       {/* Sidebar */}
-      <Grid item xs={12} md={3} bgcolor={theme.palette.background.color}>
+      <Grid
+        item
+        xs={12}
+        md={4}
+        lg={3}
+        xl={2}
+        bgcolor={theme.palette.background.color}
+      >
         <Weather.Now />
       </Grid>
 
@@ -44,7 +51,9 @@ export const Home = (props: Props) => {
       <Grid
         item
         xs={12}
-        md={9}
+        md={8}
+        lg={9}
+        xl={10}
         display="flex"
         bgcolor={theme.palette.background.accent}
       >
