@@ -2,7 +2,7 @@ import { useTheme } from "contexts";
 import { Box, Skeleton } from "@mui/material";
 
 export const PlaceholderItem = () => {
-  const { margin } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <Box
@@ -10,7 +10,7 @@ export const PlaceholderItem = () => {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: margin.sm,
+        marginBottom: theme.margin.sm,
       }}
     >
       <Skeleton animation="wave" variant="circular" width={40} height={40} />
@@ -18,14 +18,14 @@ export const PlaceholderItem = () => {
         sx={{
           flex: 1,
           display: "flex",
-          mx: margin.xs,
+          mx: theme.margin.xs,
           flexDirection: "column",
         }}
       >
         <Skeleton
           animation="wave"
           variant="rectangular"
-          sx={{ width: 1, marginBottom: margin.xs }}
+          sx={{ width: 1, marginBottom: theme.margin.xs }}
           height={15}
         />
         <Skeleton

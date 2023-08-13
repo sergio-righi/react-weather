@@ -2,6 +2,7 @@ import Cloud from "./Cloud.png";
 import Cloudy from "./Cloudy.png";
 import Dry from "./Dry.png";
 import Dust from "./Dust.png";
+import Fahrenheit from "./Fahrenheit.png";
 import Fog from "./Fog.png";
 import FreezingRain from "./Freezing Rain.png";
 import GlobalWarming from "./Global Warming.png";
@@ -36,6 +37,7 @@ import Stormy from "./Stormy.png";
 import Sun from "./Sun.png";
 import Sunrise from "./Sunrise.png";
 import Sunset from "./Sunset.png";
+import Theme from "./Theme.png";
 import Thermometer from "./Thermometer.png";
 import TorrentialRain from "./Torrential Rain.png";
 import Umbrella from "./Umbrella.png";
@@ -51,6 +53,7 @@ export {
   Cloudy,
   Dry,
   Dust,
+  Fahrenheit,
   Fog,
   FreezingRain,
   GlobalWarming,
@@ -85,6 +88,7 @@ export {
   Sun,
   Sunrise,
   Sunset,
+  Theme,
   Thermometer,
   TorrentialRain,
   Umbrella,

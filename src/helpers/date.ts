@@ -63,20 +63,33 @@ export const toTimeString = (value: number, seconds: boolean = true): string => 
 };
 
 /**
+ * convert a given date to object ({ day, month, year })
+ * @param {Date} date the date to be converted
+ * @returns {object} an object with day, month, and year properties
+ */
+
+export const toObject = (date: Date): { day: number, month: number, year: number } => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  return { day, month, year };
+}
+
+/**
  * function to convert date to ISO string
  * @param {Date} date the date to be converted
  * @param {string} time the time to be set
  * @returns {string} date as ISO string
  */
 
-export const toISOString = (date: Date, time?: string): string => {
+export const toISOString = (date: Date, time?: string | null): string => {
   if (!date) return "";
-  const dateISO = date.toISOString();
-  const dateString = dateISO.split("T")[0];
+  const dateObject = toObject(date);
+  const dateISO = dateObject.year + "-" + HNumber.pad(dateObject.month) + "-" + HNumber.pad(dateObject.day);
   const newTime = HValidation.hasValue(time)
     ? time
     : toTimeString(toSeconds(date));
-  return dateString + "T" + newTime + "Z";
+  return time === null ? dateISO : dateISO + "T" + newTime + "Z";
 };
 
 /**

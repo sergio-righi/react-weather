@@ -17,18 +17,18 @@ type Props = TypographyProps & {
 };
 
 export const Typography = (props: Props) => {
-  const { font, palette } = useTheme();
+  const { theme } = useTheme();
 
-  const h1 = { fontSize: font.xxl, fontWeight: font.bold };
-  const h2 = { fontSize: font.xl, fontWeight: font.bold };
-  const h3 = { fontSize: font.lg, fontWeight: font.bold };
-  const h4 = { fontSize: font.md, fontWeight: font.bold };
-  const h5 = { fontSize: font.sm, fontWeight: font.normal };
-  const h6 = { fontSize: font.xs, fontWeight: font.normal };
+  const h1 = { fontSize: theme.font.xxl, fontWeight: theme.font.bold };
+  const h2 = { fontSize: theme.font.xl, fontWeight: theme.font.bold };
+  const h3 = { fontSize: theme.font.lg, fontWeight: theme.font.bold };
+  const h4 = { fontSize: theme.font.md, fontWeight: theme.font.bold };
+  const h5 = { fontSize: theme.font.sm, fontWeight: theme.font.normal };
+  const h6 = { fontSize: theme.font.xs, fontWeight: theme.font.normal };
 
-  const p = { fontSize: font.sm, fontWeight: font.normal };
-  const span = { fontSize: font.xs, fontWeight: font.normal };
-  const small = { fontSize: font.xxs, fontWeight: font.normal };
+  const p = { fontSize: theme.font.sm, fontWeight: theme.font.normal };
+  const span = { fontSize: theme.font.xs, fontWeight: theme.font.normal };
+  const small = { fontSize: theme.font.xxs, fontWeight: theme.font.normal };
 
   const stylesheet =
     props.variant === "h1" || props.as === "large"
@@ -53,23 +53,23 @@ export const Typography = (props: Props) => {
 
   const weight =
     props.weight === "thin"
-      ? font.thin
+      ? theme.font.thin
       : props.weight === "extraLight"
-      ? font.extraLight
+      ? theme.font.extraLight
       : props.weight === "light"
-      ? font.light
+      ? theme.font.light
       : props.weight === "normal"
-      ? font.normal
+      ? theme.font.normal
       : props.weight === "medium"
-      ? font.medium
+      ? theme.font.medium
       : props.weight === "semiBold"
-      ? font.semiBold
+      ? theme.font.semiBold
       : props.weight === "bold"
-      ? font.bold
+      ? theme.font.bold
       : props.weight === "extraBold"
-      ? font.extraBold
+      ? theme.font.extraBold
       : props.weight === "black"
-      ? font.black
+      ? theme.font.black
       : undefined;
 
   return (
@@ -78,7 +78,7 @@ export const Typography = (props: Props) => {
       textAlign={props.align}
       fontSize={stylesheet?.fontSize}
       fontWeight={weight ?? stylesheet?.fontWeight}
-      color={props.color ?? palette.font.color}
+      color={props.color ?? theme.palette.font.color}
       {...props}
     >
       {props.children}

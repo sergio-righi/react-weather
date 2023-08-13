@@ -1,4 +1,5 @@
 export interface Margin {
+  xxs: number;
   xs: number;
   sm: number;
   md: number;

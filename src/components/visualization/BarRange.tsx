@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const BarRange = (props: Props) => {
-  const { border, color, palette } = useTheme();
+  const { theme } = useTheme();
   const containerHeight = 80,
     containerWidth = 25,
     elementHeight = 20,
@@ -27,18 +27,18 @@ export const BarRange = (props: Props) => {
 
   const bgcolor =
     percentage < 30
-      ? color.accent.color
+      ? theme.color.accent.color
       : percentage < 70
-      ? color.status.warning.color
-      : color.status.error.color;
+      ? theme.color.status.warning.color
+      : theme.color.status.error.color;
 
   return (
     <Box
       width={containerWidth}
       height={containerHeight}
-      borderRadius={border.radius}
-      borderColor={palette.border}
-      bgcolor={palette.background.color}
+      borderRadius={theme.border.radius}
+      borderColor={theme.palette.border}
+      bgcolor={theme.palette.background.color}
       className="wa-visualization-bar-range"
     >
       {/* <Box

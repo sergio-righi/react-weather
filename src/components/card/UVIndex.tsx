@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
-import { Common, Custom, Visualization } from "components";
+import { Common, Custom } from "components";
 import { ForecastApi } from "interfaces";
-import { useTheme } from "contexts";
+import { useApp, useTheme } from "contexts";
 import { Weather } from "utils";
 import { GlobalWarming } from "assets/images";
 
@@ -10,31 +10,24 @@ type Props = {
 };
 
 export const UVIndex = (props: Props) => {
-  const { color, font, margin, palette } = useTheme();
-
-  const uvDescription =
-    props.data && props.data.day
-      ? props.data.day.uv <= Weather.UV_INDEX.LOW
-        ? "Low"
-        : props.data.day.uv <= Weather.UV_INDEX.MODERATE
-        ? "Moderate"
-        : props.data.day.uv <= Weather.UV_INDEX.HIGH
-        ? "High"
-        : props.data.day.uv <= Weather.UV_INDEX.VERY_HIGH
-        ? "Very High"
-        : "Extreme"
-      : "";
+  const { t } = useApp();
+  const { theme } = useTheme();
 
   return (
-    <Custom.Card sx={{ width: 1, height: 1 }}>
-      <Stack spacing={margin.md}>
-        <Custom.Typography variant="h5" color={palette.font.accent}>
-          UV Index
+    <Custom.Card sx={{ width: 1 }}>
+      <Stack height={1} spacing={theme.margin.md}>
+        <Custom.Typography variant="h5" color={theme.palette.font.accent}>
+          {t.label.uv_index}
         </Custom.Typography>
         {props.data && props.data.day && (
-          <Stack spacing={margin.md}>
-            <Stack direction="column" spacing={margin.xs}>
+          <Stack height={1} spacing={theme.margin.md}>
+            <Stack
+              height={1}
+              justifyContent="space-evenly"
+              spacing={theme.margin.xs}
+            >
               <Stack
+                height={1}
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
@@ -44,16 +37,16 @@ export const UVIndex = (props: Props) => {
                 </Custom.Typography>
                 <Common.Image src={GlobalWarming} width={72} height={72} />
               </Stack>
-              <Stack direction="row" spacing={margin.xs}>
-                <Custom.Typography as="span" color={palette.font.accent}>
-                  Status
+              <Stack direction="row" spacing={theme.margin.xs}>
+                <Custom.Typography as="span" color={theme.palette.font.accent}>
+                  {t.label.status}
                 </Custom.Typography>
                 <Custom.Typography
                   as="span"
-                  fontWeight={font.bold}
-                  color={color.accent.color}
+                  fontWeight={theme.font.bold}
+                  color={theme.color.accent.color}
                 >
-                  {uvDescription}
+                  {Weather.getUVIndexDescription(props.data.day.uv, t)}
                 </Custom.Typography>
               </Stack>
             </Stack>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Card, Controller } from "components";
 import { ForecastApi, HourApi } from "interfaces";
 
@@ -7,13 +7,7 @@ type Props = {
 };
 
 export const Hourly = (props: Props) => {
-  const [currentHour, setCurrentHour] = useState<number>(10);
-
-  // useEffect(() => {
-  //   if (props.data && props.data.hour) {
-  //     setCurrentHour(new Date().getHours());
-  //   }
-  // }, [props.data]);
+  const [currentHour, setCurrentHour] = useState<number>(new Date().getHours());
 
   return (
     <Controller.HorizontalScroll centeredId={`elm-scroll-${currentHour}`}>

@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const HorizontalScroll = (props: Props) => {
-  const { margin, palette } = useTheme();
+  const { theme } = useTheme();
   const cardContainerRef = useRef<any>(null);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
@@ -83,7 +83,12 @@ export const HorizontalScroll = (props: Props) => {
   };
 
   return (
-    <Stack direction="row" alignItems="center" spacing={margin.md} width={1}>
+    <Stack
+      width={1}
+      direction="row"
+      alignItems="center"
+      spacing={theme.margin.md}
+    >
       {/* <IconButton
         sx={{ color: palette.font.color }}
         onClick={() => handleScroll(scrollPosition - step)}
@@ -93,8 +98,8 @@ export const HorizontalScroll = (props: Props) => {
       <Stack
         direction="row"
         alignItems="center"
-        spacing={margin.md}
         ref={cardContainerRef}
+        spacing={theme.margin.md}
         onMouseDown={handleDragStart}
         onTouchStart={handleDragStart}
         onScroll={(e: any) => handleScroll(e.target.scrollLeft)}

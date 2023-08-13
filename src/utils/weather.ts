@@ -89,3 +89,25 @@ export const UV_INDEX = {
 }
 
 export const WEATHER_DEFAULT_LOCATION = { key: 317748, value: 'Toronto, ON - Canada' }
+
+export const getUVIndexDescription = (value: number, t: any) => {
+  return value
+    ? value <= UV_INDEX.LOW
+      ? t.weather_scale.low
+      : value <= UV_INDEX.MODERATE
+        ? t.weather_scale.moderate
+        : value <= UV_INDEX.HIGH
+          ? t.weather_scale.high
+          : value <= UV_INDEX.VERY_HIGH
+            ? t.weather_scale.very_high
+            : t.weather_scale.extreme
+    : "";
+}
+
+export const getHumidityDescription = (value: number, t: any) => {
+  return value ? value <= 25 ? t.weather_humidity_level.low : value <= 60 ? t.weather_humidity_level.moderate : t.weather_humidity_level.high : "";
+}
+
+export const getVisibilityDescription = (value: number, t: any) => {
+  return value ? value <= 2 ? t.weather_visibility_scale.bad : value <= 5 ? t.weather_visibility_scale.good : value <= 10 ? t.weather_visibility_scale.very_good : t.weather_visibility_scale.great : "";
+}

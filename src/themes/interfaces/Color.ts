@@ -5,8 +5,6 @@ import {
 
 export interface Color {
   primary: ColorSchema;
-  secondary: ColorSchema;
-  disabled: ColorSchema;
   accent: ColorSchema;
   status: ColorStatus;
   black: string;

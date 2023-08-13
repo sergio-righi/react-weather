@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Common, Weather } from "components";
+import { Weather } from "components";
 import { Stack } from "@mui/material";
 import { Custom } from "components";
 import { CurrentApi } from "interfaces";
@@ -9,9 +9,9 @@ import { useApp, useService, useTheme } from "contexts";
 type Props = {};
 
 export const Now = (props: Props) => {
-  const { margin, palette } = useTheme();
+  const { theme } = useTheme();
   const { weather } = useService();
-  const { location, t } = useApp();
+  const { location } = useApp();
 
   const datenow = new Date();
   const [data, setData] = React.useState<CurrentApi>({} as CurrentApi);
@@ -29,7 +29,7 @@ export const Now = (props: Props) => {
     data.condition && (
       <Stack direction="column" height={1}>
         {/* First Section */}
-        <Stack direction="column" p={margin.md} spacing={margin.md}>
+        <Stack direction="column" p={theme.margin.md} spacing={theme.margin.md}>
           {/* Weather Searchbar */}
           <Weather.Search />
 
@@ -39,25 +39,31 @@ export const Now = (props: Props) => {
           {/* Weather Information */}
           <Stack
             direction="row"
-            spacing={margin.md}
             alignItems="center"
             justifyContent="center"
+            spacing={theme.margin.md}
           >
             {/* Thumbnail */}
-            <Common.WeatherIcon condition={data.condition} />
+            <Weather.Icon condition={data.condition} />
 
             {/* Temperature */}
-            <Stack spacing={margin.md}>
-              <Common.Temperature
+            <Stack spacing={theme.margin.md}>
+              <Weather.Temperature
                 size="lg"
                 tempC={data.temp_c}
                 tempF={data.temp_f}
               />
-              <Stack direction="row" spacing={margin.sm}>
-                <Custom.Typography variant="h5">
+              <Stack direction="row" spacing={theme.margin.sm}>
+                <Custom.Typography
+                  variant="h5"
+                  fontWeight={theme.font.semiBold}
+                >
                   {HDate.weekday(datenow)}
                 </Custom.Typography>
-                <Custom.Typography variant="h5" color={palette.font.accent}>
+                <Custom.Typography
+                  variant="h5"
+                  color={theme.palette.font.accent}
+                >
                   {HDate.toTimeAmPmString(HDate.toSeconds(datenow), false)}
                 </Custom.Typography>
               </Stack>

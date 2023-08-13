@@ -2,6 +2,7 @@ import { Stack } from "@mui/material";
 import { Common, Custom } from "components";
 import { ForecastApi } from "interfaces";
 import { useApp, useTheme } from "contexts";
+import { Weather } from "utils";
 import { Visibility as VisibilityImage } from "assets/images";
 
 type Props = {
@@ -10,28 +11,36 @@ type Props = {
 
 export const Visibility = (props: Props) => {
   const { isMetric, t } = useApp();
-  const { font, color, margin, palette } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <Custom.Card sx={{ width: 1 }}>
-      <Stack spacing={margin.md}>
-        <Custom.Typography variant="h5" color={palette.font.accent}>
-          Visibility
+      <Stack height={1} spacing={theme.margin.md}>
+        <Custom.Typography variant="h5" color={theme.palette.font.accent}>
+          {t.label.visibility}
         </Custom.Typography>
         {props.data && props.data.day && (
-          <Stack spacing={margin.md}>
+          <Stack height={1} spacing={theme.margin.md}>
             <Stack
+              height={1}
               direction="row"
               alignItems="center"
               justifyContent="space-between"
             >
-              <Stack direction="row" alignItems="center" spacing={margin.xs}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={theme.margin.xs}
+              >
                 <Custom.Typography variant="h1">
                   {isMetric
                     ? props.data.day.avgvis_km
                     : props.data.day.avgvis_miles}{" "}
                 </Custom.Typography>
-                <Custom.Typography variant="h3" color={palette.font.accent}>
+                <Custom.Typography
+                  variant="h3"
+                  color={theme.palette.font.accent}
+                >
                   {isMetric
                     ? t.label.distance.metric
                     : t.label.distance.imperial}
@@ -39,16 +48,16 @@ export const Visibility = (props: Props) => {
               </Stack>
               <Common.Image src={VisibilityImage} width={64} height={64} />
             </Stack>
-            <Stack direction="row" spacing={margin.xs}>
-              <Custom.Typography as="span" color={palette.font.accent}>
-                Status
+            <Stack direction="row" spacing={theme.margin.xs}>
+              <Custom.Typography as="span" color={theme.palette.font.accent}>
+                {t.label.status}
               </Custom.Typography>
               <Custom.Typography
                 as="span"
-                fontWeight={font.bold}
-                color={color.accent.color}
+                fontWeight={theme.font.bold}
+                color={theme.color.accent.color}
               >
-                Moderate
+                {Weather.getVisibilityDescription(props.data.day.avgvis_km, t)}
               </Custom.Typography>
             </Stack>
           </Stack>

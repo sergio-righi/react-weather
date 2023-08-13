@@ -1,5 +1,6 @@
 import { Custom } from "components";
-import { useApp, useTheme } from "contexts";
+import { useApp } from "contexts";
+import { HString } from "helpers";
 
 type Props = {
   tempC: number;
@@ -8,11 +9,12 @@ type Props = {
 
 export const FeelsLike = (props: Props) => {
   const { isMetric, t } = useApp();
-  const { font } = useTheme();
 
   return (
     <Custom.Typography>
-      Feels like {isMetric ? props.tempC : props.tempF}{" "}
+      {HString.interpolate(t.label.feels_like, {
+        temp: isMetric ? props.tempC : props.tempF,
+      })}{" "}
       {isMetric ? t.label.temperature.metric : t.label.temperature.imperial}
     </Custom.Typography>
   );

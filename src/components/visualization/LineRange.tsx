@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const LineRange = (props: Props) => {
-  const { color, font, palette } = useTheme();
+  const { theme } = useTheme();
 
   const indicators = Array.from(
     { length: props.max - props.min + 1 },
@@ -23,14 +23,14 @@ export const LineRange = (props: Props) => {
 
   const bgcolor =
     percentage <= 30
-      ? color.accent.color
+      ? theme.color.accent.color
       : percentage <= 70
-      ? color.status.warning.color
-      : color.status.error.color;
+      ? theme.color.status.warning.color
+      : theme.color.status.error.color;
 
   return (
     <Box className="wa-visualization-line-range">
-      <Box className="line" bgcolor={palette.input.accent}>
+      <Box className="line" bgcolor={theme.palette.input.accent}>
         {indicators.map((item: number) => {
           const isCurrent = item === props.value;
           const position = ((item - props.min) / range) * 100;
@@ -42,12 +42,12 @@ export const LineRange = (props: Props) => {
             >
               <Box
                 className="dot"
-                bgcolor={isCurrent ? bgcolor : palette.input.accent}
+                bgcolor={isCurrent ? bgcolor : theme.palette.input.accent}
               />
               <Custom.Typography
                 className="label"
-                fontSize={isCurrent ? font.md : font.xxs}
-                fontWeight={isCurrent ? "bold" : "normal"}
+                fontSize={isCurrent ? theme.font.md : theme.font.xxs}
+                fontWeight={isCurrent ? theme.font.bold : theme.font.normal}
               >
                 {item}
               </Custom.Typography>

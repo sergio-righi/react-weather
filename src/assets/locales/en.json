@@ -1,9 +1,14 @@
 {
   "label": {
+    "amount": "Amount",
+    "daylight": "Daylight",
     "distance": {
       "imperial": "miles",
       "metric": "km"
     },
+    "feels_like": "Feels like {{temp}}",
+    "gust": "Gusts",
+    "humidity": "Humidity",
     "length": {
       "imperial": "in",
       "metric": "cm"
@@ -16,30 +21,36 @@
       "imperial": "Imperial",
       "metric": "Metric"
     },
+    "precipitation": "Precipitation",
     "speed": {
       "imperial": "mph",
       "metric": "kmh"
     },
+    "status": "Status",
+    "sunrise_sunset": "Sunrise & Sunset",
     "temp": "Temperature",
     "temperature": {
       "imperial": "°F",
       "metric": "°C"
     },
-    "timeline": "Timeline"
+    "timeline": "Timeline",
+    "uv_index": "UV Index",
+    "visibility": "Visibility",
+    "wind": "Wind"
   },
   "message": {
     "feedback": {
       "updated_at": "Updated as of {{time}}"
     },
-    "greeting": {
-      "hello": "Hello",
-      "good_morning": "Good morning",
-      "good_afternoon": "Good afternoon",
-      "good_evening": "Good evening"
-    },
     "placeholder": {
       "no_option": "No option to display"
+    },
+    "weather": {
+      "not_raining_snowing": "not raining or snowing"
     }
+  },
+  "placeholder": {
+    "search_location": "Search for a location"
   },
   "relative_date": {
     "today": "Today",
@@ -47,7 +58,8 @@
     "yesterday": "Yesterday"
   },
   "title": {
-    "hourly": "Hourly"
+    "hourly": "Hourly",
+    "today_highlight": "Today Highlight"
   },
   "weather_condition": {
     "1000": "Sunny",
@@ -98,5 +110,23 @@
     "1276": "Moderate or heavy rain with thunder",
     "1279": "Patchy light snow with thunder",
     "1282": "Moderate or heavy snow with thunder"
+  },
+  "weather_scale": {
+    "extreme": "Extreme",
+    "high": "High",
+    "low": "Low",
+    "moderate": "Moderate",
+    "very_high": "Very High"
+  },
+  "weather_visibility_scale": {
+    "bad": "Bad",
+    "good": "Good",
+    "very_good": "Very Good",
+    "great": "Great"
+  },
+  "weather_humidity_level": {
+    "low": "Unconfortably Dry",
+    "moderate": "Confortable",
+    "high": "Unconfortably Humid"
   }
 }

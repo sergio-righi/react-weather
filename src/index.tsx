@@ -9,8 +9,6 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-document.documentElement.setAttribute("theme", "light");
-
 root.render(
   // <React.StrictMode>
   <AppProvider initLocale={"EN"}>

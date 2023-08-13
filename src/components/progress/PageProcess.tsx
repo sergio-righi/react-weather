@@ -7,7 +7,7 @@ export type Props = {
 };
 
 export const PageProcess = (props: Props) => {
-  const { color } = useTheme();
+  const { theme } = useTheme();
   return (
     <Box
       sx={{
@@ -17,7 +17,7 @@ export const PageProcess = (props: Props) => {
         transform: "translate(-50%, -50%)",
       }}
     >
-      <CircularProgress sx={{ color: color.accent.color }} />
+      <CircularProgress sx={{ color: theme.color.accent.color }} />
     </Box>
   );
 };

@@ -10,7 +10,7 @@ type Props = {
 
 export const NoRecord = (props: Props) => {
   const { t } = useApp();
-  const { palette } = useTheme();
+  const { theme } = useTheme();
 
   function render(): React.ReactElement {
     return (
@@ -22,7 +22,7 @@ export const NoRecord = (props: Props) => {
           textAlign: "center",
           position: "absolute",
           transform: "translate(-50%, -50%)",
-          color: palette.font.color,
+          color: theme.palette.font.color,
         }}
       >
         <Custom.Typography>

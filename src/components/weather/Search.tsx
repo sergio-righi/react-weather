@@ -9,7 +9,7 @@ type Props = {};
 
 export const Search = (props: Props) => {
   const { weather } = useService();
-  const { location, setLocations, t } = useApp();
+  const { setLocations, t } = useApp();
   const [results, setResults] = useState<Array<SearchApi>>([]);
 
   async function handleChange(
@@ -32,11 +32,11 @@ export const Search = (props: Props) => {
     <Custom.Autocomplete
       onChange={handleChange}
       onInputChange={handleInputChange}
-      placeholder="Search for a location"
+      placeholder={t.placeholder.search_location}
       items={results.map(
-        (item: SearchApi) =>
+        (item: SearchApi, i: number) =>
           ({
-            key: item.id,
+            key: i,
             value: `${item.name}, ${item.region} - ${item.country}`,
           } as PairValue)
       )}

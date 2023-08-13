@@ -8,12 +8,11 @@ const theme: Theme = {
   font: BaseFont,
   color: BaseColor,
   palette: {
-    theme: "#FFFFFF",
-    border: "#DDDDDD",
-    shadow: "0 3px 10px 0 #D0D0D0",
-    input: { color: "#F5F5F5", accent: "#DBDBDB" } as ColorSchema,
-    font: { color: "#383838", accent: "#606060" } as ColorFont,
-    background: { color: "#EFEFEF", accent: "#597E98", textAccent: "#FFFFFF" } as ColorSchema
+    theme: "#242424",
+    border: "#404040",
+    input: { color: "#f5f5f5", accent: "#dbdbdb" } as ColorSchema,
+    font: { color: "#ffffff", accent: "#a9acb3" } as ColorFont,
+    background: { color: "#242424", accent: "#202020" } as ColorSchema
   } as Palette,
   border: BaseBorder,
   margin: BaseMargin,

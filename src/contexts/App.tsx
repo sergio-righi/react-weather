@@ -27,7 +27,7 @@ const initState = {
   translations: Constants.LOCALE_STRINGS[Constants.REGIONS.EN],
   locales: Object.keys(Constants.REGIONS),
   viewSelection: Enums.EnumViewSelection.Day,
-  currentDate: HDate.toISOString(new Date()),
+  currentDate: HDate.toISOString(new Date(), null),
   measurement: Enums.EnumMeasurementSystem.Metric,
 };
 

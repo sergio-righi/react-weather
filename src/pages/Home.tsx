@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useApp, useService, useTheme } from "contexts";
-import { Card, Common, Custom, Weather } from "components";
+import { Card, Custom, Weather } from "components";
 import { ForecastApi, WeatherApi } from "interfaces";
 import { Grid, Stack } from "@mui/material";
 import { HDate } from "helpers";
@@ -8,8 +8,8 @@ import { HDate } from "helpers";
 type Props = {};
 
 export const Home = (props: Props) => {
+  const { theme } = useTheme();
   const { weather } = useService();
-  const { font, margin, palette } = useTheme();
   const { currentDate, isDay, location, t } = useApp();
   const [week, setWeek] = useState<WeatherApi>({} as WeatherApi);
   const [today, setToday] = useState<ForecastApi>({} as ForecastApi);
@@ -34,45 +34,93 @@ export const Home = (props: Props) => {
   }
 
   return (
-    <Grid container height={1}>
+    <Grid container>
       {/* Sidebar */}
-      <Grid item md={3} xs={12} height={1} bgcolor={palette.background.color}>
+      <Grid item xs={12} md={3} bgcolor={theme.palette.background.color}>
         <Weather.Now />
       </Grid>
 
       {/* Main Content */}
-      <Grid item xs={12} md={9} height={1} bgcolor={palette.background.accent}>
-        <Stack p={margin.md} spacing={margin.md}>
-          <Stack spacing={margin.md}>
-            {/* control navbar */}
-            <Common.Navbar />
-            {/* daily weather */}
-            {isDay && <Weather.Week data={week} />}
-            {/* weather hour by hour */}
-            {!isDay && <Weather.Hourly data={today} />}
-          </Stack>
-          <Stack px={margin.sm}>
-            <Custom.Typography fontSize={font.sm} color={palette.font.accent}>
-              Today Highlight
-            </Custom.Typography>
-          </Stack>
-          <Stack direction="row" spacing={margin.md} height={1}>
-            {/* precipitation (rain and snow) */}
-            <Card.Precipitation data={today} />
-            {/* wind direction, speed, gust */}
-            <Card.Wind data={today} />
-            {/* sunset and sunrise */}
-            <Card.Sunlight data={today} />
-          </Stack>
-          <Stack direction="row" spacing={margin.md} height={1}>
-            {/* uv index level */}
-            <Card.UVIndex data={today} />
-            {/* humidity level */}
-            <Card.Humidity data={today} />
-            {/* air quality level */}
-            <Card.Visibility data={today} />
-          </Stack>
-        </Stack>
+      <Grid
+        item
+        xs={12}
+        md={9}
+        display="flex"
+        bgcolor={theme.palette.background.accent}
+      >
+        <Grid container p={theme.margin.md} spacing={theme.margin.sm}>
+          {/* first row */}
+          <Grid item width={1} height={0.33} flexGrow={1}>
+            <Grid container spacing={theme.margin.sm}>
+              {/* first row */}
+              <Grid item xs={12}>
+                {/* control navbar */}
+                <Weather.Navbar />
+              </Grid>
+
+              {/* second row */}
+              <Grid item xs={12} flexGrow={1}>
+                {/* daily weather */}
+                {isDay && <Weather.Week data={week} />}
+                {/* weather hour by hour */}
+                {!isDay && <Weather.Hourly data={today} />}
+              </Grid>
+            </Grid>
+          </Grid>
+
+          {/* second row */}
+          <Grid item height={0.66} flexGrow={1}>
+            <Grid container spacing={theme.margin.sm} height={1}>
+              {/* first row */}
+              <Grid item xs={12} height={0.07} flexGrow={1}>
+                <Stack direction="row" px={theme.margin.md}>
+                  <Custom.Typography
+                    fontSize={theme.font.sm}
+                    color={theme.palette.font.accent}
+                  >
+                    {t.title.today_highlight}
+                  </Custom.Typography>
+                </Stack>
+              </Grid>
+
+              {/* second row */}
+              <Grid item xs={12} height={0.465} flexGrow={1}>
+                <Grid container spacing={theme.margin.sm} height={1}>
+                  <Grid item xs={12} md={4}>
+                    {/* precipitation (rain and snow) */}
+                    <Card.Precipitation data={today} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    {/* wind direction, speed, gust */}
+                    <Card.Wind data={today} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    {/* sunset and sunrise */}
+                    <Card.Sunlight data={today} />
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              {/* third row */}
+              <Grid item xs={12} height={0.465} flexGrow={1}>
+                <Grid container spacing={theme.margin.sm} height={1}>
+                  <Grid item xs={12} md={4}>
+                    {/* uv index level */}
+                    <Card.UVIndex data={today} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    {/* humidity level */}
+                    <Card.Humidity data={today} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    {/* air quality level */}
+                    <Card.Visibility data={today} />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

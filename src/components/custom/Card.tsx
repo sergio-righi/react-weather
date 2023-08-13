@@ -1,27 +1,20 @@
-import React from "react";
-import {
-  Card as MUICard,
-  CardContent,
-  CardProps,
-  CardContentProps,
-} from "@mui/material";
+import { Card as MUICard, CardContent, CardProps } from "@mui/material";
 import { useTheme } from "contexts";
-import { Light } from "themes";
 
 type Props = CardProps & {};
 
 export const Card = (props: Props) => {
-  const { id, border, palette } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <MUICard
       {...props}
       sx={{
+        height: 1,
+        color: theme.palette.font.color,
+        borderRadius: theme.border.radius,
+        backgroundColor: theme.palette.theme,
         ...props.sx,
-        color: palette.font.color,
-        borderRadius: border.radius,
-        // backgroundColor: palette.background.accent,
-        // boxShadow: id === Light.id ? "0 3px 10px 0 " + palette.shadow : "unset",
       }}
       elevation={0}
     >

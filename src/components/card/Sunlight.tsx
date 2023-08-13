@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import { Common, Custom } from "components";
 import { ForecastApi } from "interfaces";
-import { useTheme } from "contexts";
+import { useApp, useTheme } from "contexts";
 import { Sunset, Sunrise } from "assets/images";
 
 type Props = {
@@ -9,7 +9,8 @@ type Props = {
 };
 
 export const Sunlight = (props: Props) => {
-  const { color, font, margin, palette } = useTheme();
+  const { t } = useApp();
+  const { theme } = useTheme();
 
   function parseTime(timeStr: string): Date {
     const [time, ampm] = timeStr.split(" ");
@@ -43,13 +44,17 @@ export const Sunlight = (props: Props) => {
 
   return (
     <Custom.Card sx={{ width: 1 }}>
-      <Stack spacing={margin.md}>
-        <Custom.Typography variant="h5" color={palette.font.accent}>
-          Sunrise & Sunset
+      <Stack height={1} spacing={theme.margin.md}>
+        <Custom.Typography variant="h5" color={theme.palette.font.accent}>
+          {t.label.sunrise_sunset}
         </Custom.Typography>
         {props.data && props.data.astro && (
-          <Stack spacing={margin.md}>
-            <Stack direction="column" spacing={margin.md}>
+          <Stack height={1} spacing={theme.margin.md}>
+            <Stack
+              height={1}
+              justifyContent="space-evenly"
+              spacing={theme.margin.md}
+            >
               <Stack
                 direction="row"
                 alignItems="center"
@@ -71,14 +76,14 @@ export const Sunlight = (props: Props) => {
                 <Common.Image src={Sunset} width={48} height={48} />
               </Stack>
             </Stack>
-            <Stack direction="row" spacing={margin.xs}>
-              <Custom.Typography as="span" color={palette.font.accent}>
-                Daylight
+            <Stack direction="row" spacing={theme.margin.xs}>
+              <Custom.Typography as="span" color={theme.palette.font.accent}>
+                {t.label.daylight}
               </Custom.Typography>
               <Custom.Typography
                 as="span"
-                fontWeight={font.bold}
-                color={color.accent.color}
+                fontWeight={theme.font.bold}
+                color={theme.color.accent.color}
               >
                 {calculateTimeDifference(
                   props.data.astro.sunrise,

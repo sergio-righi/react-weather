@@ -13,10 +13,6 @@ export const defaultTheme = (theme: Theme) => createTheme({
       main: theme.color.accent.color,
       contrastText: theme.color.accent.text
     },
-    secondary: {
-      main: theme.color.secondary.color,
-      contrastText: theme.color.secondary.text
-    },
     error: {
       main: theme.color.status.error.color,
       contrastText: theme.color.status.error.text
@@ -32,7 +28,6 @@ export const defaultTheme = (theme: Theme) => createTheme({
     text: {
       primary: theme.palette.font.color,
       secondary: theme.palette.font.accent,
-      disabled: theme.color.disabled.color
     },
     divider: theme.palette.border,
     background: {

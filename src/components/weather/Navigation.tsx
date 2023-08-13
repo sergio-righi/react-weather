@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconButton, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { PairValue } from "types";
 import { Custom } from "components";
 import { useApp } from "contexts";
@@ -53,23 +53,23 @@ export const Navigation = (props: Props) => {
       <Stack direction="row">
         {locationCount > 1 && (
           <>
-            <IconButton onClick={handlePrevClick}>
+            <Custom.IconButton onClick={handlePrevClick}>
               <ArrowBackRounded />
-            </IconButton>
-            <IconButton onClick={handleNextClick}>
+            </Custom.IconButton>
+            <Custom.IconButton onClick={handleNextClick}>
               <ArrowForwardRounded />
-            </IconButton>
+            </Custom.IconButton>
           </>
         )}
         {!hasDeleteButton && (
-          <IconButton onClick={handleAddClick}>
+          <Custom.IconButton onClick={handleAddClick}>
             <AddRounded />
-          </IconButton>
+          </Custom.IconButton>
         )}
         {hasDeleteButton && (
-          <IconButton onClick={handleDeleteClick}>
+          <Custom.IconButton onClick={handleDeleteClick}>
             <DeleteOutlineRounded />
-          </IconButton>
+          </Custom.IconButton>
         )}
       </Stack>
     </Stack>

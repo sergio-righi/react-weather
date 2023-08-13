@@ -1,6 +1,6 @@
-import { Common, Custom } from "components";
+import { Common, Custom, Weather } from "components";
 import {
-  IconButton,
+  Divider,
   List,
   ListItem,
   ListItemIcon,
@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { CurrentApi } from "interfaces";
 import { HDate, HString } from "helpers";
-import { useApp } from "contexts";
+import { useApp, useTheme } from "contexts";
 import {
   GlobalWarming,
   Night,
@@ -22,7 +22,7 @@ import {
 
 // icons
 import { RefreshRounded } from "@mui/icons-material";
-import { Weather } from "utils";
+import { Weather as WeatherUtil } from "utils";
 
 type Props = {
   data: CurrentApi;
@@ -31,19 +31,6 @@ type Props = {
 
 export const ListInfo = (props: Props) => {
   const { isMetric, t } = useApp();
-
-  const uvDescription =
-    props.data && props.data.uv
-      ? props.data.uv <= Weather.UV_INDEX.LOW
-        ? "Low"
-        : props.data.uv <= Weather.UV_INDEX.MODERATE
-        ? "Moderate"
-        : props.data.uv <= Weather.UV_INDEX.HIGH
-        ? "High"
-        : props.data.uv <= Weather.UV_INDEX.VERY_HIGH
-        ? "Very High"
-        : "Extreme"
-      : "";
 
   return (
     <List sx={{ height: 1, display: "flex", flexDirection: "column" }}>
@@ -56,17 +43,22 @@ export const ListInfo = (props: Props) => {
             height={32}
           />
         </ListItemIcon>
-        <ListItemText primary={props.data.condition.text} />
+        <ListItemText
+          primary={
+            <Custom.Typography>{props.data.condition.text}</Custom.Typography>
+          }
+        />
       </ListItem>
 
       {/* feels like */}
+      <Divider />
       <ListItem>
         <ListItemIcon>
           <Common.Image src={Thermometer} width={32} height={32} />
         </ListItemIcon>
         <ListItemText
           primary={
-            <Common.FeelsLike
+            <Weather.FeelsLike
               tempC={props.data.feelslike_c}
               tempF={props.data.feelslike_f}
             />
@@ -75,6 +67,7 @@ export const ListInfo = (props: Props) => {
       </ListItem>
 
       {/* precipitation */}
+      <Divider />
       <ListItem>
         <ListItemIcon>
           <Common.Image src={Hygrometer} width={32} height={32} />
@@ -90,6 +83,7 @@ export const ListInfo = (props: Props) => {
       </ListItem>
 
       {/* wind */}
+      <Divider />
       <ListItem>
         <ListItemIcon>
           <Common.Image src={Wind} width={32} height={32} />
@@ -105,6 +99,7 @@ export const ListInfo = (props: Props) => {
       </ListItem>
 
       {/* visibility */}
+      <Divider />
       <ListItem>
         <ListItemIcon>
           <Common.Image src={Visibility} width={32} height={32} />
@@ -120,6 +115,7 @@ export const ListInfo = (props: Props) => {
       </ListItem>
 
       {/* humidity */}
+      <Divider />
       <ListItem>
         <ListItemIcon>
           <Common.Image src={Humid} width={32} height={32} />
@@ -132,6 +128,7 @@ export const ListInfo = (props: Props) => {
       </ListItem>
 
       {/* uv index */}
+      <Divider />
       <ListItem>
         <ListItemIcon>
           <Common.Image src={GlobalWarming} width={32} height={32} />
@@ -139,7 +136,8 @@ export const ListInfo = (props: Props) => {
         <ListItemText
           primary={
             <Custom.Typography>
-              {props.data.uv} ({uvDescription})
+              {props.data.uv} (
+              {WeatherUtil.getUVIndexDescription(props.data.uv, t)})
             </Custom.Typography>
           }
         />
@@ -147,9 +145,9 @@ export const ListInfo = (props: Props) => {
 
       <ListItem sx={{ mt: "auto" }}>
         <ListItemIcon>
-          <IconButton onClick={props.onRefresh}>
+          <Custom.IconButton onClick={props.onRefresh}>
             <RefreshRounded />
-          </IconButton>
+          </Custom.IconButton>
         </ListItemIcon>
         <ListItemText
           primary={

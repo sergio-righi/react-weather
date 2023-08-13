@@ -1,6 +1,7 @@
 import { Margin } from "themes/interfaces";
 
 export default {
+  xxs: 0.5,
   xs: 1,
   sm: 1.5,
   md: 2,

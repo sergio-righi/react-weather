@@ -1,5 +1,8 @@
+export { FeelsLike } from "./FeelsLike";
 export { Hourly } from "./Hourly";
+export { Icon } from "./Icon";
 export { ListInfo } from "./ListInfo";
+export { Navbar } from "./Navbar";
 export { Navigation } from "./Navigation";
 export { Now } from "./Now";
 export { Search } from "./Search";

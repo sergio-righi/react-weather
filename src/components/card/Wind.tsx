@@ -11,7 +11,7 @@ type Props = {
 
 export const Wind = (props: Props) => {
   const { isMetric, t } = useApp();
-  const { color, font, margin, palette } = useTheme();
+  const { theme } = useTheme();
   const [currentHour, setCurrentHour] = useState<HourApi>();
 
   useEffect(() => {
@@ -28,18 +28,20 @@ export const Wind = (props: Props) => {
 
   return (
     <Custom.Card sx={{ width: 1 }}>
-      <Stack spacing={margin.md}>
+      <Stack height={1} spacing={theme.margin.md}>
         <Stack direction="row" justifyContent="space-between">
-          <Custom.Typography variant="h5" color={palette.font.accent}>
-            Wind
-          </Custom.Typography>
-          <Custom.Typography variant="h6" color={palette.font.accent}>
-            (by hour)
+          <Custom.Typography variant="h5" color={theme.palette.font.accent}>
+            {t.label.wind}
           </Custom.Typography>
         </Stack>
         {currentHour && (
-          <Stack spacing={margin.md}>
-            <Stack direction="column" spacing={margin.md}>
+          <Stack height={1} spacing={theme.margin.md}>
+            <Stack
+              height={1}
+              direction="column"
+              spacing={theme.margin.md}
+              justifyContent="space-evenly"
+            >
               <Stack
                 direction="row"
                 alignItems="center"
@@ -56,25 +58,32 @@ export const Wind = (props: Props) => {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Stack direction="row" alignItems="center" spacing={margin.md}>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={theme.margin.md}
+                >
                   <Custom.Typography variant="h3">
                     {isMetric ? currentHour.wind_kph : currentHour.wind_mph}{" "}
                   </Custom.Typography>
-                  <Custom.Typography variant="h4" color={palette.font.accent}>
+                  <Custom.Typography
+                    variant="h4"
+                    color={theme.palette.font.accent}
+                  >
                     {isMetric ? t.label.speed.metric : t.label.speed.imperial}
                   </Custom.Typography>
                 </Stack>
                 <Common.Image src={WindGauge} width={48} height={48} />
               </Stack>
             </Stack>
-            <Stack direction="row" spacing={margin.xs}>
-              <Custom.Typography as="span" color={palette.font.accent}>
-                Gusts
+            <Stack direction="row" spacing={theme.margin.xs}>
+              <Custom.Typography as="span" color={theme.palette.font.accent}>
+                {t.label.gust}
               </Custom.Typography>
               <Custom.Typography
                 as="span"
-                fontWeight={font.bold}
-                color={color.accent.color}
+                fontWeight={theme.font.bold}
+                color={theme.color.accent.color}
               >
                 {isMetric ? currentHour.gust_kph : currentHour.gust_mph}{" "}
                 {isMetric ? t.label.speed.metric : t.label.speed.imperial}

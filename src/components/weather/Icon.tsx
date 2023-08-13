@@ -6,7 +6,7 @@ type Props = {
   condition: ConditionApi;
 };
 
-export const WeatherIcon = (props: Props) => {
+export const Icon = (props: Props) => {
   return props.condition && props.condition.code ? (
     <Box
       maxWidth={100}

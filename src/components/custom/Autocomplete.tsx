@@ -1,5 +1,4 @@
 import { PairValue } from "types";
-import { Custom } from "components";
 import { useApp, useTheme } from "contexts";
 import { Autocomplete as MUIAutocomplete, TextField } from "@mui/material";
 
@@ -24,7 +23,7 @@ export type Props = {
 
 export const Autocomplete = (props: Props) => {
   const { t } = useApp();
-  const { palette } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <MUIAutocomplete
@@ -40,21 +39,22 @@ export const Autocomplete = (props: Props) => {
         event: React.SyntheticEvent<Element, Event>,
         value: string
       ) => props.onInputChange && props.onInputChange(event, value)}
-      // defaultValue={props.value}
-      // renderTags={(value, getTagProps) =>
-      //   value.map((option: PairValue, index: number) => (
-      //     <Custom.Chip
-      //       label={option.value}
-      //       sx={{
-      //         backgroundColor: palette.background.accent,
-      //       }}
-      //       {...getTagProps({ index })}
-      //     />
-      //   ))
-      // }
       renderInput={(params) => (
         <TextField
           {...params}
+          sx={{
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: theme.palette.border,
+            },
+            "& .MuiButtonBase-root": {
+              color: theme.palette.font.accent,
+            },
+            "&:hover": {
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: theme.color.accent.color,
+              },
+            },
+          }}
           variant="outlined"
           name={props.name}
           label={props.label}
