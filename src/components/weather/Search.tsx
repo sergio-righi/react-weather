@@ -34,9 +34,9 @@ export const Search = (props: Props) => {
       onInputChange={handleInputChange}
       placeholder={t.placeholder.search_location}
       items={results.map(
-        (item: SearchApi, i: number) =>
+        (item: SearchApi) =>
           ({
-            key: i,
+            key: item.id,
             value: `${item.name}, ${item.region} - ${item.country}`,
           } as PairValue)
       )}

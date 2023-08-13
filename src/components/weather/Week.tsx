@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import { Card } from "components";
 import { useApp, useTheme } from "contexts";
 import { ForecastApi, WeatherApi } from "interfaces";
+import { useEffect } from "react";
 
 type Props = {
   data: WeatherApi;
@@ -9,7 +10,16 @@ type Props = {
 
 export const Week = (props: Props) => {
   const { theme } = useTheme();
-  const { currentDate } = useApp();
+  const { currentDate, setCurrentDate } = useApp();
+
+  useEffect(() => {
+    if (props.data && props.data.forecast) {
+      const { date } = props.data.forecast.forecastday[0];
+      if (date && currentDate !== date) {
+        setCurrentDate(date);
+      }
+    }
+  }, [props.data]);
 
   return (
     <Grid container alignItems="center" spacing={theme.margin.md}>

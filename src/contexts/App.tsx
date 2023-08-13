@@ -74,24 +74,32 @@ export const AppProvider = React.memo<Props>(
 
     const setLocationsCallback = React.useCallback(
       (newLocation: PairValue | number) => {
-        let newLocations = locations;
-        // if a number is provided, it should remove
-        if (typeof newLocation === "number") {
-          newLocations = newLocations.filter(
-            (item: PairValue) => item.key !== newLocation
-          );
-        } else {
-          // if a pair value is provided, it should add (If it does not exist)
-          const index = newLocations.findIndex(
-            (item: PairValue) => item.key === newLocation.key
-          );
-          if (index === -1) {
-            newLocations.push(newLocation);
+        setLocations((currentLocations: PairValue[]) => {
+          let newLocations = [...currentLocations];
+          // if a number is provided, it should remove
+          if (typeof newLocation === "number") {
+            newLocations = newLocations.filter(
+              (item: PairValue) => item.key !== newLocation
+            );
+            // after deleting the location, replace the current with the first one
+            if (newLocations.length > 0) {
+              setLocation(newLocations[0]);
+            } else {
+              setLocation(initState.location);
+            }
+          } else {
+            // if a pair value is provided, it should add (If it does not exist)
+            const index = newLocations.findIndex(
+              (item: PairValue) => item.key === newLocation.key
+            );
+            if (index === -1) {
+              newLocations.push(newLocation);
+            }
+            setLocation(newLocation);
           }
-          setLocation(newLocation);
-        }
-        setLocations(newLocations);
-        Store.sessionStorage.set(newLocations);
+          Store.sessionStorage.set(newLocations);
+          return newLocations;
+        });
       },
       []
     );
