@@ -50,7 +50,12 @@ export const Wind = (props: Props) => {
                 <Custom.Typography variant="h3">
                   {currentHour.wind_dir}
                 </Custom.Typography>
-                <Common.Image src={Windsock} width={48} height={48} />
+                <Common.Image
+                  width={48}
+                  height={48}
+                  src={Windsock}
+                  alt={t.label.wind_dir}
+                />
               </Stack>
 
               <Stack
@@ -73,7 +78,12 @@ export const Wind = (props: Props) => {
                     {isMetric ? t.label.speed.metric : t.label.speed.imperial}
                   </Custom.Typography>
                 </Stack>
-                <Common.Image src={WindGauge} width={48} height={48} />
+                <Common.Image
+                  width={48}
+                  height={48}
+                  src={WindGauge}
+                  alt={t.label.wind_speed}
+                />
               </Stack>
             </Stack>
             <Stack direction="row" spacing={theme.margin.xs}>

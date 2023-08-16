@@ -1,6 +1,7 @@
 {
   "label": {
     "amount": "Amount",
+    "day": "Day",
     "daylight": "Daylight",
     "distance": {
       "imperial": "miles",
@@ -21,12 +22,17 @@
       "imperial": "Imperial",
       "metric": "Metric"
     },
+    "night": "Night",
     "precipitation": "Precipitation",
+    "rain": "Rain",
+    "snow": "Snow",
     "speed": {
       "imperial": "mph",
       "metric": "kmh"
     },
     "status": "Status",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
     "sunrise_sunset": "Sunrise & Sunset",
     "temp": "Temperature",
     "temperature": {
@@ -34,9 +40,12 @@
       "metric": "°C"
     },
     "timeline": "Timeline",
+    "theme": "Theme",
     "uv_index": "UV Index",
     "visibility": "Visibility",
-    "wind": "Wind"
+    "wind": "Wind",
+    "wind_dir": "Wind Direction",
+    "wind_speed": "Wind Speed"
   },
   "message": {
     "feedback": {

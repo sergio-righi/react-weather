@@ -38,9 +38,10 @@ export const ListInfo = (props: Props) => {
       <ListItem>
         <ListItemIcon>
           <Common.Image
-            src={props.data.is_day ? Sun : Night}
             width={32}
             height={32}
+            src={props.data.is_day ? Sun : Night}
+            alt={props.data.is_day ? t.label.day : t.label.night}
           />
         </ListItemIcon>
         <ListItemText
@@ -54,7 +55,12 @@ export const ListInfo = (props: Props) => {
       <Divider />
       <ListItem>
         <ListItemIcon>
-          <Common.Image src={Thermometer} width={32} height={32} />
+          <Common.Image
+            width={32}
+            height={32}
+            src={Thermometer}
+            alt={t.label.temp}
+          />
         </ListItemIcon>
         <ListItemText
           primary={
@@ -70,7 +76,12 @@ export const ListInfo = (props: Props) => {
       <Divider />
       <ListItem>
         <ListItemIcon>
-          <Common.Image src={Hygrometer} width={32} height={32} />
+          <Common.Image
+            width={32}
+            height={32}
+            src={Hygrometer}
+            alt={t.label.precipitation}
+          />
         </ListItemIcon>
         <ListItemText
           primary={
@@ -86,7 +97,7 @@ export const ListInfo = (props: Props) => {
       <Divider />
       <ListItem>
         <ListItemIcon>
-          <Common.Image src={Wind} width={32} height={32} />
+          <Common.Image src={Wind} width={32} height={32} alt={t.label.wind} />
         </ListItemIcon>
         <ListItemText
           primary={
@@ -102,7 +113,12 @@ export const ListInfo = (props: Props) => {
       <Divider />
       <ListItem>
         <ListItemIcon>
-          <Common.Image src={Visibility} width={32} height={32} />
+          <Common.Image
+            width={32}
+            height={32}
+            src={Visibility}
+            alt={t.label.visibility}
+          />
         </ListItemIcon>
         <ListItemText
           primary={
@@ -118,7 +134,12 @@ export const ListInfo = (props: Props) => {
       <Divider />
       <ListItem>
         <ListItemIcon>
-          <Common.Image src={Humid} width={32} height={32} />
+          <Common.Image
+            src={Humid}
+            width={32}
+            height={32}
+            alt={t.label.humidity}
+          />
         </ListItemIcon>
         <ListItemText
           primary={
@@ -131,7 +152,12 @@ export const ListInfo = (props: Props) => {
       <Divider />
       <ListItem>
         <ListItemIcon>
-          <Common.Image src={GlobalWarming} width={32} height={32} />
+          <Common.Image
+            width={32}
+            height={32}
+            src={GlobalWarming}
+            alt={t.label.uv_index}
+          />
         </ListItemIcon>
         <ListItemText
           primary={

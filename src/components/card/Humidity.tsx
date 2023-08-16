@@ -42,7 +42,12 @@ export const Humidity = (props: Props) => {
                   %
                 </Custom.Typography>
               </Stack>
-              <Common.Image src={Humid} width={64} height={64} />
+              <Common.Image
+                src={Humid}
+                width={64}
+                height={64}
+                alt={t.label.humidity}
+              />
             </Stack>
 
             <Stack direction="row" spacing={theme.margin.xs}>

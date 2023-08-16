@@ -11,6 +11,7 @@ export const Icon = (props: Props) => {
     <Box
       maxWidth={100}
       component="img"
+      alt={props.condition.text}
       src={Weather.WEATHER_ICONS[props.condition.code]}
     />
   ) : (

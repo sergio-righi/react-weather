@@ -51,7 +51,7 @@ export const Temperature = (props: Props) => {
         };
 
   return (
-    <Stack direction="row" alignItems="flex-end">
+    <Stack direction="row" alignItems="center">
       <Custom.Typography sx={{ lineHeight: 1, ...stylesheet.header }}>
         {Math.round(isMetric ? props.tempC : props.tempF)}
       </Custom.Typography>

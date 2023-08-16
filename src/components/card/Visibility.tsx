@@ -46,7 +46,12 @@ export const Visibility = (props: Props) => {
                     : t.label.distance.imperial}
                 </Custom.Typography>
               </Stack>
-              <Common.Image src={VisibilityImage} width={64} height={64} />
+              <Common.Image
+                width={64}
+                height={64}
+                src={VisibilityImage}
+                alt={t.label.visibility}
+              />
             </Stack>
             <Stack direction="row" spacing={theme.margin.xs}>
               <Custom.Typography as="span" color={theme.palette.font.accent}>

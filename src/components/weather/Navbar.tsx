@@ -67,10 +67,20 @@ export function Navbar(props: Props) {
           </Stack>
           <Stack direction="row" spacing={theme.margin.sm}>
             <IconButton size="medium" onClick={handleMeasurementChange}>
-              <Common.Image src={Fahrenheit} width={32} height={32} />
+              <Common.Image
+                width={32}
+                height={32}
+                src={Fahrenheit}
+                alt={t.label.temp}
+              />
             </IconButton>
             <IconButton size="medium" onClick={handleToggleTheme}>
-              <Common.Image src={Theme} width={32} height={32} />
+              <Common.Image
+                src={Theme}
+                width={32}
+                height={32}
+                alt={t.label.theme}
+              />
             </IconButton>
           </Stack>
         </Stack>

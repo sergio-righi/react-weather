@@ -169,7 +169,7 @@ export const toSeconds = (value: Date): number => {
 export const weekday = (date: Date, locale: string = "EN") => {
   if (!date) return null;
   return date.toLocaleDateString(locale, {
-    weekday: "long",
+    weekday: "short",
   });
 };
 

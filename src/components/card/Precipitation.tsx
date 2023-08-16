@@ -43,7 +43,12 @@ export const Precipitation = (props: Props) => {
                       %
                     </Custom.Typography>
                   </Stack>
-                  <Common.Image src={Snow} width={64} height={64} />
+                  <Common.Image
+                    src={Snow}
+                    width={64}
+                    height={64}
+                    alt={t.label.snow}
+                  />
                 </Stack>
               ) : (
                 <Stack
@@ -67,7 +72,12 @@ export const Precipitation = (props: Props) => {
                       %
                     </Custom.Typography>
                   </Stack>
-                  <Common.Image src={Rain} width={64} height={64} />
+                  <Common.Image
+                    src={Rain}
+                    width={64}
+                    height={64}
+                    alt={t.label.rain}
+                  />
                 </Stack>
               )}
               <Stack direction="row" spacing={theme.margin.xs}>

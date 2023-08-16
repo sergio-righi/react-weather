@@ -35,7 +35,12 @@ export const UVIndex = (props: Props) => {
                 <Custom.Typography variant="h1">
                   {props.data.day.uv}
                 </Custom.Typography>
-                <Common.Image src={GlobalWarming} width={72} height={72} />
+                <Common.Image
+                  width={72}
+                  height={72}
+                  src={GlobalWarming}
+                  alt={t.label.uv_index}
+                />
               </Stack>
               <Stack direction="row" spacing={theme.margin.xs}>
                 <Custom.Typography as="span" color={theme.palette.font.accent}>

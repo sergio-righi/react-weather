@@ -63,7 +63,12 @@ export const Sunlight = (props: Props) => {
                 <Custom.Typography variant="h3">
                   {props.data.astro.sunrise}
                 </Custom.Typography>
-                <Common.Image src={Sunrise} width={48} height={48} />
+                <Common.Image
+                  src={Sunrise}
+                  width={48}
+                  height={48}
+                  alt={t.label.sunrise}
+                />
               </Stack>
               <Stack
                 direction="row"
@@ -73,7 +78,12 @@ export const Sunlight = (props: Props) => {
                 <Custom.Typography variant="h3">
                   {props.data.astro.sunset}
                 </Custom.Typography>
-                <Common.Image src={Sunset} width={48} height={48} />
+                <Common.Image
+                  src={Sunset}
+                  width={48}
+                  height={48}
+                  alt={t.label.sunset}
+                />
               </Stack>
             </Stack>
             <Stack direction="row" spacing={theme.margin.xs}>

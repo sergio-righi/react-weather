@@ -3,6 +3,7 @@ import React from "react";
 
 type Props = {
   src: string;
+  alt: string;
   width?: number;
   height?: number;
 };
