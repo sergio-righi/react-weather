@@ -3,7 +3,6 @@ import "assets/scss/components/visualization/line_range.scss";
 import { Box } from "@mui/material";
 import { useTheme } from "contexts";
 import { Custom } from "components";
-import { Constants } from "utils";
 
 interface Props {
   min: number;

@@ -1,136 +1,208 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useApp, useService, useTheme } from "contexts";
 import { Card, Custom, Weather } from "components";
-import { ForecastApi, WeatherApi } from "interfaces";
-import { Grid, Stack } from "@mui/material";
+import { ForecastApi, WeatherApi, HourApi } from "interfaces";
+import { Grid, Stack, Box } from "@mui/material";
 import { HDate } from "helpers";
 
-type Props = {};
-
-export const Home = (props: Props) => {
+export const Home: React.FC = () => {
   const { theme } = useTheme();
   const { weather } = useService();
   const { currentDate, isDay, location, t } = useApp();
   const [week, setWeek] = useState<WeatherApi>({} as WeatherApi);
   const [today, setToday] = useState<ForecastApi>({} as ForecastApi);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setWeek(await weather.week(location.value));
-    };
-    fetchData();
-  }, [location]);
-
-  useEffect(() => setDataToday(), [currentDate, week]);
-
-  function setDataToday() {
-    if (week && week.forecast && week.forecast.forecastday) {
-      setToday(
-        week.forecast.forecastday.filter((item: ForecastApi) =>
-          HDate.isDateEquals(item.date, currentDate)
-        )[0]
-      );
+  const fetchWeekData = useCallback(async () => {
+    if (location?.value) {
+      const data = await weather.week(location.value);
+      if (data) {
+        setWeek(data);
+      }
     }
-  }
+  }, [weather, location]);
+
+  useEffect(() => {
+    fetchWeekData();
+  }, [fetchWeekData]);
+
+  const updateTodayData = useCallback(() => {
+    if (week?.forecast?.forecastday && week.forecast.forecastday.length > 0) {
+      const matched = week.forecast.forecastday.find((item: ForecastApi) =>
+        HDate.isDateEquals(item.date, currentDate)
+      );
+      setToday(matched || week.forecast.forecastday[0]);
+    }
+  }, [week, currentDate]);
+
+  useEffect(() => {
+    updateTodayData();
+  }, [updateTodayData]);
+
+  // Handler for time scrubber hour selection
+  const handleSelectScrubberHour = (hour: HourApi) => {
+    if (today && today.day) {
+      setToday((prev) => ({
+        ...prev,
+        day: {
+          ...prev.day,
+          avgtemp_c: hour.temp_c,
+          avgtemp_f: hour.temp_f,
+          avghumidity: hour.humidity,
+          daily_chance_of_rain: hour.chance_of_rain,
+          daily_chance_of_snow: hour.chance_of_snow,
+          uv: hour.uv,
+        },
+      }));
+    }
+  };
+
+  const currentConditionCode = week?.current?.condition?.code || 1000;
+  const isDaytime = week?.current ? week.current.is_day === 1 : true;
 
   return (
-    <Grid container>
-      {/* Sidebar */}
+    <Box
+      sx={{
+        position: "relative",
+        height: { xs: "auto", md: "100vh" },
+        minHeight: "100vh",
+        display: "flex",
+        width: "100%",
+        overflow: { xs: "visible", md: "hidden" },
+      }}
+    >
+      {/* Dynamic 2030 Ambient Atmospheric Canvas */}
+      <Weather.AtmosphericCanvas
+        conditionCode={currentConditionCode}
+        isDay={isDaytime}
+      />
+
       <Grid
-        item
-        xs={12}
-        md={4}
-        lg={3}
-        xl={2}
-        bgcolor={theme.palette.background.color}
+        container
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          height: { xs: "auto", md: "100vh" },
+          width: "100%",
+          m: 0,
+        }}
       >
-        <Weather.Now />
-      </Grid>
+        {/* Left Hero Sidebar: Fixed on Desktop, Natural flow on Mobile */}
+        <Grid
+          item
+          xs={12}
+          md={4.5}
+          lg={3.5}
+          xl={3}
+          sx={{
+            height: { xs: "auto", md: "100vh" },
+            position: { xs: "relative", md: "sticky" },
+            top: 0,
+            display: "flex",
+            flexDirection: "column",
+            borderRight: { md: `1px solid ${theme.palette.border}` },
+            zIndex: 2,
+          }}
+        >
+          <Weather.Now />
+        </Grid>
 
-      {/* Main Content */}
-      <Grid
-        item
-        xs={12}
-        md={8}
-        lg={9}
-        xl={10}
-        display="flex"
-        bgcolor={theme.palette.background.accent}
-      >
-        <Grid container p={theme.margin.md} spacing={theme.margin.sm}>
-          {/* first row */}
-          <Grid item width={1} height={0.33} flexGrow={1}>
-            <Grid container spacing={theme.margin.sm}>
-              {/* first row */}
-              <Grid item xs={12}>
-                {/* control navbar */}
-                <Weather.Navbar />
-              </Grid>
+        {/* Right Main Bento Intelligence Dashboard: Independently scrollable */}
+        <Grid
+          item
+          xs={12}
+          md={7.5}
+          lg={8.5}
+          xl={9}
+          sx={{
+            height: { xs: "auto", md: "100vh" },
+            overflowY: { xs: "visible", md: "auto" },
+            WebkitOverflowScrolling: "touch",
+            display: "flex",
+            flexDirection: "column",
+            px: { xs: 1.5, sm: 2.5, md: 3.5 },
+            py: { xs: 2, sm: 2.5, md: 3.5 },
+          }}
+        >
+          <Stack
+            spacing={{ xs: 2, sm: 2.5 }}
+            sx={{ width: "100%", maxWidth: 1400, mx: "auto" }}
+          >
+            {/* Top Control Navbar */}
+            <Weather.Navbar />
 
-              {/* second row */}
-              <Grid item xs={12} flexGrow={1}>
-                {/* daily weather */}
-                {isDay && <Weather.Week data={week} />}
-                {/* weather hour by hour */}
-                {!isDay && <Weather.Hourly data={today} />}
-              </Grid>
-            </Grid>
-          </Grid>
+            {/* Severe Weather Alert HUD (if any active warnings) */}
+            {week?.alerts && <Weather.AlertBanner alerts={week.alerts} />}
 
-          {/* second row */}
-          <Grid item height={0.66} flexGrow={1}>
-            <Grid container spacing={theme.margin.sm} height={1}>
-              {/* first row */}
-              <Grid item xs={12} height={0.07} flexGrow={1}>
-                <Stack direction="row" px={theme.margin.md}>
-                  <Custom.Typography
-                    fontSize={theme.font.sm}
-                    color={theme.palette.font.accent}
-                  >
-                    {t.title.today_highlight}
-                  </Custom.Typography>
-                </Stack>
-              </Grid>
+            {/* View Selection: 7-Day Forecast or 24-Hour Scrubber */}
+            <Box sx={{ width: "100%" }}>
+              {isDay && <Weather.Week data={week} />}
+              {!isDay && (
+                <Weather.Hourly
+                  data={today}
+                  onSelectHour={handleSelectScrubberHour}
+                />
+              )}
+            </Box>
 
-              {/* second row */}
-              <Grid item xs={12} height={0.465} flexGrow={1}>
-                <Grid container spacing={theme.margin.sm} height={1}>
-                  <Grid item xs={12} md={4}>
-                    {/* precipitation (rain and snow) */}
-                    <Card.Precipitation data={today} />
-                  </Grid>
-                  <Grid item xs={12} md={4}>
-                    {/* wind direction, speed, gust */}
-                    <Card.Wind data={today} />
-                  </Grid>
-                  <Grid item xs={12} md={4}>
-                    {/* sunset and sunrise */}
-                    <Card.Sunlight data={today} />
-                  </Grid>
+            {/* Multi-Metric Atmospheric Trend Curve (ECharts) */}
+            {today?.hour && today.hour.length > 0 && (
+              <Box sx={{ width: "100%" }}>
+                <Weather.TrendChart data={today} />
+              </Box>
+            )}
+
+            {/* Telemetry Highlights Section */}
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                px={0.5}
+              >
+                <Custom.Typography
+                  fontSize={{ xs: 16, sm: 18 }}
+                  fontWeight="700"
+                  sx={{ letterSpacing: "-0.01em" }}
+                >
+                  {t.title.today_highlight}
+                </Custom.Typography>
+                <Custom.Typography
+                  fontSize={12}
+                  color={theme.palette.font.accent}
+                >
+                  {today?.date ? HDate.toRelativeDate(today.date, t.relative_date) : ""}
+                </Custom.Typography>
+              </Stack>
+
+              {/* Bento Grid: Row 1 */}
+              <Grid container spacing={{ xs: 1.5, sm: 2 }}>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card.Precipitation data={today} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card.Wind data={today} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card.Sunlight data={today} />
                 </Grid>
               </Grid>
 
-              {/* third row */}
-              <Grid item xs={12} height={0.465} flexGrow={1}>
-                <Grid container spacing={theme.margin.sm} height={1}>
-                  <Grid item xs={12} md={4}>
-                    {/* uv index level */}
-                    <Card.UVIndex data={today} />
-                  </Grid>
-                  <Grid item xs={12} md={4}>
-                    {/* humidity level */}
-                    <Card.Humidity data={today} />
-                  </Grid>
-                  <Grid item xs={12} md={4}>
-                    {/* air quality level */}
-                    <Card.Visibility data={today} />
-                  </Grid>
+              {/* Bento Grid: Row 2 */}
+              <Grid container spacing={{ xs: 1.5, sm: 2 }}>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card.UVIndex data={today} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card.Humidity data={today} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card.Visibility data={today} />
                 </Grid>
               </Grid>
-            </Grid>
-          </Grid>
+            </Stack>
+          </Stack>
         </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 };

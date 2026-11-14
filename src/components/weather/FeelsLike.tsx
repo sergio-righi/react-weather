@@ -1,21 +1,22 @@
-import { Custom } from "components";
+import React from "react";
 import { useApp } from "contexts";
+import { Custom } from "components";
 import { HString } from "helpers";
 
 type Props = {
-  tempC: number;
-  tempF: number;
+  tempC?: number;
+  tempF?: number;
 };
 
-export const FeelsLike = (props: Props) => {
+export const FeelsLike: React.FC<Props> = ({ tempC = 0, tempF = 0 }) => {
   const { isMetric, t } = useApp();
+  const value = isMetric ? Math.round(Number(tempC)) : Math.round(Number(tempF));
 
   return (
-    <Custom.Typography>
+    <Custom.Typography fontSize={13} fontWeight="600">
       {HString.interpolate(t.label.feels_like, {
-        temp: isMetric ? props.tempC : props.tempF,
-      })}{" "}
-      {isMetric ? t.label.temperature.metric : t.label.temperature.imperial}
+        temp: `${value}°`,
+      })}
     </Custom.Typography>
   );
 };

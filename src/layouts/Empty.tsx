@@ -1,12 +1,16 @@
 import React from "react";
-import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { useTheme } from "contexts";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import { Themes } from "utils";
 
-export const EmptyLayout = () => {
-    return (
-      <Box>
-        <Outlet />
-      </Box>
-    );
-  
-}
+export const EmptyLayout: React.FC = () => {
+  const { theme } = useTheme();
+
+  return (
+    <ThemeProvider theme={Themes.defaultTheme(theme)}>
+      <CssBaseline />
+      <Outlet />
+    </ThemeProvider>
+  );
+};

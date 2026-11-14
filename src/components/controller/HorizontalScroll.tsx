@@ -1,36 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
-import { IconButton, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useTheme } from "contexts";
-
-// icons
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 type Props = {
   step?: number;
   centeredId: string;
-  children: React.ReactNode[];
+  children: React.ReactNode;
 };
 
-export const HorizontalScroll = (props: Props) => {
+export const HorizontalScroll: React.FC<Props> = ({ centeredId, children }) => {
   const { theme } = useTheme();
-  const cardContainerRef = useRef<any>(null);
+  const cardContainerRef = useRef<HTMLDivElement | null>(null);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
-  const step = props.step ?? 300;
-
   useEffect(() => {
-    if (props.centeredId && cardContainerRef.current) {
+    if (centeredId && cardContainerRef.current) {
       const centeredCardElement = cardContainerRef.current.querySelector(
-        `#${props.centeredId}`
-      );
+        `#${centeredId}`
+      ) as HTMLElement | null;
       if (centeredCardElement) {
         const containerWidth = cardContainerRef.current.clientWidth;
-        const cardPosition = centeredCardElement.getBoundingClientRect().left;
-        handleScroll(containerWidth / 2 - cardPosition + scrollPosition);
+        const cardPosition = centeredCardElement.offsetLeft;
+        const cardWidth = centeredCardElement.clientWidth;
+        const targetScroll = cardPosition - containerWidth / 2 + cardWidth / 2;
+        handleScroll(targetScroll);
       }
     }
-  }, [props.centeredId]);
+  }, [centeredId]);
 
   useEffect(() => {
     if (cardContainerRef.current) {
@@ -54,58 +50,55 @@ export const HorizontalScroll = (props: Props) => {
     }
   }
 
-  const handleDragStart = (e: any) => {
-    e.preventDefault();
-    if (cardContainerRef.current) {
-      cardContainerRef.current.style.scrollBehavior = "auto";
-      const startX = e.clientX || e.touches[0].clientX;
-      const scrollStart = cardContainerRef.current.scrollLeft;
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!cardContainerRef.current) return;
+    cardContainerRef.current.style.scrollBehavior = "auto";
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const startX = clientX;
+    const scrollStart = cardContainerRef.current.scrollLeft;
 
-      const handleDragMove = (event: any) => {
-        const currentX = event.clientX || event.touches[0].clientX;
-        const deltaX = startX - currentX;
-        handleScroll(scrollStart + deltaX);
-      };
+    const handleDragMove = (event: MouseEvent | TouchEvent) => {
+      const currentX =
+        "touches" in event ? event.touches[0].clientX : event.clientX;
+      const deltaX = startX - currentX;
+      handleScroll(scrollStart + deltaX);
+    };
 
-      const handleDragEnd = () => {
+    const handleDragEnd = () => {
+      if (cardContainerRef.current) {
         cardContainerRef.current.style.scrollBehavior = "smooth";
-        document.removeEventListener("mousemove", handleDragMove);
-        document.removeEventListener("mouseup", handleDragEnd);
-        document.removeEventListener("touchmove", handleDragMove);
-        document.removeEventListener("touchend", handleDragEnd);
-      };
+      }
+      document.removeEventListener("mousemove", handleDragMove);
+      document.removeEventListener("mouseup", handleDragEnd);
+      document.removeEventListener("touchmove", handleDragMove);
+      document.removeEventListener("touchend", handleDragEnd);
+    };
 
-      document.addEventListener("mousemove", handleDragMove);
-      document.addEventListener("mouseup", handleDragEnd);
-      document.addEventListener("touchmove", handleDragMove);
-      document.addEventListener("touchend", handleDragEnd);
-    }
+    document.addEventListener("mousemove", handleDragMove);
+    document.addEventListener("mouseup", handleDragEnd);
+    document.addEventListener("touchmove", handleDragMove);
+    document.addEventListener("touchend", handleDragEnd);
   };
 
   return (
-    <Stack
-      width={1}
-      direction="row"
-      alignItems="center"
-      spacing={theme.margin.md}
-    >
-      {/* <IconButton
-        sx={{ color: palette.font.color }}
-        onClick={() => handleScroll(scrollPosition - step)}
-      >
-        <ArrowBackIcon />
-      </IconButton> */}
+    <Stack width={1} direction="row" alignItems="center">
       <Stack
         direction="row"
         alignItems="center"
         ref={cardContainerRef}
-        spacing={theme.margin.md}
+        spacing={theme.margin.sm}
         onMouseDown={handleDragStart}
         onTouchStart={handleDragStart}
-        onScroll={(e: any) => handleScroll(e.target.scrollLeft)}
+        onScroll={(e: React.UIEvent<HTMLDivElement>) =>
+          setScrollPosition(e.currentTarget.scrollLeft)
+        }
         sx={{
+          width: "100%",
+          py: 1,
+          px: 0.5,
           overflowX: "auto",
           scrollBehavior: "smooth",
+          userSelect: "none",
           msOverflowStyle: "none",
           scrollbarWidth: "none",
           "&::-webkit-scrollbar": {
@@ -113,14 +106,8 @@ export const HorizontalScroll = (props: Props) => {
           },
         }}
       >
-        {props.children}
+        {children}
       </Stack>
-      {/* <IconButton
-        sx={{ color: palette.font.color }}
-        onClick={() => handleScroll(scrollPosition + step)}
-      >
-        <ArrowForwardIcon />
-      </IconButton> */}
     </Stack>
   );
 };

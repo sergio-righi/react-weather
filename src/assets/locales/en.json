@@ -1,15 +1,28 @@
 {
   "label": {
     "amount": "Amount",
+    "app_name": "Aetheria",
+    "app_subtitle": "Atmospheric Intelligence Station",
+    "air_quality": "Air Quality",
+    "aqi_index": "US AQI",
+    "cloud_cover": "Cloud Cover",
+    "command_palette_hint": "Search city (Press / or ⌘K)",
+    "compass": "Vector",
     "day": "Day",
     "daylight": "Daylight",
+    "detect_location": "Detect My Location",
+    "dew_point": "Dew Point",
     "distance": {
       "imperial": "miles",
       "metric": "km"
     },
     "feels_like": "Feels like {{temp}}",
+    "forecast_7days": "3-Day Forecast",
+    "forecast_24hours": "24-Hour Scrubber",
+    "golden_hour": "Golden Hour",
     "gust": "Gusts",
     "humidity": "Humidity",
+    "interactive_timeline": "Interactive 24-Hour Timeline",
     "length": {
       "imperial": "in",
       "metric": "cm"
@@ -18,29 +31,51 @@
       "imperial": "in",
       "metric": "mm"
     },
+    "live": "LIVE",
+    "locating": "Locating GPS...",
     "measurement_system": {
       "imperial": "Imperial",
       "metric": "Metric"
     },
     "night": "Night",
+    "no_alerts": "Normal Atmospheric Baseline — No Active Alerts",
+    "now": "Now",
     "precipitation": "Precipitation",
+    "pressure": "Pressure",
+    "pressure_unit": {
+      "imperial": "inHg",
+      "metric": "hPa"
+    },
     "rain": "Rain",
+    "refresh": "Refresh Telemetry",
+    "saved_locations": "Saved Stations",
+    "severe_alerts": "Active Advisories",
     "snow": "Snow",
+    "solar_noon": "Solar Noon",
+    "solar_trajectory": "Solar & Lunar Trajectory",
+    "sound_ambient": "Ambience Audio",
+    "sound_ambient_off": "Unmute Ambient Soundscape",
+    "sound_ambient_on": "Mute Audio",
     "speed": {
       "imperial": "mph",
-      "metric": "kmh"
+      "metric": "km/h"
     },
     "status": "Status",
+    "sun_protection_advisory": "UV Protection",
     "sunrise": "Sunrise",
     "sunset": "Sunset",
     "sunrise_sunset": "Sunrise & Sunset",
+    "sustained": "Sustained",
     "temp": "Temperature",
     "temperature": {
       "imperial": "°F",
       "metric": "°C"
     },
+    "time_until_sunrise": "{{time}} until Sunrise",
+    "time_until_sunset": "{{time}} until Sunset",
     "timeline": "Timeline",
     "theme": "Theme",
+    "trend_chart": "Atmospheric Trend Curve",
     "uv_index": "UV Index",
     "visibility": "Visibility",
     "wind": "Wind",
@@ -52,14 +87,14 @@
       "updated_at": "Updated as of {{time}}"
     },
     "placeholder": {
-      "no_option": "No option to display"
+      "no_option": "No location matches found"
     },
     "weather": {
-      "not_raining_snowing": "not raining or snowing"
+      "not_raining_snowing": "No precipitation expected"
     }
   },
   "placeholder": {
-    "search_location": "Search for a location"
+    "search_location": "Search city, coordinates, or country..."
   },
   "relative_date": {
     "today": "Today",
@@ -68,7 +103,7 @@
   },
   "title": {
     "hourly": "Hourly",
-    "today_highlight": "Today Highlight"
+    "today_highlight": "Atmospheric Telemetry & Highlights"
   },
   "weather_condition": {
     "1000": "Sunny",
@@ -125,17 +160,30 @@
     "high": "High",
     "low": "Low",
     "moderate": "Moderate",
-    "very_high": "Very High"
+    "very_high": "Very High",
+    "low_tip": "Minimal risk. Hat and sunglasses recommended.",
+    "moderate_tip": "Moderate risk. Use SPF 30+ and seek midday shade.",
+    "high_tip": "High protection required. Wear sun protective clothing.",
+    "very_high_tip": "Very high risk. Avoid sun exposure between 10am-4pm.",
+    "extreme_tip": "Extreme danger! Avoid unprotected sun exposure."
   },
   "weather_visibility_scale": {
-    "bad": "Bad",
+    "bad": "Poor",
     "good": "Good",
     "very_good": "Very Good",
-    "great": "Great"
+    "great": "Exceptional"
   },
   "weather_humidity_level": {
-    "low": "Unconfortably Dry",
-    "moderate": "Confortable",
-    "high": "Unconfortably Humid"
+    "low": "Dry & Crisp",
+    "moderate": "Comfortable",
+    "high": "Humid & Heavy"
+  },
+  "air_quality_scale": {
+    "good": "Optimal — Satisfactory air quality",
+    "moderate": "Moderate — Acceptable for most",
+    "unhealthy_sensitive": "Sensitive alert — Limit prolonged exertion",
+    "unhealthy": "Unhealthy — Active health precaution",
+    "very_unhealthy": "Very Unhealthy — Serious health impact",
+    "hazardous": "Hazardous — Emergency conditions"
   }
 }

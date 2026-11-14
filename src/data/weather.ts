@@ -4,33 +4,37 @@ import { CurrentData, ForecastData, SearchData } from "assets/data";
 export interface IWeatherData {
   next(query: string, days: number): Promise<any>;
   search(query: string): Promise<any>;
-  today(query: string): Promise<any>
+  today(query: string): Promise<any>;
 }
 
 export class WeatherData implements IWeatherData {
-
-
   async next(query: string, days: number) {
     try {
-      return await Apis.forecastWeather(query, days).get("");
+      const res = await Apis.forecastWeather(query, days).get("");
+      if (res && res.data) return res;
+      return { data: ForecastData };
     } catch (err) {
-      return null;
+      return { data: ForecastData };
     }
   }
 
   async search(query: string) {
     try {
-      return await Apis.searchWeather(query).get("");
+      const res = await Apis.searchWeather(query).get("");
+      if (res && res.data) return res;
+      return { data: SearchData };
     } catch (err) {
-      return null;
+      return { data: SearchData };
     }
   }
 
   async today(query: string) {
     try {
-      return await Apis.currentWeather(query).get("");
+      const res = await Apis.currentWeather(query).get("");
+      if (res && res.data) return res;
+      return { data: CurrentData };
     } catch (err) {
-      return null;
+      return { data: CurrentData };
     }
   }
 }

@@ -1,70 +1,92 @@
+import React from "react";
 import { Stack } from "@mui/material";
 import { useTheme } from "contexts";
-import { Custom, Weather } from "components";
+import { Common, Custom, Weather } from "components";
 import { HDate } from "helpers";
 import { HourApi } from "interfaces";
-
-// icons
-import AcUnitRoundedIcon from "@mui/icons-material/AcUnitRounded";
 import WaterDropRoundedIcon from "@mui/icons-material/WaterDropRounded";
+import AcUnitRoundedIcon from "@mui/icons-material/AcUnitRounded";
 
 type Props = {
-  id: any;
+  id: string;
   item: HourApi;
+  isActive?: boolean;
+  onSelect?: () => void;
 };
 
-export function Hour(props: Props) {
+export const Hour: React.FC<Props> = ({ id, item, isActive = false, onSelect }) => {
   const { theme } = useTheme();
 
-  const formattedDate = props.item.time
-    ? HDate.toTimeAmPmString(HDate.toSeconds(new Date(props.item.time)), false)
-    : null;
+  const formattedTime = item?.time
+    ? HDate.toTimeAmPmString(HDate.toSeconds(new Date(item.time)), false)
+    : "";
 
   return (
-    <Custom.Card id={props.id} sx={{ overflow: "unset" }}>
-      <Stack
-        alignItems="center"
-        justifyContent="center"
-        spacing={theme.margin.xs}
-      >
-        <Custom.Typography variant="h4">{formattedDate}</Custom.Typography>
-        <Weather.Icon condition={props.item.condition} />
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          spacing={theme.margin.xs}
+    <Common.GlassCard
+      id={id}
+      onClick={onSelect}
+      interactive
+      glowColor={isActive ? theme.color.accent.color : undefined}
+      sx={{
+        minWidth: 104,
+        p: 1.75,
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        borderColor: isActive ? theme.color.accent.color : theme.palette.border,
+        boxShadow: isActive
+          ? `0 0 16px -2px ${theme.color.accent.color}44, 0 1px 1px 0 rgba(255, 255, 255, 0.15) inset`
+          : undefined,
+        background: isActive
+          ? `linear-gradient(180deg, ${theme.palette.theme} 0%, ${theme.color.accent.color}18 100%)`
+          : undefined,
+      }}
+    >
+      <Stack spacing={1.25} alignItems="center">
+        {/* Hour Header */}
+        <Custom.Typography
+          fontSize={12}
+          fontWeight={isActive ? "700" : "500"}
+          color={isActive ? theme.color.accent.color : theme.palette.font.accent}
         >
-          <Weather.Temperature
-            size="md"
-            tempC={props.item.temp_c}
-            tempF={props.item.temp_f}
-          />
-          <Weather.Temperature
-            size="sm"
-            tempC={props.item.feelslike_c}
-            tempF={props.item.feelslike_f}
-          />
-        </Stack>
-        <Stack direction="row" spacing={theme.margin.md}>
-          <Stack direction="row" alignItems="center">
-            <WaterDropRoundedIcon
-              sx={{ color: theme.palette.font.accent, fontSize: theme.font.xs }}
-            />
-            <Custom.Typography color={theme.palette.font.accent} variant="h6">
-              {props.item.chance_of_rain}%
-            </Custom.Typography>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <AcUnitRoundedIcon
-              sx={{ color: theme.palette.font.accent, fontSize: theme.font.xs }}
-            />
-            <Custom.Typography color={theme.palette.font.accent} variant="h6">
-              {props.item.chance_of_snow}%
-            </Custom.Typography>
-          </Stack>
+          {formattedTime}
+        </Custom.Typography>
+
+        {/* 3D Condition Icon */}
+        <Weather.Icon condition={item.condition} />
+
+        {/* Temperature Reading */}
+        <Weather.Temperature
+          size="sm"
+          tempC={item.temp_c}
+          tempF={item.temp_f}
+        />
+
+        {/* Precipitation Indicator */}
+        <Stack direction="row" alignItems="center" spacing={0.5}>
+          {item.chance_of_snow > 0 ? (
+            <>
+              <AcUnitRoundedIcon sx={{ color: "#38BDF8", fontSize: 11 }} />
+              <Custom.Typography fontSize={10} color={theme.palette.font.accent}>
+                {item.chance_of_snow}%
+              </Custom.Typography>
+            </>
+          ) : (
+            <>
+              <WaterDropRoundedIcon
+                sx={{
+                  color: item.chance_of_rain > 0 ? theme.color.accent.color : theme.palette.font.accent,
+                  fontSize: 11,
+                }}
+              />
+              <Custom.Typography fontSize={10} color={theme.palette.font.accent}>
+                {item.chance_of_rain}%
+              </Custom.Typography>
+            </>
+          )}
         </Stack>
       </Stack>
-    </Custom.Card>
+    </Common.GlassCard>
   );
-}
+};

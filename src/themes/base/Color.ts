@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 import {
   Color,
   ColorSchema,
@@ -6,13 +5,13 @@ import {
 } from "themes/interfaces";
 
 export default {
-  primary: { color: "#9A9A9A", text: "#ffffff" } as ColorSchema,
-  accent: { color: "#5b9bff", text: "#ffffff" } as ColorSchema,
+  primary: { color: "#64748B", text: "#FFFFFF" } as ColorSchema,
+  accent: { color: "#00D2FF", text: "#FFFFFF" } as ColorSchema,
   status: {
-    warning: { color: "#FEDB60", text: "#404040" } as ColorSchema,
-    success: { color: "#57A75B", text: "#ffffff" } as ColorSchema,
-    error: { color: "#E15858", text: "#ffffff" } as ColorSchema,
+    warning: { color: "#FBBF24", text: "#1E293B" } as ColorSchema,
+    success: { color: "#10B981", text: "#FFFFFF" } as ColorSchema,
+    error: { color: "#F43F5E", text: "#FFFFFF" } as ColorSchema,
   } as ColorStatus,
   black: "#000000",
-  white: "#ffffff"
+  white: "#FFFFFF",
 } as Color;

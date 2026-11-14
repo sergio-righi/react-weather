@@ -8,11 +8,11 @@ const theme: Theme = {
   font: BaseFont,
   color: BaseColor,
   palette: {
-    theme: "#242424",
-    border: "#404040",
-    input: { color: "#f5f5f5", accent: "#dbdbdb" } as ColorSchema,
-    font: { color: "#ffffff", accent: "#a9acb3" } as ColorFont,
-    background: { color: "#242424", accent: "#202020" } as ColorSchema
+    theme: "rgba(15, 23, 42, 0.72)",
+    border: "rgba(255, 255, 255, 0.09)",
+    input: { color: "rgba(255, 255, 255, 0.06)", accent: "rgba(255, 255, 255, 0.12)" } as ColorSchema,
+    font: { color: "#F8FAFC", accent: "#94A3B8" } as ColorFont,
+    background: { color: "#080C14", accent: "#0F172A" } as ColorSchema
   } as Palette,
   border: BaseBorder,
   margin: BaseMargin,

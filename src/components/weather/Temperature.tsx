@@ -1,63 +1,52 @@
-import { Custom } from "components";
+import React from "react";
 import { useApp, useTheme } from "contexts";
-import { Stack } from "@mui/material";
+import { Custom } from "components";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Props = {
-  tempC: number;
-  tempF: number;
+  tempC?: number;
+  tempF?: number;
+  size?: "sm" | "md" | "lg";
   color?: string;
-  size: "sm" | "md" | "lg";
 };
 
-export const Temperature = (props: Props) => {
+export const Temperature: React.FC<Props> = ({
+  tempC = 0,
+  tempF = 0,
+  size = "md",
+  color,
+}) => {
+  const { isMetric } = useApp();
   const { theme } = useTheme();
-  const { isMetric, t } = useApp();
 
-  const stylesheet =
-    props.size === "sm"
-      ? {
-          header: {
-            fontSize: theme.font.md,
-            fontWeight: theme.font.medium,
-            color: props.color,
-            opacity: 0.7,
-          },
-          subheader: {
-            fontSize: theme.font.md,
-            fontWeight: theme.font.medium,
-            color: props.color,
-            opacity: 0.7,
-          },
-        }
-      : props.size === "md"
-      ? {
-          header: {
-            fontSize: theme.font.md,
-            fontWeight: theme.font.semiBold,
-            color: props.color,
-          },
-          subheader: {
-            fontSize: theme.font.md,
-            fontWeight: theme.font.semiBold,
-            color: props.color,
-          },
-        }
-      : {
-          header: { fontSize: theme.font.xxxl, fontWeight: theme.font.bold },
-          subheader: {
-            fontSize: theme.font.xl,
-            fontWeight: theme.font.semiBold,
-          },
-        };
+  const tempVal = isMetric ? Math.round(Number(tempC)) : Math.round(Number(tempF));
+
+  const fontSize =
+    size === "lg" ? { xs: 44, md: 54 } : size === "md" ? 22 : 15;
 
   return (
-    <Stack direction="row" alignItems="center">
-      <Custom.Typography sx={{ lineHeight: 1, ...stylesheet.header }}>
-        {Math.round(isMetric ? props.tempC : props.tempF)}
-      </Custom.Typography>
-      <Custom.Typography sx={{ lineHeight: 1, ...stylesheet.subheader }}>
-        {isMetric ? t.label.temperature.metric : t.label.temperature.imperial}
-      </Custom.Typography>
-    </Stack>
+    <AnimatePresence mode="wait">
+      <motion.span
+        key={`${tempVal}-${isMetric ? "C" : "F"}`}
+        initial={{ opacity: 0, y: -4 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 4 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        style={{ display: "inline-flex", alignItems: "baseline" }}
+      >
+        <Custom.Typography
+          fontSize={fontSize}
+          fontWeight="700"
+          color={color || theme.palette.font.color}
+          sx={{
+            letterSpacing: size === "lg" ? "-0.04em" : "-0.02em",
+            lineHeight: 1,
+            fontFamily: "'Space Grotesk', sans-serif",
+          }}
+        >
+          {tempVal}°
+        </Custom.Typography>
+      </motion.span>
+    </AnimatePresence>
   );
 };

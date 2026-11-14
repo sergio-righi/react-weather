@@ -1,107 +1,93 @@
-import { useEffect, useState } from "react";
-import { Stack } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Stack, Box } from "@mui/material";
 import { Common, Custom } from "components";
 import { ForecastApi, HourApi } from "interfaces";
 import { useApp, useTheme } from "contexts";
-import { Wind as WindImage, WindGauge, Windsock } from "assets/images";
+import AirRoundedIcon from "@mui/icons-material/AirRounded";
 
 type Props = {
   data: ForecastApi;
 };
 
-export const Wind = (props: Props) => {
+export const Wind: React.FC<Props> = ({ data }) => {
   const { isMetric, t } = useApp();
   const { theme } = useTheme();
-  const [currentHour, setCurrentHour] = useState<HourApi>();
+  const [currentHour, setCurrentHour] = useState<HourApi | undefined>();
 
   useEffect(() => {
-    const now = new Date().getHours();
-    if (props.data && props.data.hour) {
-      const response = props.data.hour.filter(
-        (item: HourApi) => now === new Date(item.time).getHours()
+    const currentHourIndex = new Date().getHours();
+    if (data?.hour && data.hour.length > 0) {
+      const match = data.hour.find(
+        (item: HourApi) => new Date(item.time).getHours() === currentHourIndex
       );
-      if (response.length > 0) {
-        setCurrentHour(response[0]);
-      }
+      setCurrentHour(match || data.hour[0]);
     }
-  }, [props.data]);
+  }, [data]);
+
+  const windSpeed = isMetric
+    ? currentHour?.wind_kph ?? 0
+    : currentHour?.wind_mph ?? 0;
+  const gustSpeed = isMetric
+    ? currentHour?.gust_kph ?? 0
+    : currentHour?.gust_mph ?? 0;
+  const windDir = currentHour?.wind_dir || "N";
+  const speedUnit = isMetric ? t.label.speed.metric : t.label.speed.imperial;
 
   return (
-    <Custom.Card sx={{ width: 1 }}>
-      <Stack height={1} spacing={theme.margin.md}>
-        <Stack direction="row" justifyContent="space-between">
-          <Custom.Typography variant="h5" color={theme.palette.font.accent}>
-            {t.label.wind}
+    <Common.GlassCard
+      glowColor={theme.color.accent.color}
+      sx={{ p: 2.5, height: "100%", display: "flex", flexDirection: "column" }}
+    >
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1.5}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <AirRoundedIcon sx={{ color: theme.color.accent.color, fontSize: 18 }} />
+          <Custom.Typography fontSize={13} fontWeight="600" color={theme.palette.font.accent}>
+            {t.label.wind} & {t.label.compass}
           </Custom.Typography>
         </Stack>
-        {currentHour && (
-          <Stack height={1} spacing={theme.margin.md}>
-            <Stack
-              height={1}
-              direction="column"
-              spacing={theme.margin.md}
-              justifyContent="space-evenly"
-            >
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Custom.Typography variant="h3">
-                  {currentHour.wind_dir}
-                </Custom.Typography>
-                <Common.Image
-                  width={48}
-                  height={48}
-                  src={Windsock}
-                  alt={t.label.wind_dir}
-                />
-              </Stack>
-
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  spacing={theme.margin.md}
-                >
-                  <Custom.Typography variant="h3">
-                    {isMetric ? currentHour.wind_kph : currentHour.wind_mph}{" "}
-                  </Custom.Typography>
-                  <Custom.Typography
-                    variant="h4"
-                    color={theme.palette.font.accent}
-                  >
-                    {isMetric ? t.label.speed.metric : t.label.speed.imperial}
-                  </Custom.Typography>
-                </Stack>
-                <Common.Image
-                  width={48}
-                  height={48}
-                  src={WindGauge}
-                  alt={t.label.wind_speed}
-                />
-              </Stack>
-            </Stack>
-            <Stack direction="row" spacing={theme.margin.xs}>
-              <Custom.Typography as="span" color={theme.palette.font.accent}>
-                {t.label.gust}
-              </Custom.Typography>
-              <Custom.Typography
-                as="span"
-                fontWeight={theme.font.bold}
-                color={theme.color.accent.color}
-              >
-                {isMetric ? currentHour.gust_kph : currentHour.gust_mph}{" "}
-                {isMetric ? t.label.speed.metric : t.label.speed.imperial}
-              </Custom.Typography>
-            </Stack>
-          </Stack>
-        )}
+        <Common.LuminousBadge label={windDir} color={theme.color.accent.color} size="sm" />
       </Stack>
-    </Custom.Card>
+
+      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto">
+        <Stack spacing={0.5}>
+          <Stack direction="row" alignItems="baseline" spacing={0.5}>
+            <Custom.Typography fontSize={38} fontWeight="700" sx={{ letterSpacing: "-0.03em" }}>
+              {windSpeed}
+            </Custom.Typography>
+            <Custom.Typography fontSize={16} fontWeight="500" color={theme.palette.font.accent}>
+              {speedUnit}
+            </Custom.Typography>
+          </Stack>
+
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Custom.Typography fontSize={12} color={theme.palette.font.accent}>
+              {t.label.gust}:{" "}
+              <Box component="span" sx={{ color: theme.color.status.warning.color, fontWeight: "600" }}>
+                {gustSpeed} {speedUnit}
+              </Box>
+            </Custom.Typography>
+          </Stack>
+        </Stack>
+
+        {/* 360° Magnetic Compass Needle */}
+        <Custom.CompassGauge directionText={windDir} size={78} />
+      </Stack>
+
+      {/* Aerodynamic Speed Vector Footer */}
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        pt={1}
+        sx={{ borderTop: `1px solid ${theme.palette.border}` }}
+      >
+        <Custom.Typography fontSize={11} color={theme.palette.font.accent}>
+          {t.label.sustained}
+        </Custom.Typography>
+        <Custom.Typography fontSize={11} fontWeight="600" color={theme.color.accent.color}>
+          {windDir} at {windSpeed} {speedUnit}
+        </Custom.Typography>
+      </Stack>
+    </Common.GlassCard>
   );
 };

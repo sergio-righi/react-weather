@@ -1,139 +1,115 @@
 import { Theme } from 'themes/interfaces';
 import { createTheme } from '@mui/material/styles';
+import { Enums } from 'utils';
 
-export const defaultTheme = (theme: Theme) => createTheme({
-  direction: "ltr",
-  palette: {
-    mode: "light",
-    common: {
-      black: theme.color.black,
-      white: theme.color.white
+export const defaultTheme = (theme: Theme) => {
+  const isDark = theme.id === Enums.EnumTheme.Dark;
+
+  return createTheme({
+    direction: "ltr",
+    palette: {
+      mode: isDark ? "dark" : "light",
+      common: {
+        black: theme.color.black,
+        white: theme.color.white
+      },
+      primary: {
+        main: theme.color.accent.color,
+        contrastText: theme.color.accent.text
+      },
+      error: {
+        main: theme.color.status.error.color,
+        contrastText: theme.color.status.error.text
+      },
+      warning: {
+        main: theme.color.status.warning.color,
+        contrastText: theme.color.status.warning.text
+      },
+      success: {
+        main: theme.color.status.success.color,
+        contrastText: theme.color.status.success.text
+      },
+      text: {
+        primary: theme.palette.font.color,
+        secondary: theme.palette.font.accent,
+      },
+      divider: theme.palette.border,
+      background: {
+        default: theme.palette.background.color,
+        paper: theme.palette.theme,
+      }
     },
-    primary: {
-      main: theme.color.accent.color,
-      contrastText: theme.color.accent.text
+    shape: {
+      borderRadius: theme.border.radius * theme.border.factor,
     },
-    error: {
-      main: theme.color.status.error.color,
-      contrastText: theme.color.status.error.text
-    },
-    warning: {
-      main: theme.color.status.warning.color,
-      contrastText: theme.color.status.warning.text
-    },
-    success: {
-      main: theme.color.status.success.color,
-      contrastText: theme.color.status.success.text
-    },
-    text: {
-      primary: theme.palette.font.color,
-      secondary: theme.palette.font.accent,
-    },
-    divider: theme.palette.border,
-    background: {
-      default: theme.palette.background.color
+    typography: {
+      htmlFontSize: 16,
+      fontFamily: "'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      fontSize: 14,
+      fontWeightLight: 300,
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+      fontWeightBold: 700,
+      h1: {
+        fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+        fontWeight: 700,
+        fontSize: "3.5rem",
+        lineHeight: 1.1,
+        letterSpacing: "-0.025em"
+      },
+      h2: {
+        fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+        fontWeight: 700,
+        fontSize: "2.5rem",
+        lineHeight: 1.15,
+        letterSpacing: "-0.02em"
+      },
+      h3: {
+        fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+        fontWeight: 600,
+        fontSize: "1.75rem",
+        lineHeight: 1.2,
+        letterSpacing: "-0.015em"
+      },
+      h4: {
+        fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+        fontWeight: 600,
+        fontSize: "1.25rem",
+        lineHeight: 1.3,
+        letterSpacing: "-0.01em"
+      },
+      h5: {
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: 500,
+        fontSize: "1rem",
+        lineHeight: 1.4,
+        letterSpacing: "0em"
+      },
+      h6: {
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: 500,
+        fontSize: "0.875rem",
+        lineHeight: 1.45,
+        letterSpacing: "0.01em"
+      },
+      body1: {
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: 400,
+        fontSize: "0.9375rem",
+        lineHeight: 1.5,
+      },
+      body2: {
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: 400,
+        fontSize: "0.8125rem",
+        lineHeight: 1.5,
+      },
+      button: {
+        fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+        fontWeight: 600,
+        textTransform: "none",
+        letterSpacing: "0.01em"
+      }
     }
-  },
-  typography: {
-    htmlFontSize: 16,
-    fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-    fontSize: 14,
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700,
-    h1: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 300,
-      fontSize: "6rem",
-      lineHeight: 1.167,
-      letterSpacing: "-0.01562em"
-    },
-    h2: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 300,
-      fontSize: "3.75rem",
-      lineHeight: 1.2,
-      letterSpacing: "-0.00833em"
-    },
-    h3: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 400,
-      fontSize: "3rem",
-      lineHeight: 1.167,
-      letterSpacing: "0em"
-    },
-    h4: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 400,
-      fontSize: "2.125rem",
-      lineHeight: 1.235,
-      letterSpacing: "0.00735em"
-    },
-    h5: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 400,
-      fontSize: "1.5rem",
-      lineHeight: 1.334,
-      letterSpacing: "0em"
-    },
-    h6: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 500,
-      fontSize: "1.25rem",
-      lineHeight: 1.6,
-      letterSpacing: "0.0075em"
-    },
-    subtitle1: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 400,
-      fontSize: "1rem",
-      lineHeight: 1.75,
-      letterSpacing: "0.00938em"
-    },
-    subtitle2: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 500,
-      fontSize: "0.875rem",
-      lineHeight: 1.57,
-      letterSpacing: "0.00714em"
-    },
-    body1: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 400,
-      fontSize: "1rem",
-      lineHeight: 1.5,
-      letterSpacing: "0.00938em"
-    },
-    body2: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 400,
-      fontSize: "0.875rem",
-      lineHeight: 1.43,
-      letterSpacing: "0.01071em"
-    },
-    button: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 500,
-      fontSize: "0.875rem",
-      lineHeight: 1.75,
-      letterSpacing: "0.02857em",
-      textTransform: "uppercase"
-    },
-    caption: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 400,
-      fontSize: "0.75rem",
-      lineHeight: 1.66,
-      letterSpacing: "0.03333em"
-    },
-    overline: {
-      fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      fontWeight: 400,
-      fontSize: "0.75rem",
-      lineHeight: 2.66,
-      letterSpacing: "0.08333em",
-      textTransform: "uppercase"
-    }
-  }
-})
+  });
+};

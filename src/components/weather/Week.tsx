@@ -1,37 +1,37 @@
+import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import { Card } from "components";
 import { useApp, useTheme } from "contexts";
 import { ForecastApi, WeatherApi } from "interfaces";
-import { useEffect } from "react";
 
 type Props = {
   data: WeatherApi;
 };
 
-export const Week = (props: Props) => {
+export const Week: React.FC<Props> = ({ data }) => {
   const { theme } = useTheme();
   const { currentDate, setCurrentDate } = useApp();
 
   useEffect(() => {
-    if (props.data && props.data.forecast) {
-      const dates = props.data.forecast.forecastday.map(
-        (item: ForecastApi) => item.date
-      );
-      if (dates && !dates.includes(currentDate)) {
+    const days = data?.forecast?.forecastday;
+    if (days && days.length > 0) {
+      const dates = days.map((item: ForecastApi) => item.date);
+      if (!dates.includes(currentDate)) {
         setCurrentDate(dates[0]);
       }
     }
-  }, [props.data]);
+  }, [data, currentDate, setCurrentDate]);
+
+  const days = data?.forecast?.forecastday || [];
+  const colSpan = Math.max(12 / (days.length || 3), 3);
 
   return (
-    <Grid container alignItems="center" spacing={theme.margin.md}>
-      {props.data &&
-        props.data.forecast &&
-        props.data.forecast.forecastday.map((item: ForecastApi, i: number) => (
-          <Grid item xs={12} md={4} key={i}>
-            <Card.Week item={item} selected={currentDate === item.date} />
-          </Grid>
-        ))}
+    <Grid container spacing={theme.margin.sm} alignItems="stretch">
+      {days.map((item: ForecastApi, i: number) => (
+        <Grid item xs={12} sm={6} md={colSpan} key={item.date || i}>
+          <Card.Week item={item} selected={currentDate === item.date} />
+        </Grid>
+      ))}
     </Grid>
   );
 };
