@@ -52,10 +52,10 @@ export const Navbar: React.FC = () => {
       direction={{ xs: "row" }}
       alignItems="center"
       justifyContent="space-between"
-      spacing={{ xs: 1, sm: 1.5 }}
+      spacing={{ xs: theme.spacing.xs, sm: theme.spacing.sm }}
       sx={{
         width: "100%",
-        py: 0.5,
+        py: theme.spacing.xxs,
         flexWrap: { xs: "nowrap", sm: "nowrap" },
       }}
     >
@@ -63,13 +63,12 @@ export const Navbar: React.FC = () => {
       <Box
         sx={{
           display: "inline-flex",
-          p: 0.5,
+          p: theme.spacing.xxs,
           borderRadius: "9999px",
           backgroundColor: isDark
-            ? "rgba(255, 255, 255, 0.04)"
-            : "rgba(255, 255, 255, 0.8)",
+            ? "rgba(212, 196, 168, 0.08)"
+            : "rgba(139, 69, 19, 0.06)",
           border: `1px solid ${theme.palette.border}`,
-          backdropFilter: "blur(12px)",
           position: "relative",
           maxWidth: { xs: "240px", sm: "none" },
         }}
@@ -79,8 +78,8 @@ export const Navbar: React.FC = () => {
           onClick={() => handleViewChange(Enums.EnumViewSelection.Day)}
           sx={{
             position: "relative",
-            px: { xs: 1.25, sm: 2 },
-            py: { xs: 0.5, sm: 0.75 },
+            px: { xs: theme.spacing.sm, sm: theme.spacing.md },
+            py: { xs: theme.spacing.xxs, sm: theme.spacing.xs },
             cursor: "pointer",
             zIndex: 1,
             userSelect: "none",
@@ -94,14 +93,13 @@ export const Navbar: React.FC = () => {
                 inset: 0,
                 backgroundColor: theme.color.accent.color,
                 borderRadius: "9999px",
-                boxShadow: `0 0 16px ${theme.color.accent.color}66`,
               }}
               transition={{ type: "spring", stiffness: 450, damping: 30 }}
             />
           )}
           <Custom.Typography
-            fontSize={{ xs: 11, sm: 13 }}
-            fontWeight={isDay ? "700" : "500"}
+            fontSize={{ xs: theme.font.xxs, sm: theme.font.xs }}
+            fontWeight={isDay ? theme.font.bold : theme.font.medium}
             color={isDay ? "#FFFFFF" : theme.palette.font.accent}
             sx={{ position: "relative", zIndex: 2, whiteSpace: "nowrap" }}
           >
@@ -114,8 +112,8 @@ export const Navbar: React.FC = () => {
           onClick={() => handleViewChange(Enums.EnumViewSelection.Hourly)}
           sx={{
             position: "relative",
-            px: { xs: 1.25, sm: 2 },
-            py: { xs: 0.5, sm: 0.75 },
+            px: { xs: theme.spacing.sm, sm: theme.spacing.md },
+            py: { xs: theme.spacing.xxs, sm: theme.spacing.xs },
             cursor: "pointer",
             zIndex: 1,
             userSelect: "none",
@@ -129,14 +127,13 @@ export const Navbar: React.FC = () => {
                 inset: 0,
                 backgroundColor: theme.color.accent.color,
                 borderRadius: "9999px",
-                boxShadow: `0 0 16px ${theme.color.accent.color}66`,
               }}
               transition={{ type: "spring", stiffness: 450, damping: 30 }}
             />
           )}
           <Custom.Typography
-            fontSize={{ xs: 11, sm: 13 }}
-            fontWeight={!isDay ? "700" : "500"}
+            fontSize={{ xs: theme.font.xxs, sm: theme.font.xs }}
+            fontWeight={!isDay ? theme.font.bold : theme.font.medium}
             color={!isDay ? "#FFFFFF" : theme.palette.font.accent}
             sx={{ position: "relative", zIndex: 2, whiteSpace: "nowrap" }}
           >
@@ -146,7 +143,7 @@ export const Navbar: React.FC = () => {
       </Box>
 
       {/* Control Buttons: Unit Switcher, Sound Ambience, Theme */}
-      <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1 }}>
+      <Stack direction="row" alignItems="center" spacing={{ xs: theme.spacing.xxs, sm: theme.spacing.xs}}>
         {/* Metric / Imperial Unit Toggle */}
         <Common.NeoIconButton
           size="small"
@@ -154,10 +151,10 @@ export const Navbar: React.FC = () => {
           title={isMetric ? "Switch to Imperial (°F, mph)" : "Switch to Metric (°C, km/h)"}
         >
           <Custom.Typography
-            fontSize={12}
-            fontWeight="700"
+            fontSize={theme.font.xs}
+            fontWeight={theme.font.bold}
             color={theme.color.accent.color}
-            sx={{ px: 0.25 }}
+            sx={{ px: theme.spacing.xxs }}
           >
             {isMetric ? "°C" : "°F"}
           </Custom.Typography>
@@ -171,9 +168,9 @@ export const Navbar: React.FC = () => {
           title={ambientAudio ? t.label.sound_ambient_on : t.label.sound_ambient_off}
         >
           {ambientAudio ? (
-            <VolumeUpRoundedIcon sx={{ fontSize: 17 }} />
+            <VolumeUpRoundedIcon sx={{ fontSize: theme.font.sm }} />
           ) : (
-            <VolumeOffRoundedIcon sx={{ fontSize: 17 }} />
+            <VolumeOffRoundedIcon sx={{ fontSize: theme.font.sm }} />
           )}
         </Common.NeoIconButton>
 
@@ -184,9 +181,9 @@ export const Navbar: React.FC = () => {
           title={isDark ? "Switch to Crystal Light Mode" : "Switch to Obsidian Dark Mode"}
         >
           {isDark ? (
-            <LightModeRoundedIcon sx={{ fontSize: 17, color: "#FBBF24" }} />
+            <LightModeRoundedIcon sx={{ fontSize: theme.font.sm, color: theme.color.status.warning.color }} />
           ) : (
-            <DarkModeRoundedIcon sx={{ fontSize: 17, color: "#0F172A" }} />
+            <DarkModeRoundedIcon sx={{ fontSize: theme.font.sm, color: theme.palette.font.color }} />
           )}
         </Common.NeoIconButton>
       </Stack>

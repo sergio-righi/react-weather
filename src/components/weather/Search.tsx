@@ -77,7 +77,7 @@ export const Search: React.FC = () => {
   };
 
   return (
-    <Stack direction="row" alignItems="center" spacing={1} sx={{ width: "100%" }}>
+    <Stack direction="row" alignItems="center" spacing={theme.spacing.xs} sx={{ width: "100%" }}>
       <Box sx={{ flex: 1 }}>
         <Custom.Autocomplete
           onChange={handleChange}
@@ -103,7 +103,7 @@ export const Search: React.FC = () => {
         {locating ? (
           <CircularProgress size={18} sx={{ color: theme.color.accent.color }} />
         ) : (
-          <MyLocationRoundedIcon sx={{ fontSize: 18 }} />
+          <MyLocationRoundedIcon sx={{ fontSize: theme.font.sm }} />
         )}
       </Common.NeoIconButton>
     </Stack>

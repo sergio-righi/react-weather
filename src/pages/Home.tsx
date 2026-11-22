@@ -119,12 +119,12 @@ export const Home: React.FC = () => {
             WebkitOverflowScrolling: "touch",
             display: "flex",
             flexDirection: "column",
-            px: { xs: 1.5, sm: 2.5, md: 3.5 },
-            py: { xs: 2, sm: 2.5, md: 3.5 },
+            px: { xs: theme.spacing.sm, sm: theme.spacing.lg, md: theme.spacing.xxl },
+            py: { xs: theme.spacing.md, sm: theme.spacing.lg, md: theme.spacing.xxl },
           }}
         >
           <Stack
-            spacing={{ xs: 2, sm: 2.5 }}
+            spacing={{ xs: theme.spacing.md, sm: theme.spacing.lg }}
             sx={{ width: "100%", maxWidth: 1400, mx: "auto" }}
           >
             {/* Top Control Navbar */}
@@ -152,22 +152,22 @@ export const Home: React.FC = () => {
             )}
 
             {/* Telemetry Highlights Section */}
-            <Stack spacing={2} sx={{ width: "100%" }}>
+            <Stack gap={theme.spacing.md} sx={{ width: "100%" }}>
               <Stack
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
-                px={0.5}
+                px={theme.spacing.xxs}
               >
                 <Custom.Typography
-                  fontSize={{ xs: 16, sm: 18 }}
-                  fontWeight="700"
+                  fontSize={{ xs: theme.font.sm, sm: theme.font.md }}
+                  fontWeight={theme.font.bold}
                   sx={{ letterSpacing: "-0.01em" }}
                 >
                   {t.title.today_highlight}
                 </Custom.Typography>
                 <Custom.Typography
-                  fontSize={12}
+                  fontSize={theme.font.xs}
                   color={theme.palette.font.accent}
                 >
                   {today?.date ? HDate.toRelativeDate(today.date, t.relative_date) : ""}
@@ -175,7 +175,7 @@ export const Home: React.FC = () => {
               </Stack>
 
               {/* Bento Grid: Row 1 */}
-              <Grid container spacing={{ xs: 1.5, sm: 2 }}>
+              <Grid container spacing={{ xs: theme.spacing.md, sm: theme.spacing.lg }}>
                 <Grid item xs={12} sm={6} md={4}>
                   <Card.Precipitation data={today} />
                 </Grid>
@@ -188,7 +188,7 @@ export const Home: React.FC = () => {
               </Grid>
 
               {/* Bento Grid: Row 2 */}
-              <Grid container spacing={{ xs: 1.5, sm: 2 }}>
+              <Grid container spacing={{ xs: theme.spacing.md, sm: theme.spacing.lg }}>
                 <Grid item xs={12} sm={6} md={4}>
                   <Card.UVIndex data={today} />
                 </Grid>

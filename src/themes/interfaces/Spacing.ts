@@ -1,4 +1,4 @@
-export interface Margin {
+export interface Spacing {
   xxs: number;
   xs: number;
   sm: number;

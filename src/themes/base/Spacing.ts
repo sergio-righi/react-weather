@@ -1,4 +1,4 @@
-import { Margin } from "themes/interfaces";
+import { Spacing } from "themes/interfaces";
 
 export default {
   xxs: 0.5,
@@ -11,4 +11,4 @@ export default {
   xxxl: 5,
   factor: 8,
   default: 40,
-} as Margin;
+} as Spacing;

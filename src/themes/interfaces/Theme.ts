@@ -1,10 +1,10 @@
-import type { Border, Color, Font, Margin, Palette } from 'themes/interfaces';
+import type { Border, Color, Font, Spacing, Palette } from 'themes/interfaces';
 
 export interface Theme {
   id: number;
   font: Font;
   color: Color;
-  margin: Margin;
+  spacing: Spacing;
   border: Border;
   palette: Palette;
 }

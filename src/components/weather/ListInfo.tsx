@@ -82,7 +82,7 @@ export const ListInfo: React.FC<Props> = ({ data, onRefresh }) => {
   ];
 
   return (
-    <Stack spacing={1.25} sx={{ width: "100%", mt: 1 }}>
+    <Stack spacing={theme.spacing.sm} sx={{ width: "100%", mt: theme.spacing.xs }}>
       {metrics.map((m, idx) => (
         <Box
           key={idx}
@@ -90,7 +90,7 @@ export const ListInfo: React.FC<Props> = ({ data, onRefresh }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            p: 1.25,
+            p: theme.spacing.sm,
             borderRadius: theme.border.radius,
             backgroundColor: isDark
               ? "rgba(255, 255, 255, 0.03)"
@@ -112,12 +112,12 @@ export const ListInfo: React.FC<Props> = ({ data, onRefresh }) => {
             },
           }}
         >
-          <Stack direction="row" alignItems="center" spacing={1.5}>
+          <Stack direction="row" alignItems="center" spacing={theme.spacing.sm}>
             <Box
               sx={{
                 width: 30,
                 height: 30,
-                borderRadius: "9px",
+                borderRadius: theme.border.radius,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -135,8 +135,8 @@ export const ListInfo: React.FC<Props> = ({ data, onRefresh }) => {
               <Custom.HolographicTelemetryIcon kind={m.glyph} size={20} />
             </Box>
             <Custom.Typography
-              fontSize={13}
-              fontWeight="500"
+              fontSize={theme.font.xs}
+              fontWeight={theme.font.medium}
               color={theme.palette.font.accent}
             >
               {m.label}
@@ -147,8 +147,8 @@ export const ListInfo: React.FC<Props> = ({ data, onRefresh }) => {
             m.customValue
           ) : (
             <Custom.Typography
-              fontSize={13}
-              fontWeight="600"
+              fontSize={theme.font.xs}
+              fontWeight={theme.font.semiBold}
               color={theme.palette.font.color}
             >
               {m.value}
@@ -158,40 +158,50 @@ export const ListInfo: React.FC<Props> = ({ data, onRefresh }) => {
       ))}
 
       {/* Live Telemetry Status & Synchronized Timestamp */}
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        pt={0.5}
-      >
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Box
+      <Stack spacing={theme.spacing.xxs} pt={theme.spacing.xxs}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Stack direction="row" spacing={theme.spacing.xs} alignItems="center">
+            <Box
+              sx={{
+                width: 7,
+                height: 7,
+                borderRadius: theme.border.circle,
+                backgroundColor: theme.color.status.success.color,
+                boxShadow: `0 0 8px ${theme.color.status.success.color}`,
+              }}
+            />
+            <Custom.Typography fontSize={theme.font.xs} fontWeight={theme.font.medium} color={theme.palette.font.accent}>
+              {`${t.label.live} • ${HDate.toTimeAmPmString(HDate.toSeconds(currentTime), false)}`}
+            </Custom.Typography>
+          </Stack>
+
+          <Common.NeoIconButton
+            size="small"
+            onClick={handleRefresh}
+            title={t.label.refresh}
             sx={{
-              width: 7,
-              height: 7,
-              borderRadius: "50%",
-              backgroundColor: theme.color.status.success.color,
-              boxShadow: `0 0 8px ${theme.color.status.success.color}`,
+              "& .MuiSvgIcon-root": {
+                transition: "transform 0.6s ease",
+                transform: spinning ? "rotate(360deg)" : "none",
+              },
             }}
-          />
-          <Custom.Typography fontSize={11} fontWeight="500" color={theme.palette.font.accent}>
-            {`${t.label.live} • ${HDate.toTimeAmPmString(HDate.toSeconds(currentTime), false)}`}
-          </Custom.Typography>
+          >
+            <RefreshRoundedIcon sx={{ fontSize: theme.font.sm }} />
+          </Common.NeoIconButton>
         </Stack>
 
-        <Common.NeoIconButton
-          size="small"
-          onClick={handleRefresh}
-          title={t.label.refresh}
-          sx={{
-            "& .MuiSvgIcon-root": {
-              transition: "transform 0.6s ease",
-              transform: spinning ? "rotate(360deg)" : "none",
-            },
-          }}
+        {/* Data Source Attribution */}
+        <Custom.Typography
+          fontSize={theme.font.xxs}
+          color={theme.palette.font.accent}
+          sx={{ opacity: 0.8 }}
         >
-          <RefreshRoundedIcon sx={{ fontSize: 18 }} />
-        </Common.NeoIconButton>
+          {t.label.data_source}
+        </Custom.Typography>
       </Stack>
     </Stack>
   );

@@ -62,20 +62,9 @@ export const SolarArc: React.FC<SolarArcProps> = ({ sunrise, sunset }) => {
   return (
     <Box sx={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Box sx={{ width: "100%", maxWidth: 260, position: "relative" }}>
-        <svg viewBox="0 0 240 90" width="100%" height="90" style={{ overflow: "visible" }}>
-          <defs>
-            <linearGradient id="solarArcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.3" />
-              <stop offset="50%" stopColor="#FBBF24" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#F97316" stopOpacity="0.3" />
-            </linearGradient>
-            <filter id="solarGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
-            </filter>
-          </defs>
-
+        <Box component="svg" viewBox="0 0 240 90" width="100%" height="90" style={{ overflow: "visible" }}>
           {/* Dotted Horizon Base */}
-          <line
+          <Box component="line"
             x1="15"
             y1={baseY}
             x2="225"
@@ -86,60 +75,49 @@ export const SolarArc: React.FC<SolarArcProps> = ({ sunrise, sunset }) => {
           />
 
           {/* Celestial Parabolic Arc */}
-          <path
+          <Box component="path"
             d={`M ${startX} ${baseY} Q 120 ${peakY} ${endX} ${baseY}`}
             fill="none"
-            stroke="url(#solarArcGrad)"
+            stroke={theme.color.accent.color}
             strokeWidth="2.5"
             strokeLinecap="round"
           />
 
           {/* Sun / Moon Orb Indicator */}
           {isDaytime ? (
-            <g>
-              <circle
-                cx={currentX}
-                cy={currentY}
-                r="10"
-                fill="#F59E0B"
-                opacity="0.35"
-                filter="url(#solarGlow)"
-              />
-              <circle
-                cx={currentX}
-                cy={currentY}
-                r="6"
-                fill="#FBBF24"
-                stroke="#FFFFFF"
-                strokeWidth="1.5"
-              />
-            </g>
+            <Box component="circle"
+              cx={currentX}
+              cy={currentY}
+              r="6"
+              fill="#F5F0E1"
+              stroke="#B5651D"
+              strokeWidth="2"
+            />
           ) : (
-            <circle
+            <Box component="circle"
               cx={progress > 0.5 ? endX : startX}
               cy={baseY}
               r="5"
               fill={theme.palette.font.accent}
-              opacity="0.6"
             />
           )}
-        </svg>
+        </Box>
       </Box>
 
       {/* Axis timestamps */}
       <Stack
         direction="row"
         justifyContent="space-between"
-        sx={{ width: "100%", maxWidth: 260, mt: 0.5, px: 1 }}
+        sx={{ width: "100%", maxWidth: 260, mt: theme.spacing.xxs, px: theme.spacing.xs }}
       >
         <Stack alignItems="flex-start">
-          <Custom.Typography fontSize={11} color={theme.palette.font.accent}>
+          <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
             {sunrise}
           </Custom.Typography>
         </Stack>
 
         <Stack alignItems="flex-end">
-          <Custom.Typography fontSize={11} color={theme.palette.font.accent}>
+          <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
             {sunset}
           </Custom.Typography>
         </Stack>

@@ -17,7 +17,7 @@ body {
   position: relative;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
-  background-color: #080c14;
+  background-color: #181310;
 }
 
 body,
@@ -32,7 +32,7 @@ html {
   flex-direction: column;
 }
 
-/* Custom 2030 Precision Scrollbar */
+/* Nature Distilled: Earth & Sand Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -43,20 +43,39 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(181, 101, 29, 0.28);
   border-radius: 9999px;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease-out;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 210, 255, 0.4);
+  background: rgba(198, 123, 92, 0.6);
 }
 
-/* Luminous Selection */
+/* Warm Terracotta Selection */
 ::selection {
-  background: rgba(0, 210, 255, 0.25);
-  color: #00d2ff;
+  background: rgba(198, 123, 92, 0.35);
+  color: #8B4513;
 }
+
+/* Accessible focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #C67B5C;
+  outline-offset: 2px;
+}
+
+/* Respect prefers-reduced-motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 
 li {
   list-style: none;

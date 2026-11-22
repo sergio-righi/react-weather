@@ -61,6 +61,8 @@
       "metric": "km/h"
     },
     "status": "Status",
+    "source": "Source",
+    "data_source": "Data provided by WeatherAPI.com",
     "sun_protection_advisory": "UV Protection",
     "sunrise": "Sunrise",
     "sunset": "Sunset",

@@ -27,19 +27,19 @@ export const AlertBanner: React.FC<Props> = ({ alerts }) => {
     <Common.GlassCard
       glowColor={theme.color.status.error.color}
       sx={{
-        p: 2,
-        mb: 2,
+        p: theme.spacing.md,
+        mb: theme.spacing.md,
         width: "100%",
         borderColor: `${theme.color.status.error.color}66`,
-        background: `linear-gradient(90deg, ${theme.color.status.error.color}15 0%, rgba(15, 23, 42, 0.6) 100%)`,
+        backgroundColor: `${theme.color.status.error.color}15`,
       }}
     >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Stack direction="row" alignItems="center" spacing={1.5}>
+        <Stack direction="row" alignItems="center" spacing={theme.font.sm}>
           <Box
             sx={{
-              p: 0.75,
-              borderRadius: "50%",
+              p: theme.spacing.xs,
+              borderRadius: theme.border.circle,
               backgroundColor: `${theme.color.status.error.color}25`,
               color: theme.color.status.error.color,
               display: "flex",
@@ -47,9 +47,9 @@ export const AlertBanner: React.FC<Props> = ({ alerts }) => {
               justifyContent: "center",
             }}
           >
-            <WarningAmberRoundedIcon sx={{ fontSize: 20 }} />
+            <WarningAmberRoundedIcon sx={{ fontSize: theme.font.md }} />
           </Box>
-          <Stack spacing={0.25}>
+          <Stack spacing={theme.spacing.xxs}>
             <Stack direction="row" alignItems="center" spacing={1}>
               <Common.LuminousBadge
                 label={t.label.severe_alerts}
@@ -57,7 +57,7 @@ export const AlertBanner: React.FC<Props> = ({ alerts }) => {
                 pulse
                 size="sm"
               />
-              <Custom.Typography fontSize={13} fontWeight="700">
+              <Custom.Typography fontSize={theme.font.xs} fontWeight={theme.font.bold}>
                 {headline}
               </Custom.Typography>
             </Stack>
@@ -74,8 +74,8 @@ export const AlertBanner: React.FC<Props> = ({ alerts }) => {
       </Stack>
 
       <Collapse in={expanded}>
-        <Box sx={{ mt: 1.5, pt: 1.5, borderTop: `1px solid ${theme.palette.border}` }}>
-          <Custom.Typography fontSize={12} color={theme.palette.font.color} sx={{ lineHeight: 1.6 }}>
+        <Box sx={{ mt: theme.font.sm, pt: theme.font.sm, borderTop: `1px solid ${theme.palette.border}` }}>
+          <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.color} sx={{ lineHeight: 1.6 }}>
             {desc || headline}
           </Custom.Typography>
         </Box>

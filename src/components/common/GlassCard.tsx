@@ -24,15 +24,8 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
         whileHover={
           interactive
             ? {
-                y: -3,
-                boxShadow: glowColor
-                  ? isDark
-                    ? `0 12px 32px -8px ${glowColor}33, 0 1px 1px 0 rgba(255, 255, 255, 0.1) inset`
-                    : `0 12px 30px -6px ${glowColor}35, 0 4px 12px rgba(15, 23, 42, 0.08)`
-                  : isDark
-                  ? "0 12px 32px -8px rgba(0, 0, 0, 0.45), 0 1px 1px 0 rgba(255, 255, 255, 0.1) inset"
-                  : "0 12px 28px -6px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.06)",
-                transition: { type: "spring", stiffness: 400, damping: 25 },
+                y: -2,
+                transition: { duration: 0.2, ease: "easeOut" },
               }
             : undefined
         }
@@ -41,33 +34,19 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
         sx={{
           position: "relative",
           overflow: "hidden",
-          backdropFilter: "blur(24px) saturate(180%)",
-          WebkitBackdropFilter: "blur(24px) saturate(180%)",
           backgroundColor: theme.palette.theme,
-          borderRadius: `${theme.border.radius * theme.border.factor}px`,
+          borderRadius: theme.border.radius,
           border: `1px solid ${theme.palette.border}`,
           boxShadow: isDark
-            ? "0 8px 30px rgba(0, 0, 0, 0.15)"
-            : "0 4px 20px rgba(15, 23, 42, 0.06), 0 1px 4px rgba(15, 23, 42, 0.04)",
+            ? "0 2px 10px rgba(0, 0, 0, 0.4)"
+            : "0 2px 8px rgba(139, 69, 19, 0.06)",
           transition:
-            "border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, box-shadow 0.25s ease",
+            "border-color 0.2s ease-out, background-color 0.2s ease-out, box-shadow 0.2s ease-out",
           "&:hover": interactive
             ? {
                 borderColor: glowColor || theme.color.accent.color,
               }
             : {},
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "1px",
-            background: isDark
-              ? "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 100%)"
-              : "linear-gradient(90deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.08) 50%, rgba(15,23,42,0) 100%)",
-            pointerEvents: "none",
-          },
           ...sx,
         }}
       >

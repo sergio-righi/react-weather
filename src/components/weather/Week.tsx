@@ -26,7 +26,7 @@ export const Week: React.FC<Props> = ({ data }) => {
   const colSpan = Math.max(12 / (days.length || 3), 3);
 
   return (
-    <Grid container spacing={theme.margin.sm} alignItems="stretch">
+    <Grid container spacing={theme.spacing.sm} alignItems="stretch">
       {days.map((item: ForecastApi, i: number) => (
         <Grid item xs={12} sm={6} md={colSpan} key={item.date || i}>
           <Card.Week item={item} selected={currentDate === item.date} />

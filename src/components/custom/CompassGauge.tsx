@@ -46,14 +46,14 @@ export const CompassGauge: React.FC<CompassGaugeProps> = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgba(255, 255, 255, 0.03)",
+        backgroundColor: "rgba(212, 196, 168, 0.08)",
         border: `1px solid ${theme.palette.border}`,
-        boxShadow: "inset 0 2px 6px rgba(0, 0, 0, 0.2)",
+        boxShadow: "inset 0 2px 6px rgba(139, 69, 19, 0.12)",
       }}
     >
       {/* Cardinal Labels */}
       <Custom.Typography
-        fontSize={9}
+        fontSize={theme.font.xxs}
         fontWeight="700"
         sx={{
           position: "absolute",
@@ -65,7 +65,7 @@ export const CompassGauge: React.FC<CompassGaugeProps> = ({
         N
       </Custom.Typography>
       <Custom.Typography
-        fontSize={9}
+        fontSize={theme.font.xxs}
         sx={{
           position: "absolute",
           right: 4,
@@ -76,7 +76,7 @@ export const CompassGauge: React.FC<CompassGaugeProps> = ({
         E
       </Custom.Typography>
       <Custom.Typography
-        fontSize={9}
+        fontSize={theme.font.xxs}
         sx={{
           position: "absolute",
           bottom: 3,
@@ -87,7 +87,7 @@ export const CompassGauge: React.FC<CompassGaugeProps> = ({
         S
       </Custom.Typography>
       <Custom.Typography
-        fontSize={9}
+        fontSize={theme.font.xxs}
         sx={{
           position: "absolute",
           left: 4,
@@ -98,10 +98,10 @@ export const CompassGauge: React.FC<CompassGaugeProps> = ({
         W
       </Custom.Typography>
 
-      {/* Spring Animated Magnetic Needle */}
+      {/* Earthy Needle */}
       <motion.div
         animate={{ rotate: degrees }}
-        transition={{ type: "spring", stiffness: 220, damping: 20 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         style={{
           width: 32,
           height: 32,
@@ -111,28 +111,28 @@ export const CompassGauge: React.FC<CompassGaugeProps> = ({
           justifyContent: "center",
         }}
       >
-        <svg viewBox="0 0 24 24" width="28" height="28">
-          {/* North Arrow (Cyan Luminous) */}
-          <polygon
+        <Box component="svg" viewBox="0 0 24 24" width="28" height="28">
+          {/* North Arrow (Terracotta / Earth Clay) */}
+          <Box component="polygon"
             points="12,2 15,12 12,9"
-            fill={theme.color.accent.color}
+            fill="#C67B5C"
           />
-          <polygon
+          <Box component="polygon"
             points="12,2 9,12 12,9"
-            fill={`${theme.color.accent.color}cc`}
+            fill="#8B4513"
           />
-          {/* South Arrow (Subtle Slate) */}
-          <polygon
+          {/* South Arrow (Sand / Olive Slate) */}
+          <Box component="polygon"
             points="12,22 15,12 12,15"
-            fill="rgba(255, 255, 255, 0.3)"
+            fill="#D4C4A8"
           />
-          <polygon
+          <Box component="polygon"
             points="12,22 9,12 12,15"
-            fill="rgba(255, 255, 255, 0.15)"
+            fill="#6B7B3C"
           />
           {/* Center Hub */}
-          <circle cx="12" cy="12" r="2.5" fill="#FFFFFF" />
-        </svg>
+          <Box component="circle" cx="12" cy="12" r="2.5" fill="#F5F0E1" stroke="#8B4513" strokeWidth="0.8" />
+        </Box>
       </motion.div>
     </Box>
   );

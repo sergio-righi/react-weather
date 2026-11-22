@@ -29,25 +29,23 @@ export const Hour: React.FC<Props> = ({ id, item, isActive = false, onSelect }) 
       glowColor={isActive ? theme.color.accent.color : undefined}
       sx={{
         minWidth: 104,
-        p: 1.75,
+        p: theme.spacing.md,
         cursor: "pointer",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         borderColor: isActive ? theme.color.accent.color : theme.palette.border,
-        boxShadow: isActive
-          ? `0 0 16px -2px ${theme.color.accent.color}44, 0 1px 1px 0 rgba(255, 255, 255, 0.15) inset`
-          : undefined,
-        background: isActive
-          ? `linear-gradient(180deg, ${theme.palette.theme} 0%, ${theme.color.accent.color}18 100%)`
+        boxShadow: "none",
+        backgroundColor: isActive
+          ? `${theme.color.accent.color}15`
           : undefined,
       }}
     >
-      <Stack spacing={1.25} alignItems="center">
+      <Stack spacing={theme.spacing.sm} alignItems="center">
         {/* Hour Header */}
         <Custom.Typography
-          fontSize={12}
-          fontWeight={isActive ? "700" : "500"}
+          fontSize={theme.font.xs}
+          fontWeight={isActive ? theme.font.bold : theme.font.medium}
           color={isActive ? theme.color.accent.color : theme.palette.font.accent}
         >
           {formattedTime}
@@ -64,11 +62,11 @@ export const Hour: React.FC<Props> = ({ id, item, isActive = false, onSelect }) 
         />
 
         {/* Precipitation Indicator */}
-        <Stack direction="row" alignItems="center" spacing={0.5}>
+        <Stack direction="row" alignItems="center" spacing={theme.spacing.xxs}>
           {item.chance_of_snow > 0 ? (
             <>
-              <AcUnitRoundedIcon sx={{ color: "#38BDF8", fontSize: 11 }} />
-              <Custom.Typography fontSize={10} color={theme.palette.font.accent}>
+              <AcUnitRoundedIcon sx={{ color: theme.color.status.info.color, fontSize: theme.font.xs }} />
+              <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
                 {item.chance_of_snow}%
               </Custom.Typography>
             </>
@@ -77,10 +75,10 @@ export const Hour: React.FC<Props> = ({ id, item, isActive = false, onSelect }) 
               <WaterDropRoundedIcon
                 sx={{
                   color: item.chance_of_rain > 0 ? theme.color.accent.color : theme.palette.font.accent,
-                  fontSize: 11,
+                  fontSize: theme.font.xs,
                 }}
               />
-              <Custom.Typography fontSize={10} color={theme.palette.font.accent}>
+              <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
                 {item.chance_of_rain}%
               </Custom.Typography>
             </>

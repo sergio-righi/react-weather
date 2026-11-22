@@ -25,37 +25,37 @@ export const Visibility: React.FC<Props> = ({ data }) => {
   const visColor = isHighVisibility
     ? theme.color.status.success.color
     : visKm < 4
-    ? theme.color.status.error.color
-    : theme.color.status.warning.color;
+      ? theme.color.status.error.color
+      : theme.color.status.warning.color;
 
   return (
     <Common.GlassCard
       glowColor={visColor}
-      sx={{ p: 2.5, height: "100%", display: "flex", flexDirection: "column" }}
+      sx={{ p: theme.spacing.lg, height: "100%", display: "flex", flexDirection: "column" }}
     >
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1.5}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <VisibilityRoundedIcon sx={{ color: visColor, fontSize: 18 }} />
-          <Custom.Typography fontSize={13} fontWeight="600" color={theme.palette.font.accent}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={theme.spacing.sm}>
+        <Stack direction="row" alignItems="center" spacing={theme.spacing.xs}>
+          <VisibilityRoundedIcon sx={{ color: visColor, fontSize: theme.font.sm }} />
+          <Custom.Typography fontSize={theme.font.xs} fontWeight={theme.font.semiBold} color={theme.palette.font.accent}>
             {t.label.visibility}
           </Custom.Typography>
         </Stack>
         <Common.LuminousBadge label={description || t.weather_visibility_scale.good} color={visColor} size="sm" />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto">
-        <Stack spacing={0.5}>
-          <Stack direction="row" alignItems="baseline" spacing={0.5}>
-            <Custom.Typography fontSize={38} fontWeight="700" sx={{ letterSpacing: "-0.03em" }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto" py={theme.spacing.sm}>
+        <Stack spacing={theme.spacing.xxs}>
+          <Stack direction="row" alignItems="baseline" spacing={theme.spacing.xxs}>
+            <Custom.Typography fontSize={theme.font.xl} fontWeight={theme.font.bold} sx={{ letterSpacing: "-0.03em" }}>
               {value}
             </Custom.Typography>
-            <Custom.Typography fontSize={16} fontWeight="500" color={theme.palette.font.accent}>
+            <Custom.Typography fontSize={theme.font.sm} fontWeight={theme.font.medium} color={theme.palette.font.accent}>
               {unit}
             </Custom.Typography>
           </Stack>
-          <Custom.Typography fontSize={12} color={theme.palette.font.accent}>
+          <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
             {t.label.status}:{" "}
-            <Box component="span" sx={{ color: visColor, fontWeight: "600" }}>
+            <Box component="span" sx={{ color: visColor, fontWeight: theme.font.semiBold }}>
               {description}
             </Box>
           </Custom.Typography>
@@ -77,13 +77,13 @@ export const Visibility: React.FC<Props> = ({ data }) => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        pt={1}
+        pt={theme.spacing.xs}
         sx={{ borderTop: `1px solid ${theme.palette.border}` }}
       >
-        <Custom.Typography fontSize={11} color={theme.palette.font.accent}>
+        <Custom.Typography fontSize={theme.font.xxs} color={theme.palette.font.accent}>
           Atmospheric Clarity
         </Custom.Typography>
-        <Custom.Typography fontSize={11} fontWeight="600" color={visColor}>
+        <Custom.Typography fontSize={theme.font.xxs} fontWeight={theme.font.semiBold} color={visColor}>
           {isHighVisibility ? "Clear Horizon" : "Atmospheric Haze"}
         </Custom.Typography>
       </Stack>

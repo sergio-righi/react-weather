@@ -21,23 +21,22 @@ export const Precipitation: React.FC<Props> = ({ data }) => {
   const chance = isSnow ? day?.daily_chance_of_snow || 0 : day?.daily_chance_of_rain || 0;
   const amount = isSnow
     ? `${day?.totalsnow_cm ?? 0} ${t.label.length.metric}`
-    : `${isMetric ? day?.totalprecip_mm ?? 0 : day?.totalprecip_in ?? 0} ${
-        isMetric ? t.label.liquid.metric : t.label.liquid.imperial
-      }`;
+    : `${isMetric ? day?.totalprecip_mm ?? 0 : day?.totalprecip_in ?? 0} ${isMetric ? t.label.liquid.metric : t.label.liquid.imperial
+    }`;
 
   return (
     <Common.GlassCard
       glowColor={theme.color.accent.color}
-      sx={{ p: 2.5, height: "100%", display: "flex", flexDirection: "column" }}
+      sx={{ p: theme.spacing.lg, height: "100%", display: "flex", flexDirection: "column" }}
     >
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1.5}>
-        <Stack direction="row" alignItems="center" spacing={1}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={theme.spacing.sm}>
+        <Stack direction="row" alignItems="center" spacing={theme.spacing.xs}>
           {isSnow ? (
-            <AcUnitRoundedIcon sx={{ color: "#38BDF8", fontSize: 18 }} />
+            <AcUnitRoundedIcon sx={{ color: theme.palette.font.accent, fontSize: theme.font.sm }} />
           ) : (
-            <WaterDropRoundedIcon sx={{ color: theme.color.accent.color, fontSize: 18 }} />
+            <WaterDropRoundedIcon sx={{ color: theme.color.accent.color, fontSize: theme.font.sm }} />
           )}
-          <Custom.Typography fontSize={13} fontWeight="600" color={theme.palette.font.accent}>
+          <Custom.Typography fontSize={theme.font.xs} fontWeight={theme.font.semiBold} color={theme.palette.font.accent}>
             {t.label.precipitation}
           </Custom.Typography>
         </Stack>
@@ -48,19 +47,19 @@ export const Precipitation: React.FC<Props> = ({ data }) => {
         />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto">
-        <Stack spacing={0.5}>
-          <Stack direction="row" alignItems="baseline" spacing={0.5}>
-            <Custom.Typography fontSize={38} fontWeight="700" sx={{ letterSpacing: "-0.03em" }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto" py={theme.spacing.sm}>
+        <Stack spacing={theme.spacing.xxs}>
+          <Stack direction="row" alignItems="baseline" spacing={theme.spacing.xxs}>
+            <Custom.Typography fontSize={theme.font.xl} fontWeight={theme.font.bold} sx={{ letterSpacing: "-0.03em" }}>
               {chance}
             </Custom.Typography>
-            <Custom.Typography fontSize={18} fontWeight="500" color={theme.palette.font.accent}>
+            <Custom.Typography fontSize={theme.font.sm} fontWeight={theme.font.medium} color={theme.palette.font.accent}>
               %
             </Custom.Typography>
           </Stack>
-          <Custom.Typography fontSize={12} color={theme.palette.font.accent}>
+          <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
             {t.label.amount}:{" "}
-            <Box component="span" sx={{ color: theme.color.accent.color, fontWeight: "600" }}>
+            <Box component="span" sx={{ color: theme.color.accent.color, fontWeight: theme.font.semiBold }}>
               {amount}
             </Box>
           </Custom.Typography>
@@ -70,19 +69,19 @@ export const Precipitation: React.FC<Props> = ({ data }) => {
           sx={{
             width: 58,
             height: 58,
-            borderRadius: "16px",
+            borderRadius: theme.border.radius,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: isDark
-              ? "radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(255, 255, 255, 0.02) 100%)"
-              : "radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, rgba(15, 23, 42, 0.02) 100%)",
+            backgroundColor: isDark
+              ? "rgba(198, 123, 92, 0.12)"
+              : "rgba(181, 101, 29, 0.08)",
             border: isDark
-              ? "1px solid rgba(56, 189, 248, 0.25)"
-              : "1px solid rgba(2, 132, 199, 0.2)",
+              ? "1px solid rgba(212, 196, 168, 0.2)"
+              : "1px solid rgba(139, 69, 19, 0.18)",
             boxShadow: isDark
-              ? "0 4px 20px rgba(6, 182, 212, 0.2)"
-              : "0 4px 16px rgba(2, 132, 199, 0.12)",
+              ? "0 4px 16px rgba(0, 0, 0, 0.3)"
+              : "0 4px 14px rgba(139, 69, 19, 0.08)",
           }}
         >
           <Custom.HolographicTelemetryIcon
@@ -95,7 +94,7 @@ export const Precipitation: React.FC<Props> = ({ data }) => {
       {/* Probability Progress Bar */}
       <Box
         sx={{
-          mt: 2,
+          mt: theme.spacing.md,
           width: "100%",
           height: 5,
           borderRadius: "9999px",
@@ -108,9 +107,8 @@ export const Precipitation: React.FC<Props> = ({ data }) => {
             width: `${Math.min(chance, 100)}%`,
             height: "100%",
             borderRadius: "9999px",
-            background: `linear-gradient(90deg, ${theme.color.accent.color} 0%, #38BDF8 100%)`,
-            boxShadow: `0 0 8px ${theme.color.accent.color}`,
-            transition: "width 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+            backgroundColor: theme.color.accent.color,
+            transition: "width 0.4s ease-out",
           }}
         />
       </Box>

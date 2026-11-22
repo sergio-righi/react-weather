@@ -44,22 +44,15 @@ export const Now: React.FC = () => {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        p: { xs: 2, sm: 2.5, md: 3 },
-        backdropFilter: "blur(28px) saturate(190%)",
-        WebkitBackdropFilter: "blur(28px) saturate(190%)",
-        backgroundColor: isDark
-          ? "rgba(15, 23, 42, 0.65)"
-          : "rgba(255, 255, 255, 0.95)",
-        boxShadow: isDark
-          ? "4px 0 24px rgba(0, 0, 0, 0.25)"
-          : "4px 0 28px rgba(15, 23, 42, 0.08)",
+        p: { xs: theme.spacing.md, sm: theme.spacing.lg, md: theme.spacing.xl },
+        backgroundColor: theme.palette.theme,
         borderRight: { md: `1px solid ${theme.palette.border}` },
         borderBottom: { xs: `1px solid ${theme.palette.border}`, md: "none" },
-        transition: "background-color 0.3s ease, border-color 0.3s ease",
+        transition: "background-color 0.2s ease-out, border-color 0.2s ease-out",
       }}
     >
       {/* Search & Location Bar */}
-      <Stack spacing={1.5} mb={2}>
+      <Stack spacing={theme.spacing.sm} mb={theme.spacing.md}>
         <Weather.Search />
         <Weather.Navigation />
       </Stack>
@@ -68,34 +61,32 @@ export const Now: React.FC = () => {
       <Common.GlassCard
         glowColor={theme.color.accent.color}
         sx={{
-          p: { xs: 2, sm: 2.5 },
-          mb: 2,
-          background: isDark
-            ? `linear-gradient(135deg, ${theme.palette.theme} 0%, ${theme.color.accent.color}15 100%)`
-            : `linear-gradient(135deg, #FFFFFF 0%, rgba(2, 132, 199, 0.08) 100%)`,
+          p: { xs: theme.spacing.md, sm: theme.spacing.lg },
+          mb: theme.spacing.md,
+          backgroundColor: isDark ? "rgba(198, 123, 92, 0.08)" : "#FDFBF7",
           boxShadow: isDark
             ? "none"
-            : "0 4px 20px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04)",
+            : "0 2px 8px rgba(139, 69, 19, 0.05)",
         }}
       >
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="space-between"
-          spacing={2}
+          spacing={theme.spacing.md}
         >
           {/* Main Temperature & Day */}
-          <Stack spacing={0.5}>
+          <Stack spacing={theme.spacing.xxs}>
             <Weather.Temperature
               size="lg"
               tempC={data.temp_c}
               tempF={data.temp_f}
             />
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Custom.Typography fontSize={16} fontWeight="700">
+            <Stack direction="row" spacing={theme.spacing.xs} alignItems="center">
+              <Custom.Typography fontSize={theme.font.sm} fontWeight={theme.font.bold}>
                 {HDate.weekday(dateNow)}
               </Custom.Typography>
-              <Custom.Typography fontSize={13} color={theme.palette.font.accent}>
+              <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
                 {HDate.toTimeAmPmString(HDate.toSeconds(dateNow), false)}
               </Custom.Typography>
             </Stack>
@@ -118,7 +109,7 @@ export const Now: React.FC = () => {
       </Common.GlassCard>
 
       {/* Scrollable Micro-Telemetry Metrics */}
-      <Box sx={{ flex: 1, overflowY: "auto", pr: 0.5 }}>
+      <Box sx={{ flex: 1, overflowY: "auto", pr: theme.spacing.xxs }}>
         <Weather.ListInfo data={data} onRefresh={handleRefreshClick} />
       </Box>
     </Box>

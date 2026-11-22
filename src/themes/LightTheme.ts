@@ -1,39 +1,41 @@
 /* eslint-disable quotes */
 import type { ColorFont, ColorSchema, Palette, Theme } from "themes/interfaces";
-import { BaseBorder, BaseColor, BaseFont, BaseMargin } from "themes/base";
+import { BaseBorder, BaseColor, BaseFont, BaseSpacing } from "themes/base";
 import { Enums } from "utils";
 
+// Nature Distilled: Light Theme (Linen, Warm Parchment #F5F0E1, Terracotta #C67B5C, Deep Soil #2D241E)
 const theme: Theme = {
   id: Enums.EnumTheme.Light,
   font: BaseFont,
   color: {
     ...BaseColor,
-    // High-contrast, vibrant cyan/azure for light mode (WCAG AA accessible against light backgrounds)
-    accent: { color: "#0284C7", text: "#FFFFFF" } as ColorSchema,
+    // Terracotta accent with strong WCAG AA contrast against warm backgrounds
+    accent: { color: "#B35B3A", text: "#FFFFFF" } as ColorSchema,
   },
   palette: {
-    // Ultra-clean frosted crystal glass surface with rich elevation
-    theme: "rgba(255, 255, 255, 0.94)",
-    // Crisp, defined structural hairline borders (solid 1px contrast against canvas)
-    border: "rgba(15, 23, 42, 0.16)",
+    // Warm handmade paper / linen surface
+    theme: "rgba(245, 240, 225, 0.92)",
+    // Organic clay / sandstone hairline border
+    border: "rgba(139, 69, 19, 0.18)",
     input: {
-      color: "rgba(241, 245, 249, 0.95)",
-      accent: "rgba(226, 232, 240, 1)",
+      color: "rgba(253, 251, 247, 0.95)",
+      accent: "#D4C4A8",
     } as ColorSchema,
-    // Deep Midnight Slate-950 for razor-sharp typography contrast, Slate-600 for secondary
+    // Deep earth/charcoal font for 100% WCAG AA compliance (4.5:1+), warm mineral secondary
     font: {
-      color: "#090D16",
-      accent: "#475569",
+      color: "#241B16",
+      accent: "#5C4F44",
     } as ColorFont,
-    // Crisp atmospheric canvas background
+    // Warm linen / parchment canvas
     background: {
-      color: "#F1F5F9",
-      accent: "#E2E8F0",
+      color: "#F5F0E1",
+      accent: "#EAE2CF",
     } as ColorSchema,
   } as Palette,
   border: BaseBorder,
-  margin: BaseMargin,
+  spacing: BaseSpacing,
 };
 
 export const Light = theme;
+
 

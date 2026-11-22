@@ -36,7 +36,7 @@ export const Temperature: React.FC<Props> = ({
       >
         <Custom.Typography
           fontSize={fontSize}
-          fontWeight="700"
+          fontWeight={theme.font.bold}
           color={color || theme.palette.font.color}
           sx={{
             letterSpacing: size === "lg" ? "-0.04em" : "-0.02em",

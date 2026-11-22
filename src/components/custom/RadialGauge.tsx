@@ -45,14 +45,14 @@ export const RadialGauge: React.FC<RadialGaugeProps> = ({
         justifyContent: "center",
       }}
     >
-      <svg
+      <Box component="svg"
         width={size}
         height={size}
         viewBox={`0 0 ${size} ${size}`}
         style={{ transform: "rotate(140deg)" }}
       >
         {/* Background Track */}
-        <circle
+        <Box component="circle"
           cx={size / 2}
           cy={size / 2}
           r={radius}
@@ -77,10 +77,10 @@ export const RadialGauge: React.FC<RadialGaugeProps> = ({
           strokeLinecap="round"
           initial={{ strokeDashoffset: arcLength }}
           animate={{ strokeDashoffset }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          style={{ filter: `drop-shadow(0 0 6px ${gaugeColor}66)` }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          style={{ filter: `drop-shadow(0 0 4px ${gaugeColor}40)` }}
         />
-      </svg>
+      </Box>
 
       {/* Center Value */}
       <Stack
@@ -93,19 +93,19 @@ export const RadialGauge: React.FC<RadialGaugeProps> = ({
           transform: "translate(-50%, -50%)",
         }}
       >
-        <Stack direction="row" alignItems="baseline" spacing={0.25}>
+        <Stack direction="row" alignItems="baseline" spacing={theme.spacing.xxs}>
           <Custom.Typography
-            fontSize={size > 80 ? 22 : 18}
-            fontWeight="700"
+            fontSize={size > 80 ? theme.font.lg : theme.font.md}
+            fontWeight={theme.font.bold}
             sx={{ letterSpacing: "-0.02em" }}
           >
             {value}
           </Custom.Typography>
           {unit && (
             <Custom.Typography
-              fontSize={11}
+              fontSize={theme.font.xs}
               color={theme.palette.font.accent}
-              fontWeight="500"
+              fontWeight={theme.font.medium}
             >
               {unit}
             </Custom.Typography>
@@ -113,10 +113,10 @@ export const RadialGauge: React.FC<RadialGaugeProps> = ({
         </Stack>
         {label && (
           <Custom.Typography
-            fontSize={9}
+            fontSize={theme.font.xxs}
             color={theme.palette.font.accent}
-            fontWeight="600"
-            sx={{ textTransform: "uppercase", mt: -0.5 }}
+            fontWeight={theme.font.semiBold}
+            sx={{ textTransform: "uppercase", mt: -theme.spacing.xxs }}
           >
             {label}
           </Custom.Typography>

@@ -47,26 +47,26 @@ export const Navigation: React.FC = () => {
   };
 
   return (
-    <Stack spacing={1.5} sx={{ width: "100%" }}>
+    <Stack spacing={theme.spacing.sm} sx={{ width: "100%" }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={theme.spacing.xs}>
           <Box
             sx={{
-              p: 0.6,
-              borderRadius: "50%",
+              p: theme.spacing.xxs,
+              borderRadius: theme.border.circle,
               backgroundColor: `${theme.color.accent.color}20`,
               color: theme.color.accent.color,
               display: "flex",
             }}
           >
-            <LocationOnRoundedIcon sx={{ fontSize: 18 }} />
+            <LocationOnRoundedIcon sx={{ fontSize: theme.font.sm }} />
           </Box>
           <Stack spacing={0}>
-            <Custom.Typography fontSize={18} fontWeight="700">
+            <Custom.Typography fontSize={theme.font.sm} fontWeight={theme.font.bold}>
               {cityTitle}
             </Custom.Typography>
             {regionSubtitle && (
-              <Custom.Typography fontSize={11} color={theme.palette.font.accent}>
+              <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
                 {regionSubtitle}
               </Custom.Typography>
             )}
@@ -74,14 +74,14 @@ export const Navigation: React.FC = () => {
         </Stack>
 
         {/* Cycle & Save Actions */}
-        <Stack direction="row" spacing={1.5}>
+        <Stack direction="row" spacing={theme.spacing.sm}>
           {locationCount > 1 && (
             <>
               <Common.NeoIconButton size="small" onClick={handlePrevClick}>
-                <ArrowBackRounded sx={{ fontSize: 16 }} />
+                <ArrowBackRounded sx={{ fontSize: theme.font.sm }} />
               </Common.NeoIconButton>
               <Common.NeoIconButton size="small" onClick={handleNextClick}>
-                <ArrowForwardRounded sx={{ fontSize: 16 }} />
+                <ArrowForwardRounded sx={{ fontSize: theme.font.sm }} />
               </Common.NeoIconButton>
             </>
           )}
@@ -93,9 +93,9 @@ export const Navigation: React.FC = () => {
             title={isSaved ? "Remove from Favorites" : "Pin Station to Favorites"}
           >
             {isSaved ? (
-              <BookmarkRemoveRounded sx={{ fontSize: 16 }} />
+              <BookmarkRemoveRounded sx={{ fontSize: theme.font.sm }} />
             ) : (
-              <BookmarkBorderRounded sx={{ fontSize: 16 }} />
+              <BookmarkBorderRounded sx={{ fontSize: theme.font.sm }} />
             )}
           </Common.NeoIconButton>
         </Stack>
@@ -105,10 +105,10 @@ export const Navigation: React.FC = () => {
       {locations.length > 1 && (
         <Stack
           direction="row"
-          spacing={0.75}
+          spacing={theme.spacing.xs}
           sx={{
             overflowX: "auto",
-            pb: 0.5,
+            pb: theme.spacing.xxs,
             msOverflowStyle: "none",
             scrollbarWidth: "none",
             "&::-webkit-scrollbar": { display: "none" },
@@ -124,12 +124,12 @@ export const Navigation: React.FC = () => {
                   setLocation(loc);
                 }}
                 sx={{
-                  px: 1.25,
-                  py: 0.4,
+                  px: theme.spacing.sm,
+                  py: theme.spacing.xxs,
                   borderRadius: "9999px",
                   cursor: "pointer",
                   fontSize: "11px",
-                  fontWeight: isSelected ? 700 : 500,
+                  fontWeight: isSelected ? theme.font.bold : theme.font.medium,
                   whiteSpace: "nowrap",
                   backgroundColor: isSelected
                     ? `${theme.color.accent.color}25`

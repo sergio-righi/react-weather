@@ -41,9 +41,7 @@ export const Error404: React.FC = () => {
           sx={{
             letterSpacing: "-0.04em",
             fontFamily: "'Space Grotesk', sans-serif",
-            background: `linear-gradient(135deg, #FFFFFF 0%, ${theme.color.accent.color} 100%)`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
+            color: theme.color.accent.color,
             lineHeight: 1,
             mb: 1,
           }}
@@ -68,11 +66,16 @@ export const Error404: React.FC = () => {
           sx={{
             px: 3,
             py: 1,
-            borderRadius: "9999px",
-            background: `linear-gradient(90deg, ${theme.color.accent.color} 0%, #38BDF8 100%)`,
-            boxShadow: `0 0 20px ${theme.color.accent.color}40`,
+            borderRadius: `${theme.border.radius * theme.border.factor}px`,
+            backgroundColor: theme.color.accent.color,
+            color: "#FFF",
             fontWeight: 700,
             textTransform: "none",
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: theme.color.accent.color,
+              opacity: 0.9,
+            },
           }}
         >
           Return to Dashboard

@@ -24,9 +24,8 @@ export const Humidity: React.FC<Props> = ({ data }) => {
   const dewPointC = Math.round((b * alpha) / (a - alpha));
   const dewPointF = Math.round((dewPointC * 9) / 5 + 32);
 
-  const dewPointText = `${isMetric ? dewPointC : dewPointF}°${
-    isMetric ? t.label.temperature.metric : t.label.temperature.imperial
-  }`;
+  const dewPointText = `${isMetric ? dewPointC : dewPointF}°${isMetric ? t.label.temperature.metric : t.label.temperature.imperial
+    }`;
 
   const description = Weather.getHumidityDescription(humidity, t);
 
@@ -34,37 +33,37 @@ export const Humidity: React.FC<Props> = ({ data }) => {
     humidity > 70
       ? theme.color.status.warning.color
       : humidity < 30
-      ? "#38BDF8"
-      : theme.color.status.success.color;
+        ? theme.color.accent.color
+        : theme.color.status.success.color;
 
   return (
     <Common.GlassCard
       glowColor={humidityColor}
-      sx={{ p: 2.5, height: "100%", display: "flex", flexDirection: "column" }}
+      sx={{ p: theme.spacing.lg, height: "100%", display: "flex", flexDirection: "column" }}
     >
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1.5}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <InvertColorsRoundedIcon sx={{ color: humidityColor, fontSize: 18 }} />
-          <Custom.Typography fontSize={13} fontWeight="600" color={theme.palette.font.accent}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={theme.spacing.sm}>
+        <Stack direction="row" alignItems="center" spacing={theme.spacing.xs}>
+          <InvertColorsRoundedIcon sx={{ color: humidityColor, fontSize: theme.font.sm }} />
+          <Custom.Typography fontSize={theme.spacing.xs} fontWeight={theme.font.semiBold} color={theme.palette.font.accent}>
             {t.label.humidity}
           </Custom.Typography>
         </Stack>
         <Common.LuminousBadge label={description || t.weather_humidity_level.moderate} color={humidityColor} size="sm" />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto">
-        <Stack spacing={0.5}>
-          <Stack direction="row" alignItems="baseline" spacing={0.5}>
-            <Custom.Typography fontSize={38} fontWeight="700" sx={{ letterSpacing: "-0.03em" }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto" py={theme.spacing.sm}>
+        <Stack spacing={theme.spacing.xxs}>
+          <Stack direction="row" alignItems="baseline" spacing={theme.spacing.xxs}>
+            <Custom.Typography fontSize={theme.font.xl} fontWeight={theme.font.bold} sx={{ letterSpacing: "-0.03em" }}>
               {humidity}
             </Custom.Typography>
-            <Custom.Typography fontSize={18} fontWeight="500" color={theme.palette.font.accent}>
+            <Custom.Typography fontSize={theme.font.sm} fontWeight={theme.font.medium} color={theme.palette.font.accent}>
               %
             </Custom.Typography>
           </Stack>
-          <Custom.Typography fontSize={12} color={theme.palette.font.accent}>
+          <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
             {t.label.dew_point}:{" "}
-            <Box component="span" sx={{ color: humidityColor, fontWeight: "600" }}>
+            <Box component="span" sx={{ color: humidityColor, fontWeight: theme.font.semiBold }}>
               {dewPointText}
             </Box>
           </Custom.Typography>
@@ -79,13 +78,13 @@ export const Humidity: React.FC<Props> = ({ data }) => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        pt={1}
+        pt={theme.spacing.xs}
         sx={{ borderTop: `1px solid ${theme.palette.border}` }}
       >
-        <Custom.Typography fontSize={11} color={theme.palette.font.accent}>
+        <Custom.Typography fontSize={theme.font.xxs} color={theme.palette.font.accent}>
           {t.label.status}
         </Custom.Typography>
-        <Custom.Typography fontSize={11} fontWeight="600" color={humidityColor}>
+        <Custom.Typography fontSize={theme.font.xxs} fontWeight={theme.font.semiBold} color={humidityColor}>
           {description}
         </Custom.Typography>
       </Stack>

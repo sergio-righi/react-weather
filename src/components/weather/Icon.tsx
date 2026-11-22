@@ -31,45 +31,12 @@ export const Icon: React.FC<Props> = ({ condition, size = 68 }) => {
   return (
     <Box
       sx={{
-        position: "relative",
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      {/* 2030 Ambient Holographic Glow Aura */}
-      <Box
-        sx={{
-          position: "absolute",
-          width: "85%",
-          height: "85%",
-          borderRadius: "50%",
-          background: isDark
-            ? `radial-gradient(circle, ${theme.color.accent.color}40 0%, transparent 70%)`
-            : `radial-gradient(circle, ${theme.color.accent.color}20 0%, transparent 70%)`,
-          filter: "blur(14px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Floating 2030 Levitation Micro-Interaction */}
-      <motion.div
-        animate={{
-          y: [-3, 3, -3],
-        }}
-        transition={{
-          duration: 3.8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <HolographicWeatherArt category={category} size={numericSize} />
-      </motion.div>
+      <HolographicWeatherArt category={category} size={numericSize} />
     </Box>
   );
 };

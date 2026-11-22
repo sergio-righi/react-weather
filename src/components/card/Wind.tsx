@@ -36,33 +36,33 @@ export const Wind: React.FC<Props> = ({ data }) => {
   return (
     <Common.GlassCard
       glowColor={theme.color.accent.color}
-      sx={{ p: 2.5, height: "100%", display: "flex", flexDirection: "column" }}
+      sx={{ p: theme.spacing.lg, height: "100%", display: "flex", flexDirection: "column" }}
     >
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1.5}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <AirRoundedIcon sx={{ color: theme.color.accent.color, fontSize: 18 }} />
-          <Custom.Typography fontSize={13} fontWeight="600" color={theme.palette.font.accent}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={theme.spacing.sm}>
+        <Stack direction="row" alignItems="center" spacing={theme.spacing.xs}>
+          <AirRoundedIcon sx={{ color: theme.color.accent.color, fontSize: theme.font.sm }} />
+          <Custom.Typography fontSize={theme.font.xs} fontWeight={theme.font.semiBold} color={theme.palette.font.accent}>
             {t.label.wind} & {t.label.compass}
           </Custom.Typography>
         </Stack>
         <Common.LuminousBadge label={windDir} color={theme.color.accent.color} size="sm" />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto">
-        <Stack spacing={0.5}>
-          <Stack direction="row" alignItems="baseline" spacing={0.5}>
-            <Custom.Typography fontSize={38} fontWeight="700" sx={{ letterSpacing: "-0.03em" }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" my="auto" py={theme.spacing.sm}>
+        <Stack spacing={theme.spacing.xxs}>
+          <Stack direction="row" alignItems="baseline" spacing={theme.spacing.xxs}>
+            <Custom.Typography fontSize={theme.font.xl} fontWeight={theme.font.bold} sx={{ letterSpacing: "-0.03em" }}>
               {windSpeed}
             </Custom.Typography>
-            <Custom.Typography fontSize={16} fontWeight="500" color={theme.palette.font.accent}>
+            <Custom.Typography fontSize={theme.font.sm} fontWeight={theme.font.medium} color={theme.palette.font.accent}>
               {speedUnit}
             </Custom.Typography>
           </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Custom.Typography fontSize={12} color={theme.palette.font.accent}>
+          <Stack direction="row" alignItems="center" spacing={theme.spacing.xs}>
+            <Custom.Typography fontSize={theme.font.xs} color={theme.palette.font.accent}>
               {t.label.gust}:{" "}
-              <Box component="span" sx={{ color: theme.color.status.warning.color, fontWeight: "600" }}>
+              <Box component="span" sx={{ color: theme.color.status.warning.color, fontWeight: theme.font.semiBold }}>
                 {gustSpeed} {speedUnit}
               </Box>
             </Custom.Typography>
@@ -78,13 +78,13 @@ export const Wind: React.FC<Props> = ({ data }) => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        pt={1}
+        pt={theme.spacing.xs}
         sx={{ borderTop: `1px solid ${theme.palette.border}` }}
       >
-        <Custom.Typography fontSize={11} color={theme.palette.font.accent}>
+        <Custom.Typography fontSize={theme.font.xxs} color={theme.palette.font.accent}>
           {t.label.sustained}
         </Custom.Typography>
-        <Custom.Typography fontSize={11} fontWeight="600" color={theme.color.accent.color}>
+        <Custom.Typography fontSize={theme.font.xxs} fontWeight={theme.font.semiBold} color={theme.color.accent.color}>
           {windDir} at {windSpeed} {speedUnit}
         </Custom.Typography>
       </Stack>

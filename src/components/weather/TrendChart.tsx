@@ -4,7 +4,6 @@ import { Stack, Box } from "@mui/material";
 import { Common, Custom } from "components";
 import { ForecastApi, HourApi } from "interfaces";
 import { useApp, useTheme } from "contexts";
-import { Enums } from "utils";
 import ShowChartRoundedIcon from "@mui/icons-material/ShowChartRounded";
 
 type Props = {
@@ -14,7 +13,6 @@ type Props = {
 export const TrendChart: React.FC<Props> = ({ data }) => {
   const { isMetric, t } = useApp();
   const { theme } = useTheme();
-  const isDark = theme.id === Enums.EnumTheme.Dark;
 
   const hours = data?.hour || [];
   if (hours.length === 0) return null;
@@ -45,23 +43,23 @@ export const TrendChart: React.FC<Props> = ({ data }) => {
     },
     tooltip: {
       trigger: "axis",
-      backgroundColor: isDark ? "rgba(15, 23, 42, 0.92)" : "rgba(255, 255, 255, 0.95)",
-      borderColor: theme.color.accent.color,
+      backgroundColor: theme.palette.theme,
+      borderColor: theme.palette.border,
       borderWidth: 1,
       textStyle: {
-        color: isDark ? "#FFFFFF" : "#0F172A",
+        color: theme.palette.font.color,
         fontFamily: "Inter, sans-serif",
-        fontSize: 12,
+        fontSize: theme.font.xs,
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       formatter: (params: any) => {
-        const time = params[0]?.name;
+        const time = params[0]?.axisValueLabel;
         const tempVal = params[0]?.value;
         const rainVal = params[1]?.value;
         return `
-          <div style="font-weight: 700; margin-bottom: 4px; color: ${isDark ? "#FFFFFF" : "#0F172A"}">${time}</div>
-          <div style="color: ${theme.color.accent.color}; font-weight: 600;">🌡️ ${tempVal}${unit}</div>
-          <div style="color: #38BDF8; font-weight: 600;">💧 ${rainVal}% Precip</div>
+          <div style="font-weight: 700; margin-bottom: 4px; color: ${theme.palette.font.color}">${time}</div>
+          <div style="color: ${theme.color.accent.color}; font-weight: 600;">${t.label.temperature}: ${tempVal}${unit}</div>
+          <div style="color: ${theme.color.status.success.color}; font-weight: 600;">${t.label.precipitation}: ${rainVal}%</div>
         `;
       },
     },
@@ -73,7 +71,7 @@ export const TrendChart: React.FC<Props> = ({ data }) => {
       axisTick: { show: false },
       axisLabel: {
         color: theme.palette.font.accent,
-        fontSize: 10,
+        fontSize: theme.font.xxs,
         interval: 3,
       },
     },
@@ -83,14 +81,14 @@ export const TrendChart: React.FC<Props> = ({ data }) => {
         scale: true,
         splitLine: {
           lineStyle: {
-            color: isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(15, 23, 42, 0.06)",
+            color: theme.palette.border,
             type: "dashed",
           },
         },
         axisLabel: {
           color: theme.palette.font.accent,
           formatter: `{value}${unit}`,
-          fontSize: 10,
+          fontSize: theme.font.xxs,
         },
       },
       {
@@ -108,26 +106,14 @@ export const TrendChart: React.FC<Props> = ({ data }) => {
         symbolSize: 6,
         data: temps,
         lineStyle: {
-          width: 3,
+          width: 2.5,
           color: theme.color.accent.color,
-          shadowColor: `${theme.color.accent.color}80`,
-          shadowBlur: 8,
         },
         itemStyle: {
           color: theme.color.accent.color,
         },
         areaStyle: {
-          color: {
-            type: "linear",
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              { offset: 0, color: `${theme.color.accent.color}40` },
-              { offset: 1, color: `${theme.color.accent.color}00` },
-            ],
-          },
+          color: `${theme.color.accent.color}18`,
         },
       },
       {
@@ -136,8 +122,8 @@ export const TrendChart: React.FC<Props> = ({ data }) => {
         yAxisIndex: 1,
         barMaxWidth: 6,
         itemStyle: {
-          color: isDark ? "rgba(56, 189, 248, 0.45)" : "rgba(14, 165, 233, 0.35)",
-          borderRadius: [4, 4, 0, 0],
+          color: theme.color.status.success.color,
+          borderRadius: [theme.border.square, theme.border.square, 0, 0],
         },
         data: rainChances,
       },
@@ -147,16 +133,16 @@ export const TrendChart: React.FC<Props> = ({ data }) => {
   return (
     <Common.GlassCard
       glowColor={theme.color.accent.color}
-      sx={{ p: { xs: 2, sm: 2.5 }, width: "100%", height: "100%" }}
+      sx={{ p: { xs: theme.spacing.md, sm: theme.spacing.lg }, width: "100%", height: "100%" }}
     >
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <ShowChartRoundedIcon sx={{ color: theme.color.accent.color, fontSize: 18 }} />
-          <Custom.Typography fontSize={13} fontWeight="600" color={theme.palette.font.accent}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={theme.spacing.xs}>
+        <Stack direction="row" alignItems="center" spacing={theme.spacing.xs}>
+          <ShowChartRoundedIcon sx={{ color: theme.color.accent.color, fontSize: theme.font.sm }} />
+          <Custom.Typography fontSize={theme.font.xs} fontWeight={theme.font.semiBold} color={theme.palette.font.accent}>
             {t.label.trend_chart}
           </Custom.Typography>
         </Stack>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={theme.spacing.xs}>
           <Common.LuminousBadge label={`Curve: 24h`} color={theme.color.accent.color} size="sm" />
         </Stack>
       </Stack>

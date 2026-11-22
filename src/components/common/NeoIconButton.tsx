@@ -13,36 +13,42 @@ export const NeoIconButton: React.FC<NeoIconButtonProps> = ({
   glow = false,
   children,
   sx,
+  title,
+  "aria-label": ariaLabel,
   ...props
 }) => {
   const { theme } = useTheme();
 
+  const accessibleName = (ariaLabel || (typeof title === "string" ? title : undefined)) ?? "Button";
+
   return (
     <motion.div
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.92 }}
-      transition={{ type: "spring", stiffness: 450, damping: 20 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
       style={{ display: "inline-flex" }}
     >
       <MUIIconButton
+        aria-label={accessibleName}
+        title={title}
         {...props}
         sx={{
           color: active ? theme.color.accent.color : theme.palette.font.color,
           backgroundColor: active
             ? `${theme.color.accent.color}22`
-            : "rgba(255, 255, 255, 0.04)",
+            : "rgba(212, 196, 168, 0.12)",
           border: `1px solid ${
             active ? theme.color.accent.color : theme.palette.border
           }`,
-          backdropFilter: "blur(12px)",
-          boxShadow:
-            glow || active
-              ? `0 0 16px ${theme.color.accent.color}40`
-              : "0 2px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: "none",
           "&:hover": {
             backgroundColor: `${theme.color.accent.color}20`,
             borderColor: theme.color.accent.color,
             color: theme.color.accent.color,
+          },
+          "&:focus-visible": {
+            outline: `2px solid ${theme.color.accent.color}`,
+            outlineOffset: "2px",
           },
           ...sx,
         }}
